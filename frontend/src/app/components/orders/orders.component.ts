@@ -2,15 +2,19 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { mockOrder } from '../../data/orders';
 import axios from 'axios';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-orders',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   standalone: true,
   templateUrl: './orders.component.html',
   styleUrl: './orders.component.css'
 })
 export class OrdersComponent {
+onNavigate() {
+throw new Error('Method not implemented.');
+}
   order = { ...mockOrder };
   newOrder: {
     customerName: string;
@@ -26,39 +30,14 @@ export class OrdersComponent {
 
   constructor() {}
 
-  updateOrderField(field: string, value: any) {
-    (this.newOrder as any)[field] = value;
-  }
-
-  addItem() {
-    this.newOrder.items.push({
-      id: 0,  
-      name: '',
-      status: 'ordered',
-      imageUrl: ''  
-    });
-  }
 
   removeItem(index: number) {
     this.newOrder.items.splice(index, 1);  
   }
 
-  async submitOrder() {
-    try {
-      const response = await axios.post('http://localhost:8080/api/orders', this.newOrder);
-      console.log('Order submitted successfully', response.data);
-      this.resetForm();
-    } catch (error) {
-      console.error('Error :', error);
-    }
+  submitOrder() {
+    
   }
 
-  resetForm() {
-    this.newOrder = {
-      customerName: '',
-      address: '',
-      totalPrice: 0,
-      items: []
-    };
-  }
+  
 }
