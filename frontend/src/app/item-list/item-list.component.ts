@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 
 @Component({
@@ -8,5 +9,5 @@ import { Component } from '@angular/core';
   styleUrl: './item-list.component.css'
 })
 export class ItemListComponent {
-
+  
 }

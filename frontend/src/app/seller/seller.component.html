@@ -1,6 +1,11 @@
 <div class="card add-item-card">
     <form class="p-4">
-        <h1 class="mb-4">Add Items</h1>
+
+        <div class="d-flex justify-content-between">
+            <h1 class="mb-4">Add Items</h1>
+            <button type="text" class="btn btn-primary view-btn">View Items</button>
+        </div>
+        
         <div class="form-group mb-3">
           <label>Item Name</label>
           <input type="text" class="form-control" placeholder="Enter Item name">
@@ -14,8 +19,16 @@
             <label>Item Category</label>
             <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter item description">
           </div>
+
+          <div class="form-group mb-4">
+            <label>Item Price</label>
+            <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter item price">
+          </div>
        
-        <button type="text" class="btn btn-primary">Submit</button>
+          <div class="d-flex justify-content-between">
+            <button type="text" class="btn btn-success">Add</button>
+            <button type="text" class="btn btn-danger" >Cancle</button>
+          </div>
       </form>
 </div>
 
