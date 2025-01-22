@@ -8,6 +8,8 @@ import com.auradot.backend.service.ItemService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class ItemServiceImpl implements ItemService {
@@ -27,5 +29,11 @@ public class ItemServiceImpl implements ItemService {
                 .name(savedItem.getName())
                 .price(savedItem.getPrice())
                 .build();
+    }
+
+    @Override
+    public List<Item> getAllItems() {
+        List<Item> items = itemRepository.findAll();
+        return items;
     }
 }

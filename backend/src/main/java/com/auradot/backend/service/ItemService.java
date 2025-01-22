@@ -2,8 +2,12 @@ package com.auradot.backend.service;
 
 import com.auradot.backend.controller.request.ItemRequest;
 import com.auradot.backend.controller.response.ItemResponse;
+import com.auradot.backend.model.Item;
+
+import java.util.List;
 
 public interface ItemService {
 
     ItemResponse addItems(ItemRequest itemRequest);
+    List<Item> getAllItems();
 }
