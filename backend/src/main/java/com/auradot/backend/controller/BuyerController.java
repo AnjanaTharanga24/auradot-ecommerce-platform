@@ -2,10 +2,13 @@ package com.auradot.backend.controller;
 
 import com.auradot.backend.controller.request.CartRequest;
 import com.auradot.backend.controller.response.CartResponse;
+import com.auradot.backend.model.Cart;
 import com.auradot.backend.service.BuyerService;
 import com.auradot.backend.service.ItemService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @AllArgsConstructor
@@ -18,5 +21,10 @@ public class BuyerController {
     @PostMapping("/items")
     public CartResponse addToCart(@RequestBody CartRequest cartRequest){
         return buyerService.addToCart(cartRequest);
+    }
+
+    @GetMapping("/items")
+    public List<Cart> getAllCartItems(){
+      return buyerService.getAllCartItems();
     }
 }

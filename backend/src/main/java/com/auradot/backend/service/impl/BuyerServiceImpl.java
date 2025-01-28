@@ -8,6 +8,8 @@ import com.auradot.backend.service.BuyerService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class BuyerServiceImpl implements BuyerService {
@@ -31,5 +33,11 @@ public class BuyerServiceImpl implements BuyerService {
                 .quantity(cart.getQuantity())
                 .price(cart.getPrice())
                 .build();
+    }
+
+    @Override
+    public List<Cart> getAllCartItems() {
+        List<Cart> cartList = cartRepository.findAll();
+        return cartList;
     }
 }
