@@ -15,5 +15,5 @@ public interface ItemService {
     List<Item> getAllItems();
     ItemResponse getItemById(Long id) throws NotFoundException;
     String deleteItemById(Long id) throws NotFoundException;
-    CartResponse addToCart(CartRequest cartRequest);
+
 }
