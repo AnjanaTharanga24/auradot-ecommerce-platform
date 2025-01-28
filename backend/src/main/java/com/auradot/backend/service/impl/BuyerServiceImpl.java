@@ -1,14 +1,19 @@
 package com.auradot.backend.service.impl;
 
 import com.auradot.backend.controller.request.CartRequest;
+import com.auradot.backend.controller.request.UpdateQuantityRequest;
 import com.auradot.backend.controller.response.CartResponse;
+import com.auradot.backend.exception.NotFoundException;
 import com.auradot.backend.model.Cart;
+import com.auradot.backend.model.Item;
 import com.auradot.backend.repository.CartRepository;
 import com.auradot.backend.service.BuyerService;
+import com.fasterxml.jackson.annotation.OptBoolean;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -39,5 +44,20 @@ public class BuyerServiceImpl implements BuyerService {
     public List<Cart> getAllCartItems() {
         List<Cart> cartList = cartRepository.findAll();
         return cartList;
+    }
+
+    @Override
+    public Cart updateQuantityById(Long id , UpdateQuantityRequest updateQuantityRequest) throws NotFoundException {
+        Optional<Cart> optionalCart = cartRepository.findById(id);
+        if (!optionalCart.isPresent()){
+            throw new NotFoundException("Item not found with id " + id);
+        }
+
+        Cart cartItem = optionalCart.get();
+
+        cartItem.setQuantity(updateQuantityRequest.getQuantity());
+        Cart updatedItem = cartRepository.save(cartItem);
+
+        return updatedItem;
     }
 }
