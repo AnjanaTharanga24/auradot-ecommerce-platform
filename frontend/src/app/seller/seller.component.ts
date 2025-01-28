@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 
@@ -18,6 +19,8 @@ export class SellerComponent {
     price: 0,
   };
 
+  constructor(private router: Router) { }
+
   async onSubmit() {
     try {
       const response = await axios.post(`http://localhost:8080/api/items/`, this.item);
@@ -27,12 +30,20 @@ export class SellerComponent {
         text: 'Item added successfully!',
         icon: 'success',
         confirmButtonText: 'OK',
-        background: '#f0f9ff', 
-        color: '#4caf50', 
-        confirmButtonColor: '#4caf50', 
       });
     } catch (error) {
       console.log(error);
+      Swal.fire({
+        title: 'Error!',
+        text: 'Something went wrong, please try again.',
+        icon: 'error',
+        confirmButtonText: 'OK',
+      });
+
     }
+  }
+
+  onCancle() {
+    this.router.navigate(['/']);
   }
 }
