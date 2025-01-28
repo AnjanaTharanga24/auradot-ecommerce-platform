@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
+@CrossOrigin("http://localhost:4200/")
 @RequestMapping("/api/items")
 public class ItemController {
 
@@ -31,4 +32,10 @@ public class ItemController {
     public ItemResponse getItemById(@PathVariable("item-id") Long id) throws NotFoundException {
         return itemService.getItemById(id);
     }
+
+    @DeleteMapping("/{item-id}")
+    public String deleteItemById(@PathVariable("item-id") Long id) throws NotFoundException{
+        return itemService.deleteItemById(id);
+    }
+
 }
