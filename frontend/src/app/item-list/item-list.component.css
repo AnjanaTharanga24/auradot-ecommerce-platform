@@ -28,3 +28,10 @@
    max-height: 100vh;
    min-height: 100vh;
  }
+
+ .item-title{
+   font-weight: bold;
+   font-size: 35px;
+   margin-left: 50px;
+   margin-bottom: 20px;
+ }
