@@ -10,7 +10,7 @@
 
       <div class="d-flex left-button">
         <div class="">
-            <button class="btn btn-secondary" >Cart</button>
+            <button class="btn btn-secondary" routerLink="/cart" >Cart</button>
           </div>
     
           <div class="dropdown">
@@ -19,8 +19,8 @@
             </button>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="#">My Profile</a></li>
-              <li><a class="dropdown-item" [routerLink]="['/seller-dashboard']">Seller Dashboard</a></li>
-              <li><a class="dropdown-item" [routerLink]="['/admin-dashboard']">Admin Dashboard</a></li>
+              <li><a class="dropdown-item" routerLink="/seller-dashboard">Seller Dashboard</a></li>
+              <li><a class="dropdown-item" routerLink="/admin-dashboard">Admin Dashboard</a></li>
             </ul>
           </div>
       </div>

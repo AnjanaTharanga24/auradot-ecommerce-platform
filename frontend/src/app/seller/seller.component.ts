@@ -26,18 +26,20 @@ export class SellerComponent {
       const response = await axios.post(`http://localhost:8080/api/items/`, this.item);
       console.log(response.data);
       Swal.fire({
-        title: 'Success!',
-        text: 'Item added successfully!',
-        icon: 'success',
-        confirmButtonText: 'OK',
+        position: "top-end",
+        icon: "success",
+        title: "Item added successfully!",
+        showConfirmButton: false,
+        timer: 1500
       });
     } catch (error) {
       console.log(error);
       Swal.fire({
-        title: 'Error!',
-        text: 'Something went wrong, please try again.',
-        icon: 'error',
-        confirmButtonText: 'OK',
+        position: "top-end",
+        icon: "error",
+        title: "Something went wrong, please try again.",
+        showConfirmButton: false,
+        timer: 1500
       });
 
     }

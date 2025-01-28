@@ -25,13 +25,16 @@
 
  .item-listing{
    background-color: antiquewhite;
-   max-height: 100vh;
-   min-height: 100vh;
+   max-height: auto;
+   min-height: auto;
  }
 
  .item-title{
    font-weight: bold;
    font-size: 35px;
-   margin-left: 50px;
+   margin-left: 0px;
    margin-bottom: 20px;
+   /* background-color: aqua; */
+   width: 200px;
+ 
  }
