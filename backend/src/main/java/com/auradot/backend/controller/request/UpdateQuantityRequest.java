@@ -7,11 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ItemRequest {
+public class UpdateQuantityRequest {
 
-    private String name;
-    private String description;
-    private String category;
-    private Float price;
-
+    private Integer quantity;
 }

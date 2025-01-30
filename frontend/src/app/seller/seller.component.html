@@ -1,0 +1,33 @@
+<div class="card add-item-card">
+  <div class="p-4">
+    <div class="d-flex justify-content-center">
+      <h1 class="mb-4">Add Items</h1>
+    </div>
+
+    <div class="form-group mb-3">
+      <label>Item Name</label>
+      <input type="text" class="form-control" placeholder="Enter item name" [(ngModel)]="item.name" name="name" required="">
+    </div>
+    <div class="form-group mb-4">
+      <label>Item Description</label>
+      <input type="text" class="form-control" placeholder="Enter item description" [(ngModel)]="item.description" name="description">
+    </div>
+    <div class="form-group mb-4">
+      <label>Item Category</label>
+      <select class="form-control" [(ngModel)]="item.category" name="category">
+        <option value="" disabled>Select category</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+      </select>
+    </div>
+    <div class="form-group mb-4">
+      <label>Item Price</label>
+      <input type="number" class="form-control" placeholder="Enter item price" [(ngModel)]="item.price" name="price">
+    </div>
+
+    <div class="d-flex justify-content-between">
+      <button type="submit" class="btn btn-success" (click)="onSubmit()">Add</button>
+      <button type="button" class="btn btn-danger" (click)="onCancle()">Cancel</button>
+    </div>
+  </div>
+</div>

@@ -1,19 +1,17 @@
-package com.auradot.backend.controller.response;
+package com.auradot.backend.controller.request;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class ItemResponse {
+public class CartRequest {
 
-    private Long id;
     private String name;
     private String description;
     private String category;
+    private Integer quantity;
     private Float price;
 }
