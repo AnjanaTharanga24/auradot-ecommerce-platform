@@ -1,4 +1,4 @@
-<app-cart-item *ngFor="let item of cartItems" [item]="item" (increase)="increaseQuantity($event)" (decrease)="decreaseQuantity($event)"></app-cart-item>
+<app-cart-item *ngFor="let item of cartItems" [item]="item" (increase)="increaseQuantity($event)" ></app-cart-item>
 <div class="order-summary bg-white p-4 rounded-lg shadow-md mt-6">
   <div class="text-lg font-semibold text-gray-800">
     Order Summary
