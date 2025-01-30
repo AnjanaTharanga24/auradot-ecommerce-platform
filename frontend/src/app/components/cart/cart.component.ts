@@ -6,15 +6,20 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PlaceOrderComponent } from '../place-order/place-order.component';
+import { CustomerService } from '../../services/customer.service';
+import { CartItemComponent } from "../../UIcomponents/cart-item/cart-item.component";
 
 
 @Component({
   selector: 'app-cart',
-  imports: [ CommonModule, MatIconModule],
+  imports: [CommonModule, MatIconModule, CartItemComponent],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css'
 })
 export class CartComponent implements OnInit{
+decreaseQuantity($event: number) {
+throw new Error('Method not implemented.');
+}
 removeFromCart(arg0: any) {
 throw new Error('Method not implemented.');
 }
@@ -27,7 +32,8 @@ throw new Error('Method not implemented.');
   constructor(private http: HttpClient,
     private snackbar : MatSnackBar,
     private fb: FormBuilder,
-    public dialog: MatDialog) 
+    public dialog: MatDialog,
+    private customerService: CustomerService,) 
     {}
   
     ngOnInit(): void {
@@ -35,28 +41,29 @@ throw new Error('Method not implemented.');
     }
 
     getCart() {
-      this.http.get<any>('http://localhost:8080/api/carts/available').subscribe(
+      this.customerService.getCart().subscribe(
         (res) => {
           this.order = res;
-          this.cartItems = res.cartItems || []; 
+          this.cartItems = res.cartItems || [];
         },
         (error) => {
           console.error('Error fetching cart:', error);
         }
       );
     }
+
     increaseQuantity(id: any) {
-      this.http.post('http://localhost:8080/api/carts/addition', { productId: id }).subscribe(
-        response => {
-          this.snackbar.open('Product Quantity Increased', 'Close', { duration: 2000 });
+      this.customerService.increaseQuantity(id).subscribe(
+        (res) => {
+          this.snackbar.open('Increased', 'Close', { duration: 2000 });
           this.getCart();
         },
         (error) => {
-          console.error('Error adding product to cart:', error);
-          
+          console.error('error adding product to cart:', error);
         }
       );
     }
+    
     placeOrder(){
       this.dialog.open(PlaceOrderComponent);
     }

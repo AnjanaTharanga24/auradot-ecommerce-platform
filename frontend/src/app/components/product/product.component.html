@@ -1,15 +1,3 @@
-<div class="container mx-auto p-6">
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-    <div class="product bg-white rounded-lg shadow-lg border border-gray-200 overflow-hidden" *ngFor="let product of products">
-      <img src="https://www.digitaltrends.com/wp-content/uploads/2022/10/surface-laptop-5-02.jpg?fit=1920%2C1280&p=1" alt="Product Image" class="w-full h-64 object-cover">
-      <div class="product-info p-4">
-        <h2 class="text-xl font-bold text-gray-800">{{ product.name }}</h2>
-        <p class="text-gray-600">{{ product.description }}</p>
-        <p class="text-gray-800 font-bold mt-2">{{ product.price }}</p>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none mt-4" (click)="addToCart(product.id)">
-          Add to Cart
-        </button>
-      </div>
-    </div>
-  </div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+  <app-product-card *ngFor="let product of products" [product]="product" (addToCart)="addToCart($event)"></app-product-card>
 </div>

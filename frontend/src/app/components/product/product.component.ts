@@ -2,10 +2,12 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { CartService } from '../../cart.service';
+import { CustomerService } from '../../services/customer.service';
+import { ProductCardComponent } from "../../UIcomponents/product-card/product-card.component";
 
 @Component({
   selector: 'app-product',
-  imports: [CommonModule],
+  imports: [CommonModule, ProductCardComponent],
   templateUrl: './product.component.html',
   styleUrl: './product.component.css'
 })
@@ -17,7 +19,7 @@ export class ProductComponent implements OnInit {
   
   
 
-  constructor(private http: HttpClient, private cartService: CartService) {}
+  constructor(private http: HttpClient, private cartService: CartService, private customerService: CustomerService) {}
 
   ngOnInit(): void {
     this.getAllProducts();
@@ -25,35 +27,32 @@ export class ProductComponent implements OnInit {
   }
 
   getAllProducts(): void {
-    this.http.get<any[]>('http://localhost:8080/api/products').subscribe(
+    this.customerService.getAllProducts().subscribe(
       (data) => {
         this.products = data;
-        console.log('Products:', this.products);
       },
       (error) => {
-        console.error('Error fetching products:', error);
+        console.error('fetching products error:', error);
       }
     );
   }
-  
   addToCart(id: any) {
-    this.http.post('http://localhost:8080/api/carts', { productId: id }).subscribe(
+    this.customerService.addToCart(id).subscribe(
       response => {
         alert('Product added to cart: ' + response);
       },
       (error) => {
-        console.error('Error adding product to cart:', error);
-        alert(`Error: ${error.message || 'Unknown error'}`);
+        console.log('Error adding product:', error);
       }
     );
   }
   fetchInitialCartCount(): void {
-    this.http.get<number>('http://localhost:8080/api/carts/count').subscribe(
+    this.customerService.getCartCount().subscribe(
       (count) => {
-        this.cartService.updateCartCount(count); 
+        this.cartService.updateCartCount(count);
       },
       (error) => {
-        console.error('Error fetching cart count:', error);
+        console.log('error fetching count:', error);
       }
     );
   }

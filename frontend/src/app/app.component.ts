@@ -4,10 +4,13 @@ import { DemoAngularMaterailModule } from './DemoAngularMaterialModule';
 import { HttpClientModule } from '@angular/common/http';
 import { CartService } from './cart.service';
 import { CommonModule } from '@angular/common';
+import { NavbarComponent } from './navbar/navbar.component';
+import { FormsModule } from '@angular/forms';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet,FormsModule,CommonModule, MatToolbarModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

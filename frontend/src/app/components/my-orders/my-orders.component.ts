@@ -3,10 +3,12 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatCard, MatCardContent } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
+import { CustomerService } from '../../services/customer.service';
+import { OrderCardComponent } from "../../UIcomponents/order-card/order-card.component";
 
 @Component({
   selector: 'app-my-orders',
-  imports: [MatTableModule, MatCard, MatCardContent, CommonModule],
+  imports: [MatTableModule, MatCard, MatCardContent, CommonModule, OrderCardComponent],
   templateUrl: './my-orders.component.html',
   styleUrl: './my-orders.component.css'
 })
@@ -15,21 +17,19 @@ myOrders: any[] = [];
   
   
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private customerService: CustomerService) {}
 
   ngOnInit(): void {
-   this.myOrdersGet();
+   this.getMyOrders();
   }
 
-
-  
-  myOrdersGet() {
-    this.http.get('http://localhost:8080/api/carts/myOrders').subscribe(
+  getMyOrders() {
+    this.customerService.getMyOrders().subscribe(
       (data) => {
-       this.myOrders = data as any[];
+        this.myOrders = data;
       },
       (error) => {
-        console.error('Error fetching orders:', error);
+        console.error('fetching order errir:', error);
       }
     );
   }

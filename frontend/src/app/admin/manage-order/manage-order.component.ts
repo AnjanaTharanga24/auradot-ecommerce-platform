@@ -5,6 +5,7 @@ import { MatCard, MatCardContent } from '@angular/material/card';
 import { MatMenu, MatMenuTrigger } from '@angular/material/menu';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
+import { AdminService } from '../../services/admin.service';
 
 @Component({
   selector: 'app-manage-order',
@@ -15,37 +16,36 @@ import { MatTableModule } from '@angular/material/table';
 export class ManageOrderComponent implements OnInit {
 
   orders: any[] = [];
-  
-  
 
   constructor(
     private http: HttpClient,
-  private snackBar: MatSnackBar) {}
+  private snackBar: MatSnackBar,
+  private adminService: AdminService) {}
 
   ngOnInit(): void {
     this.getAllOrders();
   }
 
   getAllOrders(): void {
-    this.http.get<any[]>('http://localhost:8080/api/orders/adminOrders').subscribe(
+    this.adminService.getAllOrders().subscribe(
       (data) => {
         this.orders = data;
-        console.log('Orders:', this.orders);
       },
       (error) => {
-        console.error('Error fetching orders:', error);
+        console.error('Error fetching:', error);
       }
-    );
+    )
   }
-  changeOrderStatus(orderId: number, status: string) {
-    this.http.get(`http://localhost:8080/api/orders/adminOrders/${orderId}/${status}`).subscribe(
+  changeOrderStatus(orderId: number, status: string): void {
+    this.adminService.changeOrderStatus(orderId,status).subscribe(
       response => {
-        alert('change success status: ' + response);
+        alert('change success: ' + response);
+        this.getAllOrders();
       },
-      (error) => {
-        console.error('Error updating status:', error);
-        alert(`Error: ${error.message || 'Unknown error'}`);
+      error => {
+        console.error('status error:', error);
       }
-    );
+    )
   }
+  
 }
