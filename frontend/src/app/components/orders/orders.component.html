@@ -1,1 +1,45 @@
-<p>orders works!</p>
+<div class="container mx-auto p-4">
+    <h2 class="text-2xl font-bold mb-6">Order Details</h2>
+ 
+    <div class="bg-white shadow rounded-lg p-6 mb-6">
+      <p class="mb-2"><strong>Customer Name:</strong> {{ order.customerName }}</p>
+      <p class="mb-2"><strong>Address:</strong> {{ order.address }}</p>
+      <p><strong>Total Price:</strong> ${{ order.totalPrice }}</p>
+    </div>
+
+    <h3 class="text-lg font-semibold mb-4">Items in the Order</h3>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div
+        *ngFor="let item of order.items"
+        class="p-4 bg-white rounded-lg shadow hover:shadow-lg transition transform hover:-translate-y-1"
+      >
+        <img 
+          [src]="item.imageUrl" 
+          alt="{{ item.name }}" 
+          class="w-full h-40 object-cover rounded mb-4"
+        >
+        <h4 class="text-lg font-semibold text-gray-800">{{ item.name }}</h4>
+        <p class="text-sm text-gray-600">Item ID: {{ item.id }}</p>
+        <p class="mt-2">
+          <span
+            class="px-3 py-1 text-sm font-medium rounded"
+            [class.bg-green-100]="item.status === 'ordered'"
+            [class.text-green-600]="item.status === 'ordered'"
+            [class.bg-gray-100]="item.status !== 'ordered'"
+            [class.text-gray-600]="item.status !== 'ordered'"
+          >
+            {{ item.status }}
+          </span>
+        </p>
+      </div>
+    </div>
+
+    <div class="mt-6">
+      <button 
+        (click)="submitOrder()" 
+        class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+      >
+        Submit Order
+      </button>
+    </div>
+  </div>
