@@ -18,12 +18,12 @@ public class ItemController {
 
     private ItemService itemService;
 
-    @PostMapping("/")
+    @PostMapping
     public ItemResponse addItems(@RequestBody ItemRequest itemRequest){
         return itemService.addItems(itemRequest);
     }
 
-    @GetMapping("/")
+    @GetMapping
     public List<Item> getAllItems(){
         return itemService.getAllItems();
     }

@@ -25,7 +25,6 @@ public class BuyerServiceImpl implements BuyerService {
         Cart cart = new Cart();
         cart.setName(cartRequest.getName());
         cart.setDescription(cartRequest.getDescription());
-        cart.setCategory(cartRequest.getCategory());
         cart.setQuantity(cartRequest.getQuantity());
         cart.setPrice(cartRequest.getPrice());
 
@@ -34,7 +33,6 @@ public class BuyerServiceImpl implements BuyerService {
         return CartResponse.builder()
                 .name(cart.getName())
                 .description(cart.getDescription())
-                .category(cart.getCategory())
                 .quantity(cart.getQuantity())
                 .price(cart.getPrice())
                 .build();
@@ -59,5 +57,18 @@ public class BuyerServiceImpl implements BuyerService {
         Cart updatedItem = cartRepository.save(cartItem);
 
         return updatedItem;
+    }
+
+    @Override
+    public String deleteCartItemById(Long id) throws NotFoundException {
+        Optional<Cart> optionalItem = cartRepository.findById(id);
+
+        if (!optionalItem.isPresent()){
+            throw new NotFoundException("item not found with id " + id);
+        }
+
+        cartRepository.deleteById(id);
+
+        return "Item deleted with id " + id;
     }
 }
