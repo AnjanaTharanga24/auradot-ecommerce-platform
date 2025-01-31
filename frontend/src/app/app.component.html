@@ -42,6 +42,18 @@
     <button class="px-4 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400 focus:outline-none" routerLink="/carts">
       Cart <span *ngIf="cartCount > 0" class="text-white bg-red-500 px-2 py-1 rounded-full">{{ cartCount }}</span>
     </button>
+
+    <div class="dropdown">
+      <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fa fa-user"></i>
+      </button>
+      <ul class="dropdown-menu mt-3 account-dropdown" style="margin-left: -110px;">
+        <li><a class="dropdown-item" href="#">My Profile</a></li>
+        <li><a class="dropdown-item" routerLink="/seller-dashboard">Seller Dashboard</a></li>
+        <li><a class="dropdown-item" routerLink="/admin-dashboard">Admin Dashboard</a></li>
+      </ul>
+    </div>
+
   </div>
 </mat-toolbar>
 
