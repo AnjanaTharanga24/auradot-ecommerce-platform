@@ -12,4 +12,6 @@ public interface BuyerService {
     CartResponse addToCart(CartRequest cartRequest);
     List<Cart> getAllCartItems();
     Cart updateQuantityById(Long id, UpdateQuantityRequest updateQuantityRequest) throws NotFoundException;
+    String deleteCartItemById(Long id)throws NotFoundException;
+
 }

@@ -27,7 +27,6 @@ public class ItemServiceImpl implements ItemService {
         Item item = new Item();
         item.setName(itemRequest.getName());
         item.setDescription(itemRequest.getDescription());
-        item.setCategory(itemRequest.getCategory());
         item.setPrice(itemRequest.getPrice());
 
         Item savedItem = itemRepository.save(item);
@@ -36,7 +35,6 @@ public class ItemServiceImpl implements ItemService {
                 .id(savedItem.getId())
                 .name(savedItem.getName())
                 .description(savedItem.getDescription())
-                .category(savedItem.getCategory())
                 .price(savedItem.getPrice())
                 .build();
     }

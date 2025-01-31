@@ -34,4 +34,9 @@ public class BuyerController {
     public Cart updateQuantity(@PathVariable("item-id")Long id , @RequestBody UpdateQuantityRequest updateQuantityRequest)throws NotFoundException {
         return buyerService.updateQuantityById(id, updateQuantityRequest);
     }
+
+    @DeleteMapping("/items/{item-id}")
+    public String deleteCartItemById(@PathVariable("item-id")Long id)throws NotFoundException{
+        return buyerService.deleteCartItemById(id);
+    }
 }
