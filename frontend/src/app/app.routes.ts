@@ -9,6 +9,9 @@ import { SellerComponent } from './seller/seller.component';
 import { AdminComponent } from './admin/admin.component';
 import { BuyerComponent } from './buyer/buyer.component';
 import { HomeComponent } from './buyer/home/home.component';
+import { SellerDashboardComponent } from './seller/seller-dashboard/seller-dashboard.component';
+import { SellerAddItemFormComponent } from './seller/seller-add-item-form/seller-add-item-form.component';
+import { SellerViewItemComponent } from './seller/seller-view-item/seller-view-item.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'product', pathMatch: 'full' },
@@ -19,7 +22,9 @@ export const routes: Routes = [
     { path: 'adminOrders', component: ManageOrderComponent },
     { path: 'myOrders', component: MyOrdersComponent },
     { path: 'home', component: HomeComponent },
-    { path: 'seller-dashboard', component: SellerComponent },
+    { path: 'seller-dashboard', component: SellerDashboardComponent },
+    { path: 'seller-view', component: SellerViewItemComponent },
     { path: 'admin-dashboard', component: AdminComponent },
     { path: 'cart', component: BuyerComponent },
+   
 ];
