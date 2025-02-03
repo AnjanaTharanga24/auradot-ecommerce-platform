@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ItemCardComponent } from "../../components/item-card/item-card.component";
+import { ItemCardComponent } from "../../buyer/item-card/item-card.component";
 import { ItemService } from '../../services/item.service';
 import { CommonModule } from '@angular/common';
 
@@ -16,11 +16,7 @@ export class HomeComponent {
 
   constructor(private itemService: ItemService) {}
 
-  ngOnInit() {
-    this.fetchItems();
-  }
-
-  async fetchItems() {
+  async ngOnInit() {
     try {
       this.items = await this.itemService.getAllItems();
     } catch (error) {

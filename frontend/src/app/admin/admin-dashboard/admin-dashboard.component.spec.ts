@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BuyerComponent } from './buyer.component';
+import { AdminDashboardComponent } from './admin-dashboard.component';
 
-describe('BuyerComponent', () => {
-  let component: BuyerComponent;
-  let fixture: ComponentFixture<BuyerComponent>;
+describe('AdminDashboardComponent', () => {
+  let component: AdminDashboardComponent;
+  let fixture: ComponentFixture<AdminDashboardComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [BuyerComponent]
+      imports: [AdminDashboardComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(BuyerComponent);
+    fixture = TestBed.createComponent(AdminDashboardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
