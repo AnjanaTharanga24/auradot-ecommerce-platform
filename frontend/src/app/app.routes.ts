@@ -10,6 +10,8 @@ import { SellerDashboardComponent } from './seller/seller-dashboard/seller-dashb
 import { SellerAddItemFormComponent } from './seller/seller-add-item-form/seller-add-item-form.component';
 import { SellerViewItemComponent } from './seller/seller-view-item/seller-view-item.component';
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
+import { RegisterComponent } from './auth/register/register.component';
+import { LoginComponent } from './auth/login/login.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'product', pathMatch: 'full' },
@@ -22,6 +24,8 @@ export const routes: Routes = [
     { path: 'home', component: HomeComponent },
     { path: 'seller-dashboard', component: SellerDashboardComponent },
     { path: 'seller-view', component: SellerViewItemComponent },
-    { path: 'admin-dashboard', component: AdminDashboardComponent }
+    { path: 'admin-dashboard', component: AdminDashboardComponent },
+    { path: 'register', component:RegisterComponent},
+    { path: 'login', component:LoginComponent}
    
 ];
