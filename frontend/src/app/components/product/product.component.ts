@@ -26,34 +26,29 @@ export class ProductComponent implements OnInit {
     this.fetchInitialCartCount();
   }
 
-  getAllProducts(): void {
-    this.customerService.getAllProducts().subscribe(
-      (data) => {
-        this.products = data;
-      },
-      (error) => {
-        console.error('fetching products error:', error);
-      }
-    );
+  async getAllProducts(): Promise<void> {
+    try {
+      this.products = await this.customerService.getAllProducts();
+    } catch (error) {
+      console.error('Error fetching products:', error);
+    }
   }
-  addToCart(id: any) {
-    this.customerService.addToCart(id).subscribe(
-      response => {
-        alert('Product added to cart: ' + response);
-      },
-      (error) => {
-        console.log('Error adding product:', error);
-      }
-    );
+
+  async addToCart(id: any): Promise<void> {
+    try {
+      const response = await this.customerService.addToCart(id);
+      alert('Product added to cart: ' + response);
+    } catch (error) {
+      console.log('Error adding product:', error);
+    }
   }
-  fetchInitialCartCount(): void {
-    this.customerService.getCartCount().subscribe(
-      (count) => {
-        this.cartService.updateCartCount(count);
-      },
-      (error) => {
-        console.log('error fetching count:', error);
-      }
-    );
+
+  async fetchInitialCartCount(): Promise<void> {
+    try {
+      const count = await this.customerService.getCartCount();
+      this.cartService.updateCartCount(count);
+    } catch (error) {
+      console.log('Error fetching count:', error);
+    }
   }
 }

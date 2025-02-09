@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { CustomerService } from '../../services/customer.service';
 
 @Component({
   selector: 'app-place-order',
@@ -25,6 +26,7 @@ throw new Error('Method not implemented.');
     private snackBar: MatSnackBar,
     private router: Router,
     public dialog: MatDialog,
+    private customerService: CustomerService
   ){}
   ngOnInit() {
     this.orderForm = this.fb.group({
@@ -32,28 +34,21 @@ throw new Error('Method not implemented.');
       orderDescription: [null],
     });
   }
-  placeOrder() {
+  async placeOrder() {
     if (this.orderForm.valid) {
-      this.http.post('http://localhost:8080/api/carts/placeOrder', this.orderForm.value).subscribe(
-        (response) => {
-          this.snackBar.open('Order placed successfully!', 'Close', {
-            duration: 3000,
-          });
-         
-        },
-        (error) => {
-          console.error('Error placing order:', error);
-          this.snackBar.open(`Error: ${error.message || 'Failed to place order'}`, 'Close', {
-            duration: 3000,
-          });
-        }
-      );
+      try {
+        const response = await this.customerService.placeOrder(this.orderForm.value);
+        this.snackBar.open('Order placed successfully!', 'Close', { duration: 3000 });
+        this.dialog.closeAll(); 
+      } catch (error) {
+        console.error('Error placing order:', error);
+        const errorMessage = (error as any).message || 'Failed to place order';
+        this.snackBar.open(`Error: ${errorMessage}`, 'Close', {
+          duration: 3000
+        });
+      }
     } else {
-      this.snackBar.open('Please fill in all required fields', 'Close', {
-        duration: 3000,
-      });
+      this.snackBar.open('Please fill in all required fields', 'Close', { duration: 3000 });
     }
   }
-
-
 }

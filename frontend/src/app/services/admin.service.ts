@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import axios from 'axios';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -10,12 +11,12 @@ export class AdminService {
 
   constructor(private http: HttpClient) { }
 
-  getAllOrders(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/adminOrders`);
+  async getAllOrders(): Promise<any> {
+    const response = await axios.get(`${this.baseUrl}/adminOrders`);
+    return response.data;
   }
-
   
-  changeOrderStatus(orderId: number, status: string): Observable<any> {
-    return this.http.get(`${this.baseUrl}/adminOrders/${orderId}/${status}`);
+  async changeOrderStatus(orderId: number, status: string): Promise<any> {
+    const response = await axios.get(`${this.baseUrl}/adminOrders/${orderId}/${status}`);
   }
 }

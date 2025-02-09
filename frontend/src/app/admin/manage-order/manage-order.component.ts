@@ -26,26 +26,21 @@ export class ManageOrderComponent implements OnInit {
     this.getAllOrders();
   }
 
-  getAllOrders(): void {
-    this.adminService.getAllOrders().subscribe(
-      (data) => {
-        this.orders = data;
-      },
-      (error) => {
-        console.error('Error fetching:', error);
-      }
-    )
+  async getAllOrders(): Promise<void> {
+    try {
+      this.orders = await this.adminService.getAllOrders();
+    } catch (error) {
+      console.error('Error fetching orders:', error);
+    }
   }
-  changeOrderStatus(orderId: number, status: string): void {
-    this.adminService.changeOrderStatus(orderId,status).subscribe(
-      response => {
-        alert('change success: ' + response);
-        this.getAllOrders();
-      },
-      error => {
-        console.error('status error:', error);
-      }
-    )
+
+  async changeOrderStatus(orderId: number, status: string): Promise<void> {
+    try {
+      const response = await this.adminService.changeOrderStatus(orderId, status);
+      alert('Change success: ' + response);
+      this.getAllOrders();
+    } catch (error) {
+      console.error('Error changing status:', error);
+    }
   }
-  
 }

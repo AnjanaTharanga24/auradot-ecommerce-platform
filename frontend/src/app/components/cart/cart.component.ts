@@ -40,28 +40,24 @@ throw new Error('Method not implemented.');
      this.getCart();
     }
 
-    getCart() {
-      this.customerService.getCart().subscribe(
-        (res) => {
-          this.order = res;
-          this.cartItems = res.cartItems || [];
-        },
-        (error) => {
-          console.error('Error fetching cart:', error);
-        }
-      );
+    async getCart(): Promise<void> {
+      try {
+        const res = await this.customerService.getCart();
+        this.order = res;
+        this.cartItems = res.cartItems || [];
+      } catch (error) {
+        console.error('Error fetching cart:', error);
+      }
     }
-
-    increaseQuantity(id: any) {
-      this.customerService.increaseQuantity(id).subscribe(
-        (res) => {
-          this.snackbar.open('Increased', 'Close', { duration: 2000 });
-          this.getCart();
-        },
-        (error) => {
-          console.error('error adding product to cart:', error);
-        }
-      );
+  
+    async increaseQuantity(id: any): Promise<void> {
+      try {
+        await this.customerService.increaseQuantity(id);
+        this.snackbar.open('Increased', 'Close', { duration: 2000 });
+        this.getCart();
+      } catch (error) {
+        console.error('Error adding product to cart:', error);
+      }
     }
     
     placeOrder(){

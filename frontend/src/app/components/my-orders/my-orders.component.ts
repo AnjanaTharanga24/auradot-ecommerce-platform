@@ -13,32 +13,29 @@ import { OrderCardComponent } from "../../UIcomponents/order-card/order-card.com
   styleUrl: './my-orders.component.css'
 })
 export class MyOrdersComponent implements OnInit {
-myOrders: any[] = [];
   
+  myOrders: any[] = [];
   
-
   constructor(private http: HttpClient, private customerService: CustomerService) {}
 
   ngOnInit(): void {
    this.getMyOrders();
   }
 
-  getMyOrders() {
-    this.customerService.getMyOrders().subscribe(
-      (data) => {
-        this.myOrders = data;
-      },
-      (error) => {
-        console.error('fetching order errir:', error);
-      }
-    );
-  }
-  getOrderProgress(status: string) {
-    switch (status) {
-        case 'placed': return '33%';
-        case 'shipped': return '66%';
-        case 'delivered': return '100%';
-        default: return '0%';
+  async getMyOrders(): Promise<void> {
+    try {
+      this.myOrders = await this.customerService.getMyOrders();
+    } catch (error) {
+      console.error('Error fetching orders:', error);
     }
-}
+  }
+
+  getOrderProgress(status: string): string {
+    switch (status) {
+      case 'placed': return '33%';
+      case 'shipped': return '66%';
+      case 'delivered': return '100%';
+      default: return '0%';
+    }
+  }
 }

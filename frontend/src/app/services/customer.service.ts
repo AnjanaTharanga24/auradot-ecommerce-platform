@@ -1,39 +1,44 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import axios from 'axios';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CustomerService {
   private baseUrl = 'http://localhost:8080/api';
-  constructor(private http: HttpClient) { }
 
-  getMyOrders(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/carts/myOrders`);
+  async getMyOrders(): Promise<any> {
+    const response = await axios.get(`${this.baseUrl}/carts/myOrders`);
+    return response.data;
+  }
+  
+  async getCart(): Promise<any> {
+    const response = await axios.get(`${this.baseUrl}/carts/available`);
+    return response.data;
   }
 
-  getCart(): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/carts/available`);
+  async increaseQuantity(productId: any): Promise<any> {
+    const response = await axios.post(`${this.baseUrl}/carts/addition`, { productId });
+    return response.data;
   }
 
-  increaseQuantity(productId: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}/carts/addition`, { productId });
+  async placeOrder(orderData: any): Promise<any> {
+    const response = await axios.post(`${this.baseUrl}/carts/placeOrder`, orderData);
+    return response.data;
   }
 
-  placeOrder(orderData: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}/carts/placeOrder`, orderData);
+  async getAllProducts(): Promise<any> {
+    const response = await axios.get(`${this.baseUrl}/products`);
+    return response.data;
   }
 
-  getAllProducts(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/products`);
+  async addToCart(productId: any): Promise<any> {
+    const response = await axios.post(`${this.baseUrl}/carts`, { productId });
+    return response.data;
   }
 
-  addToCart(productId: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}/carts`, { productId });
-  }
-
-  getCartCount(): Observable<number> {
-    return this.http.get<number>(`${this.baseUrl}/carts/count`);
+  async getCartCount(): Promise<any> {
+    const response = await axios.get(`${this.baseUrl}/carts/count`);
+    return response.data;
   }
 }
