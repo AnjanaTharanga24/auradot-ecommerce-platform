@@ -38,4 +38,18 @@ export class ItemService {
       throw error;
     }
   }
+
+  async sellerAddItems(){
+    const item = {
+      name: '',
+      description: '',
+      price : 0
+    };
+    try {
+      const response = await axios.post(`${this.apiUrl}/items/${item}`);
+      console.log(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }

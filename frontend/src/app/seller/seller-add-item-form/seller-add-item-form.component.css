@@ -1,6 +1,155 @@
-.add-item-card{
-    margin-top: 40px;
-    margin-left: 350px;
-    width: 800px;
-    box-shadow: inset 0px 1px 10px rgba(0, 0, 0, 0.2);
-}
+
+.add-item-container {
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px;
+  
+  }
+  
+  .add-item-card {
+    background: white;
+    width: 100%;
+    max-width: 600px;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    padding: 2rem;
+    transition: transform 0.2s ease;
+  }
+  
+  .add-item-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .card-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .card-header h1 {
+    color: #333;
+    font-size: 2rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+  
+  .header-line {
+    height: 3px;
+    width: 60px;
+    background: linear-gradient(to right, #4CAF50, #45a049);
+    margin: 0 auto;
+  }
+  
+  .item-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .form-field {
+    position: relative;
+    margin-bottom: 1.5rem;
+  }
+  
+  .form-field label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #666;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.3s ease;
+  }
+  
+  .form-field input {
+    width: 100%;
+    padding: 0.8rem;
+    border: none;
+    border-radius: 6px;
+    background-color: #f8f9fa;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+  
+  .form-field input:focus {
+    outline: none;
+    background-color: #fff;
+    box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+  }
+  
+  .field-underline {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    width: 0;
+    background-color: #4CAF50;
+    transition: width 0.3s ease;
+  }
+  
+  .form-field input:focus ~ .field-underline {
+    width: 100%;
+  }
+  
+  .price-input {
+    position: relative;
+  }
+  
+  .price-input .currency {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #666;
+  }
+  
+  .price-input input {
+    padding-left: 2rem;
+  }
+  
+  .button-group {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  
+  .btn-add, .btn-cancel {
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex: 1;
+  }
+  
+  .btn-add {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  .btn-add:hover {
+    background-color: #45a049;
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.2);
+  }
+  
+  .btn-cancel {
+    background-color: #fff;
+    color: #dc3545;
+    border: 1px solid #dc3545;
+  }
+  
+  .btn-cancel:hover {
+    background-color: #dc3545;
+    color: white;
+    box-shadow: 0 4px 12px rgba(220, 53, 69, 0.2);
+  }
+  
+  @media (max-width: 768px) {
+    .add-item-card {
+      max-width: 100%;
+      margin: 0 1rem;
+    }
+    
+    .button-group {
+      flex-direction: column;
+    }
+  }

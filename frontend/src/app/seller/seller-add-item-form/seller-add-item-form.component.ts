@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ItemService } from '../../services/item.service';
 
 @Component({
   selector: 'app-seller-add-item-form',
@@ -7,5 +8,11 @@ import { Component } from '@angular/core';
   styleUrl: './seller-add-item-form.component.css'
 })
 export class SellerAddItemFormComponent {
+
+  constructor(private itemService : ItemService){
+
+  }
+
+
 
 }
