@@ -19,6 +19,7 @@ export class HomeComponent {
   async ngOnInit() {
     try {
       this.items = await this.itemService.getAllItems();
+      console.log('Fetched items:', this.items);
     } catch (error) {
       console.error('Error fetching items:', error);
     }
