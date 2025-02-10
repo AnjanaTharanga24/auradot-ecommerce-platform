@@ -1,5 +1,6 @@
 package com.auradot.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -21,6 +22,7 @@ public class Item {
 
     @ManyToOne
     @JoinColumn(name = "category_id",nullable = true)
+    @JsonManagedReference
     private ItemCategory itemCategory;
 
     @Column(name = "description")

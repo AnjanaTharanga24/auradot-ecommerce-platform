@@ -1,5 +1,6 @@
 package com.auradot.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -19,5 +20,6 @@ public class ItemCategory {
     private String name;
 
     @OneToMany(mappedBy = "itemCategory" , cascade = CascadeType.ALL)
+    @JsonBackReference
     private List<Item> items;
 }
