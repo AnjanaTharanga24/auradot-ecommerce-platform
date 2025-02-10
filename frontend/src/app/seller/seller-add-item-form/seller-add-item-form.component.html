@@ -1,34 +1,56 @@
-<div class="card add-item-card">
-    <div class="p-4">
-      <div class="d-flex justify-content-center">
-        <h1 class="mb-4">Add Items</h1>
-      </div>
-  
-      <div class="form-group mb-3">
-        <label>Item Name</label>
-        <input type="text" class="form-control" placeholder="Enter item name"  name="name" required="">
-      </div>
-      <div class="form-group mb-4">
-        <label>Item Description</label>
-        <input type="text" class="form-control" placeholder="Enter item description"  name="description">
-      </div>
-      <div class="form-group mb-4">
-        <label>Item Category</label>
-        <select class="form-control" name="category">
-          <option value="" disabled>Select category</option>
-          <option value="Male">Male</option>
-          <option value="Female">Female</option>
-        </select>
-      </div>
-      <div class="form-group mb-4">
-        <label>Item Price</label>
-        <input type="number" class="form-control" placeholder="Enter item price"  name="price">
-      </div>
-  
-      <div class="d-flex justify-content-between">
-        <button type="submit" class="btn btn-success" >Add</button>
-        <button type="button" class="btn btn-danger" >Cancel</button>
-      </div>
+<div class="add-item-container">
+  <div class="add-item-card">
+    <div class="card-header">
+      <h1>Add New Item</h1>
+      <p class="header-subtitle">Enter item details below</p>
+      <div class="header-line"></div>
     </div>
+
+    <form class="item-form">
+      <div class="form-grid">
+        <div class="form-field">
+          <label>Item Name</label>
+          <input type="text" placeholder="Enter item name" [(ngModel)]="item.name" name="name" />
+          <div class="field-underline"></div>
+        </div>
+
+        <div class="form-field">
+          <label>Category</label>
+          <select [(ngModel)] = "item.categoryId" name="category">
+            <option >Select a category</option>
+            <option value="1">Laptops</option>
+            <option value="2">Mobiles</option>
+            <option value="3">Others</option>
+          </select>
+          <div class="field-underline"></div>
+        </div>
+
+        <div class="form-field full-width">
+          <label>Description</label>
+          <textarea placeholder="Enter item description" rows="4" [(ngModel)]="item.description" name="description"></textarea>
+          <div class="field-underline"></div>
+        </div>
+
+        <div class="form-field">
+          <label>Image URL</label>
+          <input type="text" placeholder="Enter image URL" [(ngModel)]="item.imgUrl" name="imgUrl" />
+          <div class="field-underline"></div>
+        </div>
+
+        <div class="form-field">
+          <label>Price</label>
+          <div class="price-input">
+            <span class="currency">$</span>
+            <input type="number" placeholder="0.00" step="0.01" [(ngModel)]="item.price" name="price" />
+          </div>
+          <div class="field-underline"></div>
+        </div>
+      </div>
+
+      <div class="button-group">
+        <button type="submit" class="btn-add" (click)="addItem()">Add Item</button>
+        <button type="button" class="btn-cancel">Cancel</button>
+      </div>
+    </form>
   </div>
-  
+</div>

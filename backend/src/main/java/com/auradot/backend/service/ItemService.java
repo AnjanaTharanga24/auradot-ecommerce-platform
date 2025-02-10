@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface ItemService {
 
-    ItemResponse addItems(ItemRequest itemRequest);
+    ItemResponse addItems(ItemRequest itemRequest) throws NotFoundException;
     List<Item> getAllItems();
     ItemResponse getItemById(Long id) throws NotFoundException;
     String deleteItemById(Long id) throws NotFoundException;

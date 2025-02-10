@@ -13,6 +13,8 @@ public class ItemResponse {
 
     private Long id;
     private String name;
+    private String imgUrl;
+    private String categoryName;
     private String description;
     private Float price;
 }

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import axios from 'axios';
+import { Item } from '../common/item';
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +36,31 @@ export class ItemService {
       return response.data;
     } catch (error) {
       console.error('Error adding to cart:', error);
+      throw error;
+    }
+  }
+
+  // async sellerAddItems(){
+  //   const item = {
+  //     name: '',
+  //     description: '',
+  //     price : 0
+  //   };
+  //   try {
+  //     const response = await axios.post(`${this.apiUrl}/items/${item}`);
+  //     console.log(response.data);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
+
+  async sellerAddItems(item:Item){
+    try {
+      const response = await axios.post(`${this.apiUrl}/items`, item);
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      console.log('Error adding item:', error);
       throw error;
     }
   }

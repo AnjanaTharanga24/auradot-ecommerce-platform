@@ -11,7 +11,8 @@ public class ItemRequest {
 
     private String name;
     private String description;
-    private String category;
+    private String imgUrl;
+    private Long categoryId;
     private Float price;
 
 }

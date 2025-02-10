@@ -31,10 +31,15 @@
   
   .item-title{
    font-weight: bold;
-   font-size: 35px;
+   font-size: 25px;
    margin-left: 0px;
    margin-bottom: 20px;
-   /* background-color: aqua; */
-   width: 200px;
-  
+   width: 200px;  
   }
+
+  .item-img {
+    width: 200px; 
+    height: 200px;
+    margin-left: 35px;
+  }
+  

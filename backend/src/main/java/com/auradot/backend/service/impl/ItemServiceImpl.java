@@ -7,7 +7,9 @@ import com.auradot.backend.controller.response.ItemResponse;
 import com.auradot.backend.exception.NotFoundException;
 import com.auradot.backend.model.Cart;
 import com.auradot.backend.model.Item;
+import com.auradot.backend.model.ItemCategory;
 import com.auradot.backend.repository.CartRepository;
+import com.auradot.backend.repository.ItemCategoryRepository;
 import com.auradot.backend.repository.ItemRepository;
 import com.auradot.backend.service.ItemService;
 import lombok.AllArgsConstructor;
@@ -21,11 +23,23 @@ import java.util.Optional;
 public class ItemServiceImpl implements ItemService {
 
     private ItemRepository itemRepository;
+    private ItemCategoryRepository itemCategoryRepository;
 
     @Override
-    public ItemResponse addItems(ItemRequest itemRequest) {
+    public ItemResponse addItems(ItemRequest itemRequest) throws NotFoundException{
+
+        Optional<ItemCategory> optionalItemCategory = itemCategoryRepository.findById(itemRequest.getCategoryId());
+
+        if(!optionalItemCategory.isPresent()){
+            throw new NotFoundException("category not found with id " + itemRequest.getCategoryId());
+        }
+
+        ItemCategory foundCategory = optionalItemCategory.get();
+
         Item item = new Item();
         item.setName(itemRequest.getName());
+        item.setImgUrl(itemRequest.getImgUrl());
+        item.setItemCategory(foundCategory);
         item.setDescription(itemRequest.getDescription());
         item.setPrice(itemRequest.getPrice());
 
@@ -34,6 +48,8 @@ public class ItemServiceImpl implements ItemService {
         return ItemResponse.builder()
                 .id(savedItem.getId())
                 .name(savedItem.getName())
+                .imgUrl(savedItem.getImgUrl())
+                .categoryName(savedItem.getItemCategory().getName())
                 .description(savedItem.getDescription())
                 .price(savedItem.getPrice())
                 .build();
