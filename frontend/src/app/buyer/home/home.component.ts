@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { ItemCardComponent } from "../../buyer/item-card/item-card.component";
 import { ItemService } from '../../services/item.service';
 import { CommonModule } from '@angular/common';
+import { SearchBarComponent } from "../search-bar/search-bar.component";
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, ItemCardComponent],
+  imports: [CommonModule, ItemCardComponent, SearchBarComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
