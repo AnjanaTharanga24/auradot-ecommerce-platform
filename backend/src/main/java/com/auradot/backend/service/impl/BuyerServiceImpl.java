@@ -7,6 +7,7 @@ import com.auradot.backend.exception.NotFoundException;
 import com.auradot.backend.model.Cart;
 import com.auradot.backend.model.Item;
 import com.auradot.backend.repository.CartRepository;
+import com.auradot.backend.repository.ItemRepository;
 import com.auradot.backend.service.BuyerService;
 import com.fasterxml.jackson.annotation.OptBoolean;
 import lombok.AllArgsConstructor;
@@ -18,7 +19,9 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor
 public class BuyerServiceImpl implements BuyerService {
+
     private CartRepository cartRepository;
+    private ItemRepository itemRepository;
 
     @Override
     public CartResponse addToCart(CartRequest cartRequest) {
@@ -70,5 +73,17 @@ public class BuyerServiceImpl implements BuyerService {
         cartRepository.deleteById(id);
 
         return "Item deleted with id " + id;
+    }
+
+    @Override
+    public List<Item> findItemsByName(String name) throws NotFoundException {
+
+        List<Item> itemList = itemRepository.findByNameContaining(name);
+
+        if (itemList == null){
+            throw new NotFoundException("items not found with name " + name);
+        }
+
+        return itemList;
     }
 }

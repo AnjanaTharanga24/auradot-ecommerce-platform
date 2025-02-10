@@ -5,6 +5,7 @@ import com.auradot.backend.controller.request.UpdateQuantityRequest;
 import com.auradot.backend.controller.response.CartResponse;
 import com.auradot.backend.exception.NotFoundException;
 import com.auradot.backend.model.Cart;
+import com.auradot.backend.model.Item;
 import com.auradot.backend.service.BuyerService;
 import com.auradot.backend.service.ItemService;
 import lombok.AllArgsConstructor;
@@ -38,5 +39,10 @@ public class BuyerController {
     @DeleteMapping("/items/{item-id}")
     public String deleteCartItemById(@PathVariable("item-id")Long id)throws NotFoundException{
         return buyerService.deleteCartItemById(id);
+    }
+
+    @GetMapping("/items/{item-name}")
+    public List<Item> searchItemsByName(@PathVariable("item-name") String name) throws NotFoundException{
+        return buyerService.findItemsByName(name);
     }
 }
