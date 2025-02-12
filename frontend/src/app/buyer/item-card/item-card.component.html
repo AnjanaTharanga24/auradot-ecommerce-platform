@@ -3,6 +3,10 @@
     <h3 class="item-title text-center">{{ item.name }}</h3>
   </div>
 
+  <div class="stock-status" [ngStyle]="{'color':getStockStatusColor(item.inventory.stockStatus | lowercase)}">
+    <p>{{ item.inventory.stockStatus | lowercase}}</p>
+  </div>
+
   <div>
     <img src="{{ item.imgUrl }}" alt="{{ item.name }}" class="item-img" />
   </div>
@@ -27,7 +31,7 @@
 
   <div class="d-flex justify-content-between">
     <p class="price">{{ item.price | currency : "USD" }}</p>
-    <button class="btn btn-primary cart-btn" (click)="addToCart(item)">
+    <button class="btn btn-primary cart-btn">
       Add to Cart
     </button>
   </div>

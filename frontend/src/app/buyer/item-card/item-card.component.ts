@@ -14,12 +14,17 @@ export class ItemCardComponent {
 
   constructor(private itemService: ItemService) {}
 
-  addToCart(item: any) {
-    this.itemService.addToCart(item).then(response => {
-      console.log('Item added to cart:', response);
-    }).catch(error => {
-      console.error('Error adding to cart:', error);
-    });
+  getStockStatusColor(status: string): string{
+    switch(status){
+      case 'available':
+        return 'green';
+      case 'low_stock':
+        return '#eae013';
+      case 'out_of_stock':
+        return 'red';
+      default:
+        return '';
+    }
   }
 
   handleIncrease(item: any) {

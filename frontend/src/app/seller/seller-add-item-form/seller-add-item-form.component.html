@@ -1,3 +1,4 @@
+<!-- seller-add-item-form.component.html -->
 <div class="add-item-container">
   <div class="add-item-card">
     <div class="card-header">
@@ -6,18 +7,18 @@
       <div class="header-line"></div>
     </div>
 
-    <form class="item-form">
+    <form [formGroup]="itemForm" class="item-form" (ngSubmit)="addItem()">
       <div class="form-grid">
         <div class="form-field">
           <label>Item Name</label>
-          <input type="text" placeholder="Enter item name" [(ngModel)]="item.name" name="name" />
+          <input type="text" placeholder="Enter item name" formControlName="name" />
           <div class="field-underline"></div>
         </div>
 
         <div class="form-field">
           <label>Category</label>
-          <select [(ngModel)] = "item.categoryId" name="category">
-            <option >Select a category</option>
+          <select formControlName="categoryId">
+            <option value="">Select a category</option>
             <option value="1">Laptops</option>
             <option value="2">Mobiles</option>
             <option value="3">Others</option>
@@ -27,13 +28,13 @@
 
         <div class="form-field full-width">
           <label>Description</label>
-          <textarea placeholder="Enter item description" rows="4" [(ngModel)]="item.description" name="description"></textarea>
+          <textarea placeholder="Enter item description" rows="4" formControlName="description"></textarea>
           <div class="field-underline"></div>
         </div>
 
         <div class="form-field">
           <label>Image URL</label>
-          <input type="text" placeholder="Enter image URL" [(ngModel)]="item.imgUrl" name="imgUrl" />
+          <input type="text" placeholder="Enter image URL" formControlName="imgUrl" />
           <div class="field-underline"></div>
         </div>
 
@@ -41,15 +42,29 @@
           <label>Price</label>
           <div class="price-input">
             <span class="currency">$</span>
-            <input type="number" placeholder="0.00" step="0.01" [(ngModel)]="item.price" name="price" />
+            <input type="number" placeholder="Enter item price" formControlName="price" />
+          </div>
+          <div class="field-underline"></div>
+        </div>
+
+        <div class="form-field">
+          <label>Stock Quantity</label>
+          <input type="number" placeholder="Enter stock quantity" formControlName="stockQuantity" />
+          <div class="field-underline"></div>
+        </div>
+
+        <div class="form-field">
+          <label>Minimum Stock Level</label>
+          <div class="price-input">
+            <input type="number" placeholder="Enter minimum stock level" formControlName="minimumStockLevel" />
           </div>
           <div class="field-underline"></div>
         </div>
       </div>
 
       <div class="button-group">
-        <button type="submit" class="btn-add" (click)="addItem()">Add Item</button>
-        <button type="button" class="btn-cancel">Cancel</button>
+        <button type="submit" class="btn-add">Add Item</button>
+        <button type="button" class="btn-cancel" (click)="itemForm.reset()">Cancel</button>
       </div>
     </form>
   </div>

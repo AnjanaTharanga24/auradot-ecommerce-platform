@@ -32,7 +32,7 @@
   .item-title{
    font-weight: bold;
    font-size: 25px;
-   margin-left: 0px;
+   margin-left: 30px;
    margin-bottom: 20px;
    width: 200px;  
   }
@@ -41,5 +41,12 @@
     width: 200px; 
     height: 200px;
     margin-left: 35px;
+  }
+
+  .stock-status{
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 20px;
+    margin-left: 90px;
   }
   

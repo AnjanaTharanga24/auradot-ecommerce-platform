@@ -1,31 +1,46 @@
+// seller-add-item-form.component.ts
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 import { ItemService } from '../../services/item.service';
 import { Item } from '../../common/item';
-import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-seller-add-item-form',
-  imports: [FormsModule],
   templateUrl: './seller-add-item-form.component.html',
-  styleUrl: './seller-add-item-form.component.css'
+  styleUrls: ['./seller-add-item-form.component.css'],
+  standalone: true,
+  imports: [ReactiveFormsModule, CommonModule]
 })
 export class SellerAddItemFormComponent {
+  itemForm!: FormGroup;
 
-  item: Item = new Item('', '', 0,'', 0);
-  constructor(private itemService : ItemService){
+  constructor(private fb: FormBuilder, private itemService: ItemService) {
+    this.initializeForm();
+  }
 
+  private initializeForm(): void {
+    this.itemForm = this.fb.group({
+      name: [''],
+      categoryId: [''],
+      description: [''],
+      imgUrl: [''],
+      price: [''],
+      stockQuantity: [''],
+      minimumStockLevel: ['']
+    });
   }
 
   async addItem(){
     try {
-      await this.itemService.sellerAddItems(this.item);
+      const item: Item = this.itemForm.value;
+      await this.itemService.sellerAddItems(item);
       alert('Item added successfully');
-      this.item = new Item('', '', 0,'', 0);
+      this.itemForm.reset();
     } catch (error) {
+      console.error('Error adding item:', error);
       alert('Error adding item');
     }
   }
-
-
-
 }

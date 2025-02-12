@@ -14,9 +14,22 @@ export class AdminViewItemTableComponent implements OnInit {
 
   constructor(private inventoryService: InventoryServiceService) {}
 
+  getStockStatusClass(status: string): string {
+    switch(status) {
+      case 'available':
+        return 'status-available';
+      case 'low_stock':
+        return 'status-low';
+      case 'out_of_stock':
+        return 'status-out';
+      default:
+        return 'status-default';
+    }
+  }
   async ngOnInit() {
     try {
       this.items = await this.inventoryService.getAllItems();
+      console.log('Fetched items:', this.items);
     } catch (error) {
       console.error('Error fetching items:', error);
     }
