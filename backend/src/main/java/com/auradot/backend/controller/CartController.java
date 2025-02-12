@@ -28,7 +28,7 @@ public class CartController {
     }
 
     @GetMapping("/available")
-    public ResponseEntity<?> getCartPendingDetails() {
+    public ResponseEntity<?> getCartByPendingOrders() {
         try {
             OrderDTO orderDTO = cartService.getCartByPendingOrders();
             return ResponseEntity.status(HttpStatus.OK).body(orderDTO);
