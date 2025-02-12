@@ -13,6 +13,8 @@ public class ItemRequest {
     private String description;
     private String imgUrl;
     private Long categoryId;
+    private Integer stockQuantity;
+    private Integer minimumStockLevel;
     private Float price;
 
 }

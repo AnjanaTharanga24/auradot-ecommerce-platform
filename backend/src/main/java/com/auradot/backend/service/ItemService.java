@@ -1,8 +1,6 @@
 package com.auradot.backend.service;
 
-import com.auradot.backend.controller.request.CartRequest;
 import com.auradot.backend.controller.request.ItemRequest;
-import com.auradot.backend.controller.response.CartResponse;
 import com.auradot.backend.controller.response.ItemResponse;
 import com.auradot.backend.exception.NotFoundException;
 import com.auradot.backend.model.Item;
