@@ -26,6 +26,7 @@ public class OrderController {
         return ResponseEntity.status(HttpStatus.CREATED).body(orders);
     }
 
+
     @GetMapping("/adminOrders")
     public ResponseEntity<List<OrderDTO>>getAllPlacedOrders(){
         return ResponseEntity.ok(orderService.getAllPlacedOrders());
@@ -40,4 +41,6 @@ public class OrderController {
         }
         return ResponseEntity.status(HttpStatus.OK).body(orderDTO);
     }
+
+
 }

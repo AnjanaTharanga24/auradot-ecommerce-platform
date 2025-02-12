@@ -1,6 +1,252 @@
-.add-item-card{
-    margin-top: 40px;
-    margin-left: 350px;
-    width: 800px;
-    box-shadow: inset 0px 1px 10px rgba(0, 0, 0, 0.2);
+
+.add-item-container {
+  min-height: 100vh;
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.add-item-card {
+  width: 100%;
+  max-width: 800px;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  animation: cardSlideUp 0.6s ease-out;
+}
+
+.card-header {
+  background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+  padding: 2.5rem 2rem;
+  text-align: center;
+  color: white;
+}
+
+.card-header h1 {
+  font-size: 2.2rem;
+  font-weight: 600;
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+.header-subtitle {
+  color: rgba(255, 255, 255, 0.9);
+  margin-top: 0.5rem;
+  font-size: 1.1rem;
+}
+
+.header-line {
+  width: 50px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.3);
+  margin: 1.5rem auto 0;
+  border-radius: 2px;
+}
+
+.item-form {
+  padding: 2.5rem;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.form-field {
+  position: relative;
+}
+
+.form-field.full-width {
+  grid-column: 1 / -1;
+}
+
+.form-field label {
+  display: block;
+  margin-bottom: 0.75rem;
+  color: #1f2937;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.form-field input,
+.form-field select,
+.form-field textarea {
+  width: 100%;
+  padding: 0.875rem 1rem;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 10px;
+  background-color: #f9fafb;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus {
+  outline: none;
+  border-color: #2563eb;
+  background-color: white;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+}
+
+
+.image-upload-area {
+  border: 2px dashed #d1d5db;
+  border-radius: 12px;
+  padding: 2.5rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.image-upload-area:hover {
+  border-color: #2563eb;
+  background-color: rgba(37, 99, 235, 0.02);
+}
+
+.upload-icon {
+  font-size: 2.5rem;
+  color: #9ca3af;
+  margin-bottom: 1rem;
+}
+
+.upload-text {
+  color: #6b7280;
+  font-size: 1rem;
+}
+
+.file-input {
+  display: none;
+}
+
+.price-input {
+  position: relative;
+}
+
+.price-input .currency {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #6b7280;
+}
+
+.price-input input {
+  padding-left: 2rem;
+}
+
+.button-group {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2.5rem;
+}
+
+.btn-add,
+.btn-cancel {
+  flex: 1;
+  padding: 1rem;
+  border-radius: 10px;
+  font-weight: 500;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-add {
+  background: #2563eb;
+  color: white;
+  border: none;
+}
+
+.btn-add:hover {
+  background: #1e40af;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+}
+
+.btn-cancel {
+  background: white;
+  color: #4b5563;
+  border: 1.5px solid #e5e7eb;
+}
+
+.btn-cancel:hover {
+  background: #f9fafb;
+  color: #1f2937;
+}
+
+.field-underline {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 2px;
+  width: 0;
+  background-color: #2563eb;
+  transition: width 0.3s ease;
+}
+
+.form-field input:focus ~ .field-underline,
+.form-field select:focus ~ .field-underline,
+.form-field textarea:focus ~ .field-underline {
+  width: 100%;
+}
+
+@keyframes cardSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .add-item-container {
+    padding: 1rem;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .button-group {
+    flex-direction: column;
+  }
+
+  .card-header h1 {
+    font-size: 1.8rem;
+  }
+
+  .card-header {
+    padding: 2rem 1.5rem;
+  }
+
+  .item-form {
+    padding: 1.5rem;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c5c5c5;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
 }

@@ -1,0 +1,47 @@
+
+<div class="container py-5">
+  <div class="card custom-card">
+  
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table custom-table">
+          <thead>
+            <tr>
+              <th class="text-center">Image</th>
+              <th class="text-center">Item Name</th>
+              <th class="text-center">Stock</th>
+              <th class="text-center">Min Stock</th>
+              <th class="text-center">Price</th>
+              <th class="text-center">Status</th>
+              <th class="text-center">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of items">
+              <td class="text-center">
+                <div class="img-wrapper">
+                  <img [src]="item.imgUrl" [alt]="item.name" class="inventory-img">
+                </div>
+              </td>
+              <td class="text-center fw-semibold">{{ item.name }}</td>
+              <td class="text-center">{{ item.inventory.stockQuantity }}</td>
+              <td class="text-center">{{ item.inventory.minimumStockLevel }}</td>
+              <td class="text-center fw-bold">${{ item.price }}</td>
+              <td class="text-center">
+                <div class="status-badge" [ngClass]="getStockStatusClass(item.inventory.stockStatus | lowercase)">
+                  <span class="status-text">{{ item.inventory.stockStatus | lowercase }}</span>
+                </div>
+              </td>
+              
+              <td class="text-center">
+                <button class="btn-delete">
+                  <i class="fas fa-trash-alt me-1"></i>Delete
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

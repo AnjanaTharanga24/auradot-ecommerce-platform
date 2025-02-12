@@ -5,13 +5,12 @@ import { ProductComponent } from './components/product/product.component';
 import { CartComponent } from './components/cart/cart.component';
 import { ManageOrderComponent } from './admin/manage-order/manage-order.component';
 import { MyOrdersComponent } from './components/my-orders/my-orders.component';
-import { SellerComponent } from './seller/seller.component';
-import { AdminComponent } from './admin/admin.component';
-import { BuyerComponent } from './buyer/buyer.component';
 import { HomeComponent } from './buyer/home/home.component';
 import { SellerDashboardComponent } from './seller/seller-dashboard/seller-dashboard.component';
 import { SellerAddItemFormComponent } from './seller/seller-add-item-form/seller-add-item-form.component';
 import { SellerViewItemComponent } from './seller/seller-view-item/seller-view-item.component';
+import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
+import { AdminViewItemTableComponent } from './admin/admin-view-item-table/admin-view-item-table.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'product', pathMatch: 'full' },
@@ -24,7 +23,8 @@ export const routes: Routes = [
     { path: 'home', component: HomeComponent },
     { path: 'seller-dashboard', component: SellerDashboardComponent },
     { path: 'seller-view', component: SellerViewItemComponent },
-    { path: 'admin-dashboard', component: AdminComponent },
-    { path: 'cart', component: BuyerComponent },
+    { path: 'admin-dashboard', component: AdminDashboardComponent },
+    { path: 'admin-view-item', component: AdminViewItemTableComponent },
+
    
 ];

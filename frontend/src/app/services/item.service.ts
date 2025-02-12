@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import axios from 'axios';
 import { environment } from '../../environments/environment';
+import { Item } from '../common/item';
+
 
 @Injectable({
   providedIn: 'root'
@@ -39,5 +41,16 @@ export class ItemService {
       console.error('Error adding to cart:', error);
       throw error;
     }
+
+  sellerAddItems(item: Item) {
+    return axios.post(`${this.apiUrl}/items`, item)
+      .then(response => {
+        return response.data;
+      })
+      .catch(error => {
+        console.error('Error adding item:', error);
+        throw error;
+      });
   }
+  
 }

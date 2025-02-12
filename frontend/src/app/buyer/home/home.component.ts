@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
-import { ItemCardComponent } from "../../components/item-card/item-card.component";
+import { ItemCardComponent } from "../../buyer/item-card/item-card.component";
 import { ItemService } from '../../services/item.service';
 import { CommonModule } from '@angular/common';
+import { SearchBarComponent } from "../search-bar/search-bar.component";
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, ItemCardComponent],
+  imports: [CommonModule, ItemCardComponent, SearchBarComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
@@ -16,13 +17,10 @@ export class HomeComponent {
 
   constructor(private itemService: ItemService) {}
 
-  ngOnInit() {
-    this.fetchItems();
-  }
-
-  async fetchItems() {
+  async ngOnInit() {
     try {
       this.items = await this.itemService.getAllItems();
+      console.log('Fetched items:', this.items);
     } catch (error) {
       console.error('Error fetching items:', error);
     }

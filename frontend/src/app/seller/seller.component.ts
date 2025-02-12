@@ -15,7 +15,6 @@ export class SellerComponent {
   item = {
     name: '',
     description: '',
-    category: '',
     price: 0,
   };
 
