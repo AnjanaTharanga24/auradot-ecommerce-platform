@@ -31,4 +31,8 @@ public class Item {
     @Column(name = "price")
     private Float price;
 
+    @OneToOne
+    @JsonManagedReference
+    private Inventory inventory;
+
 }
