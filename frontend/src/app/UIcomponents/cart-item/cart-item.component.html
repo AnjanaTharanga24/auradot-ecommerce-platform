@@ -1,0 +1,33 @@
+<div class="product-info flex flex-col bg-white rounded-lg shadow-md overflow-hidden">
+    <div class="product-image">
+      <img
+        class="w-full h-48 object-cover"
+        [src]="item.imageUrl || 'https://www.digitaltrends.com/wp-content/uploads/2022/10/surface-laptop-5-02.jpg?fit=1920%2C1280&p=1'"
+        alt="Product Image"
+      />
+    </div>
+    <div class="product-details p-4 flex flex-col justify-between">
+      <div class="item-row mb-2">
+        <div class="item-name text-lg font-semibold text-gray-800 mb-1">
+          {{ item.productName }}
+        </div>
+        <div class="item-price text-gray-600 text-sm">
+          Price: <span class="font-semibold">LKR {{ item.price }}</span>
+        </div>
+      </div>
+      <div class="quantity-controls flex items-center justify-between mt-3">
+        <button mat-icon-button (click)="onDecrease()" [disabled]="item.quantity === 1"
+                class="text-gray-500 hover:text-gray-700 transition">
+          <mat-icon>remove_circle_outline</mat-icon>
+        </button>
+        <span class="quantity text-gray-800 text-lg font-medium">
+          {{ item.quantity }}
+        </span>
+        <button mat-icon-button (click)="onIncrease()"
+                class="text-gray-500 hover:text-gray-700 transition">
+          <mat-icon>add_circle_outline</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+  

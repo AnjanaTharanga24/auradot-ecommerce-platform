@@ -16,14 +16,14 @@ import java.util.List;
 @RequestMapping("/api/items")
 public class ItemController {
 
-    private ItemService itemService;
+    private final ItemService itemService;
 
-    @PostMapping("/")
-    public ItemResponse addItems(@RequestBody ItemRequest itemRequest){
+    @PostMapping
+    public ItemResponse addItems(@RequestBody ItemRequest itemRequest) throws NotFoundException{
         return itemService.addItems(itemRequest);
     }
 
-    @GetMapping("/")
+    @GetMapping
     public List<Item> getAllItems(){
         return itemService.getAllItems();
     }

@@ -1,4 +1,4 @@
-<header class="bg-blue-200 shadow-black-md flex items-center justify-between px-6 py-4">
+<!-- <header class="bg-blue-200 shadow-black-md flex items-center justify-between px-6 py-4">
   <div class="flex items-center space-x-1">
     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGhKGVeT6aW0yrGLJngNZQQlSXyGq9H8HhlQ&s" alt="Logo" class="w-12 h-12 rounded-full">
     <h1 class="text-xl font-bold text-gray-800">AuraShop</h1>
@@ -12,8 +12,50 @@
       Cart
     </button>
   </div>
-</header>
+</header> -->
+<!-- <mat-toolbar color="primary" class="navbar" style="display: flex; justify-content: space-between;">
 
+  <div class="flex items-center space-x-1">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGhKGVeT6aW0yrGLJngNZQQlSXyGq9H8HhlQ&s" alt="Logo" class="w-12 h-12 rounded-full">
+    <h1 class="text-xl font-bold text-gray-800">AuraShop</h1>
+  </div>
+
+  <div class="flex items-center space-x-4">
+    <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none">
+      My Orders
+    </button>
+    <button class="px-4 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400 focus:outline-none">
+      Cart
+    </button>
+  </div>
+</mat-toolbar> -->
+<mat-toolbar color="primary" class="navbar" style="display: flex; justify-content: space-between;">
+  <div routerLink="/product" class="flex items-center space-x-1">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGhKGVeT6aW0yrGLJngNZQQlSXyGq9H8HhlQ&s" alt="Logo" class="w-12 h-12 rounded-full">
+    <h1 class="text-xl font-bold text-gray-800">AuraShop</h1>
+  </div>
+
+  <div class="flex items-center space-x-4">
+    <button   routerLink="/myOrders" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none">
+      My Orders
+    </button>
+    <button class="px-4 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400 focus:outline-none" routerLink="/carts">
+      Cart <span *ngIf="cartCount > 0" class="text-white bg-red-500 px-2 py-1 rounded-full">{{ cartCount }}</span>
+    </button>
+
+    <div class="dropdown">
+      <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fa fa-user"></i>
+      </button>
+      <ul class="dropdown-menu mt-3 account-dropdown" style="margin-left: -110px;">
+        <li><a class="dropdown-item" href="#">My Profile</a></li>
+        <li><a class="dropdown-item" routerLink="/seller-dashboard">Seller Dashboard</a></li>
+        <li><a class="dropdown-item" routerLink="/admin-dashboard">Admin Dashboard</a></li>
+      </ul>
+    </div>
+
+  </div>
+</mat-toolbar>
 
 <main class="container mx-auto mt-6">
   <router-outlet></router-outlet>

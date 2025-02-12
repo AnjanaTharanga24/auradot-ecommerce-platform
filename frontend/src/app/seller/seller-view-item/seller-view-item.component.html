@@ -1,0 +1,35 @@
+<app-seller-nav></app-seller-nav>
+
+<div class="admin-page">
+    <div class="card admin-table ">
+      
+      
+      <table class="table ">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Image</th>
+              <th scope="col">Item Name</th>
+              <th scope="col">Description</th>
+              <th scope="col">Price</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody *ngFor="let item of items">
+            <tr>
+              <th scope="row">
+                  <img src="https://tee.lk/wp-content/uploads/2021/09/Red.png" height="50px" />
+              </th>
+              <td class="align-middle">{{item.name}}</td>
+              <td class="align-middle">{{item.description}}</td>
+              <td class="align-middle">{{item.price + "$"}}</td>
+              <td>
+                  <button class="btn btn-danger mt-2" >Delete</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+  </div>
+  </div>
+  
+  
+  

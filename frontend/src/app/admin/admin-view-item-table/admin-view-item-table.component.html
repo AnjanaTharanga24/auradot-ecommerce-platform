@@ -1,0 +1,33 @@
+<div class="admin-page">
+  <div class="admin-container">
+    <h2 class="admin-title">Item Management</h2>
+    <div class="glass-card">
+      <table class="table custom-table">
+        <thead>
+          <tr>
+            <th>Image</th>
+            <th>Item Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of items">
+            <td>
+              <img [src]="item.imageUrl || 'https://tee.lk/wp-content/uploads/2021/09/Red.png'" class="item-img"/>
+            </td>
+            <td class="align-middle">{{ item.name }}</td>
+            <td class="align-middle">{{ item.description }}</td>
+            <td class="align-middle">{{ item.price | currency }}</td>
+            <td class="align-middle">
+              <button class="btn-delete">
+                <i class="fas fa-trash-alt"></i> Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

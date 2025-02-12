@@ -1,0 +1,65 @@
+<div class="flex justify-center items-center min-h-50vh bg-gray-100 px-4 py-8">
+    <div class="bg-white shadow-xl rounded-md p-6 max-w-lg w-full">
+      <div class="text-center mb-6">
+        <h1 class="text-2xl font-bold text-gray-800">Place Order</h1>
+      </div>
+      <form [formGroup]="orderForm" class="space-y-6">
+        <!-- Address Input -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2" for="address">
+            Address
+          </label>
+          <input 
+            id="address" 
+            type="text" 
+            matInput 
+            formControlName="address" 
+            placeholder="Enter your address" 
+            class="w-full border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 p-3"
+            required
+          />
+          <p *ngIf="orderForm.get('address')?.invalid && orderForm.get('address')?.touched" class="text-sm text-red-500 mt-1">
+            Address is required
+          </p>
+        </div>
+  
+        <!-- Description Input -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2" for="orderDescription">
+            Description
+          </label>
+          <input 
+            id="orderDescription" 
+            type="text" 
+            matInput 
+            formControlName="orderDescription" 
+            placeholder="Optional description"
+            class="w-full border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 p-3"
+          />
+        </div>
+  
+        <!-- Buttons -->
+        <div class="flex items-center justify-between mt-6">
+          <button 
+            mat-raised-button 
+            color="primary" 
+            type="submit" 
+            (click)="placeOrder()" 
+            [disabled]="orderForm.invalid"
+            class="px-6 py-2 bg-blue-500 text-white font-semibold rounded-md shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300">
+            Order
+          </button>
+          <button 
+            mat-stroked-button 
+            color="warn" 
+            type="button" 
+            (click)="closeForm()" 
+            [disabled]="orderForm.invalid"
+            class="px-6 py-2 bg-red-100 text-red-600 font-semibold rounded-md shadow-md hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-red-300">
+            Close
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  
