@@ -47,7 +47,7 @@ public class ItemServiceImpl implements ItemService {
         Item savedItem = itemRepository.save(item);
 
         Inventory inventory = new Inventory();
-        inventory.setItem(savedItem);  // Use saved Item
+        inventory.setItem(savedItem);
         inventory.setStockQuantity(itemRequest.getStockQuantity());
         inventory.setCategory(savedItem.getItemCategory().getName());
         inventory.setMinimumStockLevel(itemRequest.getMinimumStockLevel());
@@ -55,7 +55,7 @@ public class ItemServiceImpl implements ItemService {
 
         if (itemRequest.getStockQuantity() > 20) {
             inventory.setStockStatus(StockStatus.AVAILABLE);
-        } else if (itemRequest.getStockQuantity() < itemRequest.getMinimumStockLevel()) {
+        } else if (itemRequest.getStockQuantity() < itemRequest.getMinimumStockLevel() && itemRequest.getStockQuantity() >= 1) {
             inventory.setStockStatus(StockStatus.LOW_STOCK);
         } else if (itemRequest.getStockQuantity() < 1) {
             inventory.setStockStatus(StockStatus.OUT_OF_STOCK);
