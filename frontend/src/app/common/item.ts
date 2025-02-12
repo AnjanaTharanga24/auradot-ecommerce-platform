@@ -1,12 +1,19 @@
-export class Item {
+export class Inventory {
     constructor(
-        public name: string,
-        public description: string,
-        public categoryId: number,
-        public imgUrl: string,
-        public price: number
-    ){
-
-    }
-
-}
+      public stockStatus: string,
+      public stockQuantity: number,
+      public minimumStockLevel: number
+    ) {}
+  }
+  
+  export class Item {
+    constructor(
+      public name: string,
+      public description: string,
+      public categoryId: number,
+      public imgUrl: string,
+      public price: number,
+      public inventory: Inventory
+    ) {}
+  }
+  
