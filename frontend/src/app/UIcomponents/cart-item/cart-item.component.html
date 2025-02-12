@@ -18,14 +18,14 @@
       <div class="quantity-controls flex items-center justify-between mt-3">
         <button mat-icon-button (click)="onDecrease()" [disabled]="item.quantity === 1"
                 class="text-gray-500 hover:text-gray-700 transition">
-          <mat-icon>remove_circle_outline</mat-icon>
+          <mat-icon class="text-3xl font-bold">-</mat-icon>
         </button>
         <span class="quantity text-gray-800 text-lg font-medium">
           {{ item.quantity }}
         </span>
         <button mat-icon-button (click)="onIncrease()"
                 class="text-gray-500 hover:text-gray-700 transition">
-          <mat-icon>add_circle_outline</mat-icon>
+                <mat-icon class="text-3xl font-bold">+</mat-icon>
         </button>
       </div>
     </div>

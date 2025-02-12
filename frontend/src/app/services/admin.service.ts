@@ -1,21 +1,23 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import axios from 'axios';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdminService {
-  private baseUrl = 'http://localhost:8080/api/orders';
-
+  private baseUrl = environment.baseUrl;
+ 
   constructor(private http: HttpClient) { }
 
-  getAllOrders(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/adminOrders`);
+  async getAllOrders(): Promise<any> {
+    const response = await axios.get(`${this.baseUrl}/orders/adminOrders`);
+    return response.data;
   }
-
   
-  changeOrderStatus(orderId: number, status: string): Observable<any> {
-    return this.http.get(`${this.baseUrl}/adminOrders/${orderId}/${status}`);
+  async changeOrderStatus(orderId: number, status: string): Promise<any> {
+    const response = await axios.get(`${this.baseUrl}/orders/adminOrders/${orderId}/${status}`);
   }
 }

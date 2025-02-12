@@ -1,12 +1,13 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { MatIcon } from '@angular/material/icon';
+import { MatIcon, MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-cart-item',
-  imports: [MatIcon],
+  imports: [MatIcon, MatIconModule ],
   templateUrl: './cart-item.component.html',
   styleUrl: './cart-item.component.css'
 })
+
 export class CartItemComponent {
   @Input() item: any;
   @Output() increaseQuantity = new EventEmitter<string>();
