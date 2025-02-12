@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import axios from 'axios';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CustomerService {
-  private baseUrl = 'http://localhost:8080/api';
+  private baseUrl = environment.baseUrl;
 
   async getMyOrders(): Promise<any> {
     const response = await axios.get(`${this.baseUrl}/carts/myOrders`);

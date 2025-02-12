@@ -1,16 +1,18 @@
 import { Injectable } from '@angular/core';
 import axios from 'axios';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ItemService {
-  private apiUrl = 'http://localhost:8080/api';
+ private baseUrl = environment.baseUrl;
+ 
   constructor() { }
 
   async getAllItems() {
     try {
-      const response = await axios.get(`${this.apiUrl}/items`);
+      const response = await axios.get(`${this.baseUrl}/items`);
       return response.data.map((item: any) => ({
         ...item,
         quantity: 0, 
@@ -31,7 +33,7 @@ export class ItemService {
     };
 
     try {
-      const response = await axios.post(`${this.apiUrl}/buyer/items`, cartRequest);
+      const response = await axios.post(`${this.baseUrl}/buyer/items`, cartRequest);
       return response.data;
     } catch (error) {
       console.error('Error adding to cart:', error);
