@@ -4,6 +4,7 @@ import com.auradot.backend.dto.CartItemsDTO;
 import com.auradot.backend.dto.OrderDTO;
 import com.auradot.backend.dto.PlaceOrderDTO;
 import com.auradot.backend.dto.ProductInCartDTO;
+import com.auradot.backend.exception.NotFoundException;
 import com.auradot.backend.model.CartItems;
 import com.auradot.backend.model.Order;
 import com.auradot.backend.model.Product;
@@ -83,10 +84,10 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public OrderDTO getCartByID() throws Exception {
+    public OrderDTO getCartByPendingOrders() throws NotFoundException {
         Order order = orderRepository.findByOrderStatus(OrderStatus.pending);
         if (order == null) {
-            throw new Exception("No active cart found.");
+            throw new NotFoundException("No active cart found.");
         }
 
         List<CartItemsDTO> cartItemsDTOList = order.getCartItems()
@@ -105,10 +106,10 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public OrderDTO increaseProductQuantity(ProductInCartDTO productInCartDTO) throws Exception {
+    public OrderDTO increaseProductQuantity(ProductInCartDTO productInCartDTO) throws NotFoundException  {
         Order order = orderRepository.findByOrderStatus(OrderStatus.pending);
         if (order == null) {
-            throw new Exception("No active order found.");
+            throw new NotFoundException ("No active order found.");
         }
 
         Optional<CartItems> cartItemOptional = cartItemsRepository
@@ -126,14 +127,14 @@ public class CartServiceImpl implements CartService {
             return order.getOrderDTO();
         }
 
-        throw new Exception("Product not found in cart.");
+        throw new NotFoundException ("Product not found in cart.");
     }
 
     @Override
-    public OrderDTO placeOrder(PlaceOrderDTO placeOrderDTO) throws Exception {
+    public OrderDTO placeOrder(PlaceOrderDTO placeOrderDTO) throws NotFoundException  {
         Order order = orderRepository.findByOrderStatus(OrderStatus.pending);
         if (order == null) {
-            throw new Exception("No active order to place.");
+            throw new NotFoundException ("No active order to place.");
         }
 
         order.setOrderDescription(placeOrderDTO.getOrderDescription());

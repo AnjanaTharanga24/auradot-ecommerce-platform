@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface CartService {
     public ResponseEntity<?> addProductToCart(ProductInCartDTO addProductToCart);
-    public OrderDTO getCartByID() throws Exception;
+    public OrderDTO getCartByPendingOrders() throws Exception;
     public OrderDTO increaseProductQuantity(ProductInCartDTO productInCartDTO) throws Exception;
     public OrderDTO placeOrder(PlaceOrderDTO placeOrderDTO) throws Exception;
 
