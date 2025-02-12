@@ -22,46 +22,15 @@ export class ItemService {
     }
   }
 
-  async addToCart(item: any) {
-    const cartRequest = {
-      name: item.name,
-      description: item.description,
-      category: item.category,
-      quantity: item.quantity,
-      price: item.price,
-    };
-
-    try {
-      const response = await axios.post(`${this.apiUrl}/buyer/items`, cartRequest);
-      return response.data;
-    } catch (error) {
-      console.error('Error adding to cart:', error);
-      throw error;
-    }
+  sellerAddItems(item: Item) {
+    return axios.post(`${this.apiUrl}/items`, item)
+      .then(response => {
+        return response.data;
+      })
+      .catch(error => {
+        console.error('Error adding item:', error);
+        throw error;
+      });
   }
-
-  // async sellerAddItems(){
-  //   const item = {
-  //     name: '',
-  //     description: '',
-  //     price : 0
-  //   };
-  //   try {
-  //     const response = await axios.post(`${this.apiUrl}/items/${item}`);
-  //     console.log(response.data);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
-
-  async sellerAddItems(item:Item){
-    try {
-      const response = await axios.post(`${this.apiUrl}/items`, item);
-      console.log(response.data);
-      return response.data;
-    } catch (error) {
-      console.log('Error adding item:', error);
-      throw error;
-    }
-  }
+  
 }

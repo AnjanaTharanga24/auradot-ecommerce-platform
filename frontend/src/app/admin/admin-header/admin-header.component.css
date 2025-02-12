@@ -1,0 +1,81 @@
+/* Summary Cards Styles */
+.summary-section {
+    margin-bottom: 2rem;
+  }
+  
+  .summary-card {
+    background: white;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    padding: 1.5rem !important;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .summary-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(67, 97, 238, 0.15);
+  }
+  
+  .summary-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(45deg, #4361ee, #3f37c9);
+  }
+  
+  .summary-card.low-stock::before {
+    background: linear-gradient(45deg, #ff9f1c, #f7b955);
+  }
+  
+  .summary-card.out-stock::before {
+    background: linear-gradient(45deg, #e71d36, #ff4d6d);
+  }
+  
+  .summary-card h6 {
+    color: #718096;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 1rem;
+  }
+  
+  .summary-card h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 0;
+    color: #2d3748;
+  }
+  
+  .summary-card .text-warning {
+    color: #ff9f1c !important;
+  }
+  
+  .summary-card .text-danger {
+    color: #e71d36 !important;
+  }
+  
+  .summary-card i {
+    position: absolute;
+    right: 1.5rem;
+    bottom: 1.5rem;
+    font-size: 2.5rem;
+    opacity: 0.1;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .summary-card {
+      margin-bottom: 1rem;
+    }
+    
+    .summary-card h2 {
+      font-size: 2rem;
+    }
+  }

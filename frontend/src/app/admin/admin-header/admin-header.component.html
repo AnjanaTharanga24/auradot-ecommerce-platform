@@ -1,0 +1,23 @@
+<div class="row text-center mb-4 mt-5 summary-section">
+    <div class="col-md-4">
+        <div class="card summary-card">
+            <h6>Total Items</h6>
+            <h2>{{ totalItems }}</h2>
+            <i class="fas fa-boxes"></i>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card summary-card low-stock">
+            <h6>Low Stock Items</h6>
+            <h2 class="text-warning">{{ lowStockItems }}</h2>
+            <i class="fas fa-exclamation-triangle"></i>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card summary-card out-stock">
+            <h6>Out of Stock</h6>
+            <h2 class="text-danger">{{ outOfStockItems }}</h2>
+            <i class="fas fa-times-circle"></i>
+        </div>
+    </div>
+</div>
