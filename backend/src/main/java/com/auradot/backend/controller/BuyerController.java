@@ -5,6 +5,7 @@ import com.auradot.backend.model.Item;
 import com.auradot.backend.service.BuyerService;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,7 +19,7 @@ public class BuyerController {
     private final BuyerService buyerService;
 
     @GetMapping("/items/{item-name}")
-    public List<Item> searchItemsByName(@PathVariable("item-name") String name) throws NotFoundException{
-        return buyerService.findItemsByName(name);
+    public ResponseEntity<List<Item>>  searchItemsByName(@PathVariable("item-name") String name) throws NotFoundException{
+        return ResponseEntity.ok(buyerService.findItemsByName(name));
     }
 }

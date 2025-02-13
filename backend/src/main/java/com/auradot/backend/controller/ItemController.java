@@ -7,6 +7,7 @@ import com.auradot.backend.model.Item;
 import com.auradot.backend.service.ItemService;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,23 +21,26 @@ public class ItemController {
     private final ItemService itemService;
 
     @PostMapping
-    public ItemResponse addItems(@RequestBody ItemRequest itemRequest) throws NotFoundException{
-        return itemService.addItems(itemRequest);
+    public ResponseEntity<String> addItems(@RequestBody ItemRequest itemRequest) throws NotFoundException{
+        ItemResponse itemResponse = itemService.addItems(itemRequest);
+        return ResponseEntity.ok("Item added successfully : " + itemResponse);
     }
 
     @GetMapping
-    public List<Item> getAllItems(){
-        return itemService.getAllItems();
+    public ResponseEntity<List<Item>> getAllItems(){
+        return ResponseEntity.ok(itemService.getAllItems());
     }
 
     @GetMapping("/{item-id}")
-    public ItemResponse getItemById(@PathVariable("item-id") Long id) throws NotFoundException {
-        return itemService.getItemById(id);
+    public ResponseEntity<String> getItemById(@PathVariable("item-id") Long id) throws NotFoundException {
+        ItemResponse itemResponse = itemService.getItemById(id);
+        return ResponseEntity.ok("Item found:" + itemResponse);
     }
 
     @DeleteMapping("/{item-id}")
-    public String deleteItemById(@PathVariable("item-id") Long id) throws NotFoundException{
+    public String deleteById(@PathVariable("item-id")Long id)throws NotFoundException{
         return itemService.deleteItemById(id);
     }
+
 
 }
