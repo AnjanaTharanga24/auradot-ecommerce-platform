@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { ItemCardComponent } from "../../buyer/item-card/item-card.component";
-import { ItemService } from '../../services/item.service';
 import { CommonModule } from '@angular/common';
 import { SearchBarComponent } from "../search-bar/search-bar.component";
+import { ItemService } from '../../services/item-service/item.service';
 
 @Component({
   selector: 'app-home',

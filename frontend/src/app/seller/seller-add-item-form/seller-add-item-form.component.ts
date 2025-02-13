@@ -3,8 +3,8 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { ItemService } from '../../services/item.service';
 import { Item } from '../../common/item';
+import { ItemService } from '../../services/item-service/item.service';
 
 @Component({
   selector: 'app-seller-add-item-form',
