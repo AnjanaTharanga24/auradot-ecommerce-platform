@@ -5,22 +5,16 @@ import com.auradot.backend.model.Item;
 import com.auradot.backend.repository.ItemRepository;
 import com.auradot.backend.service.BuyerService;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class BuyerServiceImpl implements BuyerService {
 
-
     private ItemRepository itemRepository;
-
-
-
-
-
-
 
     @Override
     public List<Item> findItemsByName(String name) throws NotFoundException {
