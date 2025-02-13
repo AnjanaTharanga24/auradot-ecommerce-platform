@@ -12,6 +12,7 @@ import com.auradot.backend.repository.ItemCategoryRepository;
 import com.auradot.backend.repository.ItemRepository;
 import com.auradot.backend.service.ItemService;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -19,12 +20,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class ItemServiceImpl implements ItemService {
 
-    private ItemRepository itemRepository;
-    private ItemCategoryRepository itemCategoryRepository;
-    private InventoryRepository inventoryRepository;
+    private final ItemRepository itemRepository;
+    private final ItemCategoryRepository itemCategoryRepository;
+    private final InventoryRepository inventoryRepository;
 
     @Override
     public ItemResponse addItems(ItemRequest itemRequest) throws NotFoundException {
@@ -49,9 +50,7 @@ public class ItemServiceImpl implements ItemService {
         Inventory inventory = new Inventory();
         inventory.setItem(savedItem);
         inventory.setStockQuantity(itemRequest.getStockQuantity());
-        inventory.setCategory(savedItem.getItemCategory().getName());
         inventory.setMinimumStockLevel(itemRequest.getMinimumStockLevel());
-        inventory.setPurchasePrice(savedItem.getPrice());
 
         if (itemRequest.getStockQuantity() > 20) {
             inventory.setStockStatus(StockStatus.AVAILABLE);
