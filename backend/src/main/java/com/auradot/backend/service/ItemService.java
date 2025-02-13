@@ -4,6 +4,7 @@ import com.auradot.backend.controller.request.ItemRequest;
 import com.auradot.backend.controller.response.ItemResponse;
 import com.auradot.backend.exception.NotFoundException;
 import com.auradot.backend.model.Item;
+import com.auradot.backend.model.ItemCategory;
 
 import java.util.List;
 
@@ -13,5 +14,6 @@ public interface ItemService {
     List<Item> getAllItems();
     ItemResponse getItemById(Long id) throws NotFoundException;
     String deleteItemById(Long id) throws NotFoundException;
+    List<ItemCategory> getAllItemCategories();
 
 }
