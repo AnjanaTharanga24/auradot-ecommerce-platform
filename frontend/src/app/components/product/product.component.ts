@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { CartService } from '../../cart.service';
 import { CustomerService } from '../../services/customer.service';
 import { ProductCardComponent } from "../../UIcomponents/product-card/product-card.component";
+import { Product } from '../../common/product';
 
 @Component({
   selector: 'app-product',
@@ -15,7 +16,7 @@ import { ProductCardComponent } from "../../UIcomponents/product-card/product-ca
 export class ProductComponent implements OnInit {
 
 
-  products: any[] = [];
+  products: Product[] = [];
   
   
 
@@ -26,29 +27,33 @@ export class ProductComponent implements OnInit {
     this.fetchInitialCartCount();
   }
 
-  async getAllProducts(): Promise<void> {
-    try {
-      this.products = await this.customerService.getAllProducts();
-    } catch (error) {
-      console.error('Error fetching products:', error);
-    }
+  getAllProducts(): void {
+    this.customerService.getAllProducts()
+      .then((products) => {
+        this.products = products;
+      })
+      .catch((error) => {
+        console.log('Error fetching products:', error);
+      });
   }
-
-  async addToCart(id: any): Promise<void> {
-    try {
-      const response = await this.customerService.addToCart(id);
-      alert('Product added to cart: ' + response);
-    } catch (error) {
-      console.log('Error adding product:', error);
-    }
+  
+  addToCart(id: any): void {
+    this.customerService.addToCart(id)
+      .then((response) => {
+        alert('Product added to cart: ' + response);
+      })
+      .catch((error) => {
+        console.log('Error adding product:', error);
+      });
   }
-
-  async fetchInitialCartCount(): Promise<void> {
-    try {
-      const count = await this.customerService.getCartCount();
-      this.cartService.updateCartCount(count);
-    } catch (error) {
-      console.log('Error fetching count:', error);
-    }
+  
+  fetchInitialCartCount(): void {
+    this.customerService.getCartCount()
+      .then((count) => {
+        this.cartService.updateCartCount(count);
+      })
+      .catch((error) => {
+        console.log('Error fetching count:', error);
+      });
   }
 }

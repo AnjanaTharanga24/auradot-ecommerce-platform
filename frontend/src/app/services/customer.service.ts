@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import axios from 'axios';
 import { environment } from '../../environments/environment';
+import { Order } from '../common/order';
+import { Product } from '../common/product';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +10,7 @@ import { environment } from '../../environments/environment';
 export class CustomerService {
   private baseUrl = environment.baseUrl;
 
-  async getMyOrders(): Promise<any> {
+  async getMyOrders(): Promise<Order[]> {
     const response = await axios.get(`${this.baseUrl}/carts/myOrders`);
     return response.data;
   }
@@ -18,22 +20,22 @@ export class CustomerService {
     return response.data;
   }
 
-  async increaseQuantity(productId: any): Promise<any> {
+  async increaseQuantity(productId: Product): Promise<Product> {
     const response = await axios.post(`${this.baseUrl}/carts/addition`, { productId });
     return response.data;
   }
 
-  async placeOrder(orderData: any): Promise<any> {
+  async placeOrder(orderData: Order): Promise<Order> {
     const response = await axios.post(`${this.baseUrl}/carts/placeOrder`, orderData);
     return response.data;
   }
 
-  async getAllProducts(): Promise<any> {
+  async getAllProducts(): Promise<Product[]> {
     const response = await axios.get(`${this.baseUrl}/products`);
     return response.data;
   }
 
-  async addToCart(productId: any): Promise<any> {
+  async addToCart(productId: Product): Promise<Product> {
     const response = await axios.post(`${this.baseUrl}/carts`, { productId });
     return response.data;
   }

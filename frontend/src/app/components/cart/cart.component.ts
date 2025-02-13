@@ -8,6 +8,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { PlaceOrderComponent } from '../place-order/place-order.component';
 import { CustomerService } from '../../services/customer.service';
 import { CartItemComponent } from "../../UIcomponents/cart-item/cart-item.component";
+import { CartItem } from '../../common/cart-item';
+import { Order } from '../../common/order';
 
 
 @Component({
@@ -25,8 +27,8 @@ throw new Error('Method not implemented.');
 }
 
   
-  cartItems : any[] = [];
-  order: any;
+  cartItems : CartItem[] = [];
+  order!: any;
   
 
   constructor(private http: HttpClient,
@@ -40,24 +42,26 @@ throw new Error('Method not implemented.');
      this.getCart();
     }
 
-    async getCart(): Promise<void> {
-      try {
-        const res = await this.customerService.getCart();
-        this.order = res;
-        this.cartItems = res.cartItems || [];
-      } catch (error) {
-        console.error('Error fetching cart:', error);
-      }
+    getCart(): void {
+      this.customerService.getCart()
+        .then((res) => {
+          this.order = res;
+          this.cartItems = res.cartItems || [];
+        })
+        .catch((error) => {
+          console.log('Error fetching cart:', error);
+        });
     }
-  
-    async increaseQuantity(id: any): Promise<void> {
-      try {
-        await this.customerService.increaseQuantity(id);
-        this.snackbar.open('Increased', 'Close', { duration: 2000 });
-        this.getCart();
-      } catch (error) {
-        console.error('Error adding product to cart:', error);
-      }
+    
+    increaseQuantity(id: any): void {
+      this.customerService.increaseQuantity(id)
+        .then(() => {
+          this.snackbar.open('Increased', 'Close', { duration: 2000 });
+          this.getCart();
+        })
+        .catch((error) => {
+          console.log('Error adding product to cart:', error);
+        });
     }
     
     placeOrder(){

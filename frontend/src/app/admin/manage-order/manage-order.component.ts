@@ -6,6 +6,7 @@ import { MatMenu, MatMenuTrigger } from '@angular/material/menu';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { AdminService } from '../../services/admin.service';
+import { Order } from '../../common/order';
 
 @Component({
   selector: 'app-manage-order',
@@ -15,7 +16,7 @@ import { AdminService } from '../../services/admin.service';
 })
 export class ManageOrderComponent implements OnInit {
 
-  orders: any[] = [];
+  orders: Order[] = [];
 
   constructor(
     private http: HttpClient,
@@ -26,21 +27,24 @@ export class ManageOrderComponent implements OnInit {
     this.getAllOrders();
   }
 
-  async getAllOrders(): Promise<void> {
-    try {
-      this.orders = await this.adminService.getAllOrders();
-    } catch (error) {
-      console.error('Error fetching orders:', error);
-    }
+  getAllOrders(): void {
+    this.adminService.getAllOrders()
+      .then((orders) => {
+        this.orders = orders;
+      })
+      .catch((error) => {
+        console.error('Error fetching orders:', error);
+      });
   }
 
-  async changeOrderStatus(orderId: number, status: string): Promise<void> {
-    try {
-      const response = await this.adminService.changeOrderStatus(orderId, status);
-      alert('Change success: ' + response);
-      this.getAllOrders();
-    } catch (error) {
-      console.error('Error changing status:', error);
-    }
+  changeOrderStatus(orderId: number, status: string): void {
+    this.adminService.changeOrderStatus(orderId, status)
+      .then((response) => {
+        alert('Change success: ' + response);
+        this.getAllOrders();
+      })
+      .catch((error) => {
+        console.error('Error changing status:', error);
+      });
   }
 }

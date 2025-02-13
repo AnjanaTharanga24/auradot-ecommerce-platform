@@ -42,15 +42,15 @@ export class ItemService {
       throw error;
     }
 
-  sellerAddItems(item: Item) {
-    return axios.post(`${this.apiUrl}/items`, item)
-      .then(response => {
-        return response.data;
-      })
-      .catch(error => {
-        console.error('Error adding item:', error);
-        throw error;
-      });
-  }
-  
+}
+ sellerAddItems(item: Item) {
+  return axios.post(`${this.baseUrl}/items`, item)
+    .then(response => {
+      return response.data;
+    })
+    .catch(error => {
+      console.error('Error adding item:', error);
+      throw error;
+    });
+}
 }
