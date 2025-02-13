@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { InventoryServiceService } from '../../services/inventory-service.service';
 import { Item } from '../../common/item';
+import { InventoryServiceService } from '../../services/inventory-service/inventory-service.service';
 
 @Component({
   selector: 'app-admin-header',

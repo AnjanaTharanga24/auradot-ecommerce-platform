@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { InventoryServiceService } from '../../services/inventory-service.service';
 import { CommonModule } from '@angular/common';
+import { InventoryServiceService } from '../../services/inventory-service/inventory-service.service';
+import { AlertService } from '../../services/alert-service/alert.service';
 
 @Component({
   selector: 'app-admin-view-item-table',
@@ -12,7 +13,9 @@ import { CommonModule } from '@angular/common';
 export class AdminViewItemTableComponent implements OnInit {
   items: any[] = [];
 
-  constructor(private inventoryService: InventoryServiceService) {}
+  constructor(private inventoryService: InventoryServiceService,
+              private alertService: AlertService
+  ) {}
 
   getStockStatusClass(status: string): string {
     switch(status) {
@@ -26,6 +29,7 @@ export class AdminViewItemTableComponent implements OnInit {
         return 'status-default';
     }
   }
+
   async ngOnInit() {
     try {
       this.items = await this.inventoryService.getAllItems();
@@ -34,4 +38,23 @@ export class AdminViewItemTableComponent implements OnInit {
       console.error('Error fetching items:', error);
     }
   }
+
+  async deleteItemsById(id: number) {
+       
+    const isConfirmed = await this.alertService.confirmDelete();
+
+    if (isConfirmed) {
+        try {
+          const response = await this.inventoryService.itemDeleteById(id);
+          this.items = this.items.filter(item => item.id !== id);
+          this.alertService.showSuccess('Your item has been deleted.');
+          console.log(response.data)
+        } catch (error) {
+          console.error('Error deleting item:', error);
+          this.alertService.showError('Failed to delete the item.');
+        }
+    }
+  }
+
+
 }

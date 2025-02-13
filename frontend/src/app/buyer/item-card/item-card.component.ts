@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { ItemService } from '../../services/item.service';
 import { CommonModule } from '@angular/common';
+import { ItemService } from '../../services/item-service/item.service';
 
 @Component({
   selector: 'app-item-card',
@@ -14,16 +14,16 @@ export class ItemCardComponent {
 
   constructor(private itemService: ItemService) {}
 
-  getStockStatusColor(status: string): string{
-    switch(status){
+  getStockStatusClass(status: string): string {
+    switch(status) {
       case 'available':
-        return 'green';
+        return 'status-available';
       case 'low_stock':
-        return '#eae013';
+        return 'status-low';
       case 'out_of_stock':
-        return 'red';
+        return 'status-out';
       default:
-        return '';
+        return 'status-default';
     }
   }
 
