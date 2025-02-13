@@ -52,7 +52,7 @@ public class ItemServiceImpl implements ItemService {
         inventory.setStockQuantity(itemRequest.getStockQuantity());
         inventory.setMinimumStockLevel(itemRequest.getMinimumStockLevel());
 
-        if (itemRequest.getStockQuantity() > 20) {
+        if (itemRequest.getStockQuantity() > itemRequest.getMinimumStockLevel()) {
             inventory.setStockStatus(StockStatus.AVAILABLE);
         } else if (itemRequest.getStockQuantity() < itemRequest.getMinimumStockLevel() && itemRequest.getStockQuantity() >= 1) {
             inventory.setStockStatus(StockStatus.LOW_STOCK);
