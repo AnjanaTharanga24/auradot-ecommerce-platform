@@ -23,14 +23,8 @@ public class Inventory {
     @Column(name = "stock_quantity")
     private Integer stockQuantity;
 
-    @Column(name = "category")
-    private String category;
-
     @Column(name = "min_stock_level")
     private Integer minimumStockLevel;
-
-    @Column(name = "purchase_price")
-    private Float purchasePrice;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "stock_status")

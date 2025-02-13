@@ -6,12 +6,13 @@ import com.auradot.backend.exception.NotFoundException;
 import com.auradot.backend.model.Item;
 import com.auradot.backend.service.ItemService;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@AllArgsConstructor
+@RequiredArgsConstructor
 @CrossOrigin("http://localhost:4200/")
 @RequestMapping("/api/items")
 public class ItemController {
