@@ -41,9 +41,10 @@ export class ItemService {
       console.error('Error adding to cart:', error);
       throw error;
     }
+  }
 
   sellerAddItems(item: Item) {
-    return axios.post(`${this.apiUrl}/items`, item)
+    return axios.post(`${this.baseUrl}/items`, item)
       .then(response => {
         return response.data;
       })
@@ -52,5 +53,7 @@ export class ItemService {
         throw error;
       });
   }
-  
+
 }
+  
+
