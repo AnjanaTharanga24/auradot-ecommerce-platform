@@ -38,9 +38,9 @@ public class ItemController {
     }
 
     @DeleteMapping("/{item-id}")
-    public ResponseEntity<String> deleteItemById(@PathVariable("item-id") Long id) throws NotFoundException{
-        String message = itemService.deleteItemById(id);
-        return ResponseEntity.ok(message);
+    public String deleteById(@PathVariable("item-id")Long id)throws NotFoundException{
+        return itemService.deleteItemById(id);
     }
+
 
 }

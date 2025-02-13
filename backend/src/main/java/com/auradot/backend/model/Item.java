@@ -17,7 +17,7 @@ public class Item {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "imageUrl")
+    @Column(name = "img_url")
     private String imgUrl;
 
     @ManyToOne
@@ -30,6 +30,9 @@ public class Item {
 
     @Column(name = "price")
     private Float price;
+
+    @Column(name = "is_active", columnDefinition = "TINYINT(1) DEFAULT 1")
+    private Boolean isActive = true;
 
     @OneToOne
     @JsonManagedReference
