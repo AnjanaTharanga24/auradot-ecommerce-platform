@@ -19,9 +19,9 @@
           <label>Category</label>
           <select formControlName="categoryId">
             <option value="">Select a category</option>
-            <option value="1">Laptops</option>
-            <option value="2">Mobiles</option>
-            <option value="3">Others</option>
+            <option *ngFor="let category of categories" value={{category.id}} >
+              {{ category.name }}
+            </option>            
           </select>
           <div class="field-underline"></div>
         </div>

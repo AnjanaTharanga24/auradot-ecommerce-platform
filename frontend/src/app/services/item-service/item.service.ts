@@ -3,22 +3,20 @@ import axios from 'axios';
 import { environment } from '../../../environments/environment';
 import { Item } from '../../common/item';
 
-
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ItemService {
- private baseUrl = environment.baseUrl;
- 
-  constructor() { }
+  private baseUrl = environment.baseUrl;
+
+  constructor() {}
 
   async getAllItems() {
     try {
       const response = await axios.get(`${this.baseUrl}/items`);
       return response.data.map((item: any) => ({
         ...item,
-        quantity: 0, 
+        quantity: 0,
       }));
     } catch (error) {
       console.error('Error fetching items:', error);
@@ -36,7 +34,10 @@ export class ItemService {
     };
 
     try {
-      const response = await axios.post(`${this.baseUrl}/buyer/items`, cartRequest);
+      const response = await axios.post(
+        `${this.baseUrl}/buyer/items`,
+        cartRequest
+      );
       return response.data;
     } catch (error) {
       console.error('Error adding to cart:', error);
@@ -45,17 +46,27 @@ export class ItemService {
   }
 
   sellerAddItems(item: Item) {
-    return axios.post(`${this.baseUrl}/items`, item)
-      .then(response => {
+    return axios
+      .post(`${this.baseUrl}/items`, item)
+      .then((response) => {
         return response.data;
       })
-      .catch(error => {
+      .catch((error) => {
         console.error('Error adding item:', error);
         throw error;
       });
   }
 
+  getAllCategories() {
+    return axios
+      .get(`${this.baseUrl}/items/categories`)
+      .then((response) => {
+        return response.data;
+      })
+      .catch((error) => {
+        console.log('Error fetching item categories');
+        throw error;
+      });
+  }
 
 }
-  
-

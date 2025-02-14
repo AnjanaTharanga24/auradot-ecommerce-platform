@@ -118,5 +118,10 @@ public class ItemServiceImpl implements ItemService {
         return "Item delete successfully";
     }
 
+    @Override
+    public List<ItemCategory> getAllItemCategories() {
+        return itemCategoryRepository.findAll();
+    }
+
 
 }
