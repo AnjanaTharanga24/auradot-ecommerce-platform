@@ -14,11 +14,11 @@ export class AdminService {
   constructor(private http: HttpClient) { }
 
   async getAllOrders(): Promise<Order[]> {
-    const response = await axios.get(`${this.baseUrl}/orders/adminOrders`);
+    const response = await axios.get(`${this.baseUrl}/orders`);
     return response.data;
   }
   
   async changeOrderStatus(orderId: number, status: string): Promise<any> {
-    const response = await axios.get(`${this.baseUrl}/orders/adminOrders/${orderId}/${status}`);
+    const response = await axios.post(`${this.baseUrl}/orders/${orderId}/status/${status}`);
   }
 }

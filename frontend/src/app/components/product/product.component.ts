@@ -39,12 +39,14 @@ export class ProductComponent implements OnInit {
   
   addToCart(id: any): void {
     this.customerService.addToCart(id)
-      .then((response) => {
-        alert('Product added to cart: ' + response);
-      })
-      .catch((error) => {
-        console.log('Error adding product:', error);
-      });
+    .then((response) => {
+      alert('Product added to cart successfully!');
+      this.fetchInitialCartCount();
+    })
+    .catch((error) => {
+      console.log('Error adding product:', error);
+      alert('Failed to add product to cart.');
+    });
   }
   
   fetchInitialCartCount(): void {

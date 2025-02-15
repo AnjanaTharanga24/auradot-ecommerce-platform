@@ -29,6 +29,7 @@ throw new Error('Method not implemented.');
   
   cartItems : CartItem[] = [];
   order!: any;
+  totalAmount: number = 0;
   
 
   constructor(private http: HttpClient,
@@ -46,11 +47,15 @@ throw new Error('Method not implemented.');
       this.customerService.getCart()
         .then((res) => {
           this.order = res;
-          this.cartItems = res.cartItems || [];
+          this.cartItems = res.products || [];
+          this.calculateTotalAmount();
         })
         .catch((error) => {
           console.log('Error fetching cart:', error);
         });
+    }
+    calculateTotalAmount(): void {
+      this.totalAmount = this.cartItems.reduce((total, item) => total + item.price, 0);
     }
     
     increaseQuantity(id: any): void {
@@ -63,7 +68,16 @@ throw new Error('Method not implemented.');
           console.log('Error adding product to cart:', error);
         });
     }
-    
+    removeItem(productId: number): void {
+      this.customerService.removeFromCart(productId)
+        .then(() => {
+          this.snackbar.open('Removed from cart', 'Close', { duration: 2000 });
+          this.getCart();
+        })
+        .catch((error) => {
+          console.log('Error removing product from cart:', error);
+        });
+    }
     placeOrder(){
       this.dialog.open(PlaceOrderComponent);
     }

@@ -1,0 +1,140 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #f5f5f5;
+    width: 100%;
+  }
+  
+  /* Container for the entire cart page */
+  .cart-container {
+    width: 100%;
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  /* Cart page layout: two columns on larger screens */
+  .cart-page {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  /* Left side: Cart Items */
+  .cart-items {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+  }
+  
+  /* Right side: Order Summary */
+  .order-summary {
+    flex: 1;
+    min-width: 300px;
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    align-self: flex-start;
+  }
+  
+  /* Product card styles with fixed width */
+  .product-info {
+    width: 700px; /* Fixed width for all product cards */
+    display: flex;
+    flex-direction: row;
+    background-color: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .product-info:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+  }
+  
+  /* Product image */
+  .product-image {
+    flex: 0 0 150px;
+    overflow: hidden;
+  }
+  
+  .product-image img {
+    width: 150px;
+    height: 100%;
+    object-fit: cover;
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+  }
+  
+  /* Product details */
+  .product-details {
+    flex: 1;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+  }
+  
+  .item-name {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #222;
+  }
+  
+  .item-price {
+    font-size: 1rem;
+    color: #444;
+    margin-top: 5px;
+  }
+  
+  /* Button styles */
+  button {
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 3px 5px;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.3s;
+    background: #75b8ff;
+    color: white;
+    border: none;
+  }
+  .delete-btn {
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 5px 5px;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.3s;
+    background: #c9c9c9;
+    color: rgb(71, 71, 71);
+    border: none;
+  }
+  .delete-btn:hover {
+    background: #a5d1ff;
+  }
+  button:hover {
+    background: #037dff;
+  }
+  
+  /* Empty cart styles */
+  .empty-cart {
+    text-align: center;
+    color: #777;
+    margin-top: 40px;
+  }
+  
+  .empty-cart .icon {
+    font-size: 5rem;
+  }
+  

@@ -16,9 +16,9 @@ throw new Error('Method not implemented.');
 
   getOrderProgress(status: string): string {
     switch (status) {
-      case 'placed': return '33%';
-      case 'shipped': return '66%';
-      case 'delivered': return '100%';
+      case 'PLACED': return '33%';
+      case 'SHIPPED': return '66%';
+      case 'DELIVERED': return '100%';
       default: return '0%';
     }
   }

@@ -11,12 +11,15 @@ export class CustomerService {
   private baseUrl = environment.baseUrl;
 
   async getMyOrders(): Promise<Order[]> {
-    const response = await axios.get(`${this.baseUrl}/carts/myOrders`);
+    const response = await axios.get(`${this.baseUrl}/orders`);
+    console.log(response);
     return response.data;
+    console.log(response.data);
+    
   }
   
   async getCart(): Promise<any> {
-    const response = await axios.get(`${this.baseUrl}/carts/available`);
+    const response = await axios.get(`${this.baseUrl}/carts/${1}`);
     return response.data;
   }
 
@@ -25,7 +28,11 @@ export class CustomerService {
     return response.data;
   }
 
-  async placeOrder(orderData: Order): Promise<Order> {
+  async placeOrder(address: string): Promise<Order> {
+    const orderData = {
+      cartId: 1,
+      address: address
+    };
     const response = await axios.post(`${this.baseUrl}/carts/placeOrder`, orderData);
     return response.data;
   }
@@ -36,12 +43,23 @@ export class CustomerService {
   }
 
   async addToCart(productId: Product): Promise<Product> {
-    const response = await axios.post(`${this.baseUrl}/carts`, { productId });
+    const payload = {
+      productId: productId,
+      cartId: 1,
+    };
+    const response = await axios.post(`${this.baseUrl}/carts/addProduct`, payload);
+    this.getCartCount();
     return response.data;
+  }
+  async removeFromCart(productId: number): Promise<void> {
+    const cartId=1;
+    await axios.delete(`${this.baseUrl}/carts/${cartId}/removeProduct/${productId}`);
+    this.getCartCount();
   }
 
   async getCartCount(): Promise<any> {
-    const response = await axios.get(`${this.baseUrl}/carts/count`);
+    const cartId=1;
+    const response = await axios.get(`${this.baseUrl}/carts/${cartId}/productCount`);
     return response.data;
   }
 }

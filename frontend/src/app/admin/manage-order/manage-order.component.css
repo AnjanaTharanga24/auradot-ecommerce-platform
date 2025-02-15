@@ -1,0 +1,78 @@
+/* Container styling */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  /* Card styling */
+  mat-card {
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e2e8f0;
+  }
+  
+  /* Table header styling */
+  .mat-mdc-table thead {
+    background-color: #f7fafc;
+  }
+  
+  .mat-mdc-header-cell {
+    color: #2d3748;
+    font-weight: 600;
+    font-size: 16px;
+    padding: 12px;
+  }
+  
+  /* Table row styling */
+  .mat-mdc-row {
+    background-color: #ffffff;
+    transition: background-color 0.3s ease;
+  }
+  
+  .mat-mdc-row:hover {
+    background-color: #edf2f7;
+  }
+  
+  /* Table cell styling */
+  .mat-mdc-cell {
+    color: #4a5568;
+    font-size: 14px;
+    padding: 12px;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  
+  /* Action button styling */
+  .mat-raised-button {
+    background-color: #3182ce;
+    color: #ffffff;
+    padding: 8px 16px;
+    border-radius: 8px;
+    text-transform: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+  }
+  
+  .mat-raised-button:hover {
+    background-color: #2b6cb0;
+  }
+  
+  /* Menu item styling */
+  .mat-menu-item {
+    color: #4a5568;
+    font-size: 14px;
+    padding: 10px 20px;
+  }
+  
+  .mat-menu-item:hover {
+    background-color: #e2e8f0;
+  }
+  .mat-menu-panel {
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .mat-menu-item:hover {
+    background-color: #e0f7fa;
+  }
