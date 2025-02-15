@@ -1,35 +1,47 @@
-<app-seller-nav></app-seller-nav>
 
-<div class="admin-page">
-    <div class="card admin-table ">
-      
-      
-      <table class="table ">
-          <thead class="thead-dark">
+<div class="container py-5">
+  <div class="card custom-card">
+  
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table custom-table">
+          <thead>
             <tr>
-              <th scope="col">Image</th>
-              <th scope="col">Item Name</th>
-              <th scope="col">Description</th>
-              <th scope="col">Price</th>
-              <th scope="col">Action</th>
+              <th class="text-center">Image</th>
+              <th class="text-center">Item Name</th>
+              <th class="text-center">Stock</th>
+              <th class="text-center">Min Stock</th>
+              <th class="text-center">Price</th>
+              <th class="text-center">Status</th>
+              <th class="text-center">Actions</th>
             </tr>
           </thead>
-          <tbody *ngFor="let item of items">
-            <tr>
-              <th scope="row">
-                  <img src="https://tee.lk/wp-content/uploads/2021/09/Red.png" height="50px" />
-              </th>
-              <td class="align-middle">{{item.name}}</td>
-              <td class="align-middle">{{item.description}}</td>
-              <td class="align-middle">{{item.price + "$"}}</td>
-              <td>
-                  <button class="btn btn-danger mt-2" >Delete</button>
+          <tbody>
+            <tr *ngFor="let item of items">
+              <td class="text-center">
+                <div class="img-wrapper">
+                  <img [src]="item.imgUrl" [alt]="item.name" class="inventory-img">
+                </div>
+              </td>
+              <td class="text-center fw-semibold">{{ item.name }}</td>
+              <td class="text-center">{{ item.inventory.stockQuantity }}</td>
+              <td class="text-center">{{ item.inventory.minimumStockLevel }}</td>
+              <td class="text-center fw-bold">${{ item.price }}</td>
+              <td class="text-center">
+                <div class="status-badge" [ngClass]="getStockStatusClass(item.inventory.stockStatus | lowercase)">
+                  <span class="status-text">{{ item.inventory.stockStatus | lowercase }}</span>
+                </div>
+              </td>
+              
+              <td class="text-center">
+                <button class="btn-delete" (click)="deleteItemsById(item.id)">
+                  <i class="fas fa-trash-alt me-1"></i>Delete
+                </button>
               </td>
             </tr>
           </tbody>
         </table>
+      </div>
+    </div>
   </div>
-  </div>
-  
-  
-  
+</div>

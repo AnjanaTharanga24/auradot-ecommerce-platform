@@ -49,4 +49,84 @@
     margin-bottom: 20px;
     margin-left: 90px;
   }
+
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-weight: 500;
+    font-size: 0.875rem;
+    letter-spacing: 0.025em;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    justify-content: center;
+    width: 100px;
+    margin-left: 80px;
+    margin-bottom: 30px;
+    
+    &:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+  
+    .status-icon {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      display: inline-block;
+      animation: pulse 2s infinite;
+    }
+  
+    .status-text {
+      text-transform: capitalize;
+    }
+  }
+  
+  @keyframes pulse {
+    0% {
+      transform: scale(0.95);
+      opacity: 0.8;
+    }
+    70% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(0.95);
+      opacity: 0.8;
+    }
+  }
+  
+  .status-available {
+    background: linear-gradient(145deg, #22c55e, #16a34a);
+    color: white;
+    .status-icon {
+      background-color: #dcfce7;
+    }
+  }
+  
+  .status-low {
+    background: linear-gradient(145deg, #eab308, #ca8a04);
+    color: white;
+    .status-icon {
+      background-color: #fef9c3;
+    }
+  }
+  
+  .status-out {
+    background: linear-gradient(145deg, #ef4444, #dc2626);
+    color: white;
+    .status-icon {
+      background-color: #fee2e2;
+    }
+  }
+  
+  .status-default {
+    background: linear-gradient(145deg, #6b7280, #4b5563);
+    color: white;
+    .status-icon {
+      background-color: #f3f4f6;
+    }
+  }
   

@@ -52,7 +52,7 @@ public class ItemServiceImpl implements ItemService {
         inventory.setStockQuantity(itemRequest.getStockQuantity());
         inventory.setMinimumStockLevel(itemRequest.getMinimumStockLevel());
 
-        if (itemRequest.getStockQuantity() > 20) {
+        if (itemRequest.getStockQuantity() > itemRequest.getMinimumStockLevel()) {
             inventory.setStockStatus(StockStatus.AVAILABLE);
         } else if (itemRequest.getStockQuantity() < itemRequest.getMinimumStockLevel() && itemRequest.getStockQuantity() >= 1) {
             inventory.setStockStatus(StockStatus.LOW_STOCK);
@@ -81,7 +81,7 @@ public class ItemServiceImpl implements ItemService {
     }
     @Override
     public List<Item> getAllItems() {
-        List<Item> items = itemRepository.findAll();
+        List<Item> items = itemRepository.findByIsActiveTrue();
         return items;
     }
 
@@ -104,15 +104,23 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public String deleteItemById(Long id) throws NotFoundException {
+
         Optional<Item> optionalItem = itemRepository.findById(id);
 
         if (!optionalItem.isPresent()){
             throw new NotFoundException("Item not found with id : " + id);
         }
-        Item item = optionalItem.get();
 
-        itemRepository.deleteById(id);
-        return "Item deleted with id : " + id;
+        Item item = optionalItem.get();
+        item.setIsActive(false);
+        itemRepository.save(item);
+
+        return "Item delete successfully";
+    }
+
+    @Override
+    public List<ItemCategory> getAllItemCategories() {
+        return itemCategoryRepository.findAll();
     }
 
 
