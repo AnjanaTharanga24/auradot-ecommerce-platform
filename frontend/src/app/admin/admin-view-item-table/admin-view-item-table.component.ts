@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { InventoryServiceService } from '../../services/inventory-service/inventory-service.service';
 import { AlertService } from '../../services/alert-service/alert.service';
+import { InventoryServiceService } from '../../services/inventory-service/inventory-service.service';
 
 @Component({
   selector: 'app-admin-view-item-table',
@@ -31,13 +31,17 @@ export class AdminViewItemTableComponent implements OnInit {
   }
 
   async ngOnInit() {
+    this.getAllItems();
+   }
+
+   async getAllItems(){
     try {
       this.items = await this.inventoryService.getAllItems();
       console.log('Fetched items:', this.items);
     } catch (error) {
       console.error('Error fetching items:', error);
     }
-  }
+   }
 
   async deleteItemsById(id: number) {
        
