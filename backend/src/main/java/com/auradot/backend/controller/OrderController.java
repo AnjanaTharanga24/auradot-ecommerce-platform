@@ -1,9 +1,6 @@
 package com.auradot.backend.controller;
 
-import com.auradot.backend.controller.request.OrderRequest;
-import com.auradot.backend.controller.response.OrderResponse;
 import com.auradot.backend.dto.OrderDTO;
-import com.auradot.backend.model.Order;
 import com.auradot.backend.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,34 +10,33 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api/orders")
+@CrossOrigin(origins = "http://localhost:4200")
 public class OrderController {
 
     @Autowired
     private OrderService orderService;
 
-    @PostMapping
-    public ResponseEntity<OrderResponse> createOrder(@RequestBody OrderRequest order) {
-        OrderResponse orders = orderService.createOrder(order);
-        return ResponseEntity.status(HttpStatus.CREATED).body(orders);
+    @GetMapping
+    public ResponseEntity<List<OrderDTO>> getAllOrders() {
+        List<OrderDTO> orders = orderService.getAllOrders();
+        return ResponseEntity.ok(orders);
     }
 
-
-    @GetMapping("/adminOrders")
-    public ResponseEntity<List<OrderDTO>>getAllPlacedOrders(){
-        return ResponseEntity.ok(orderService.getAllPlacedOrders());
-    }
-
-    @GetMapping("/adminOrders/{orderId}/{status}")
-    public ResponseEntity<?> changeOrderStatus(@PathVariable Long orderId, @PathVariable String status){
-        OrderDTO orderDTO = orderService.changeOrderStatus(orderId,status);
-        if(orderDTO==null){
-            return new ResponseEntity<>("something happed",HttpStatus.BAD_REQUEST);
-
+    @PostMapping("/{orderId}/status/{status}")
+    public ResponseEntity<?> changeOrderStatus(@PathVariable Long orderId,
+                                               @PathVariable String status) {
+        try {
+            OrderDTO orderDTO = orderService.changeOrderStatus(orderId, status);
+            return ResponseEntity.ok(orderDTO);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(e.getMessage());
         }
-        return ResponseEntity.status(HttpStatus.OK).body(orderDTO);
     }
-
-
+    @GetMapping("/placed")
+    public ResponseEntity<List<OrderDTO>> getAllPlacedOrders() {
+        List<OrderDTO> orders = orderService.getAllPlacedOrders();
+        return ResponseEntity.ok(orders);
+    }
 }

@@ -1,166 +1,132 @@
 package com.auradot.backend.service.impl;
 
-import com.auradot.backend.dto.CartItemsDTO;
+import com.auradot.backend.dto.AddProductToCartDTO;
+import com.auradot.backend.dto.CartDTO;
 import com.auradot.backend.dto.OrderDTO;
 import com.auradot.backend.dto.PlaceOrderDTO;
-import com.auradot.backend.dto.ProductInCartDTO;
+import com.auradot.backend.dto.ProductDTO;
 import com.auradot.backend.exception.NotFoundException;
-import com.auradot.backend.model.CartItems;
+import com.auradot.backend.model.Cart;
 import com.auradot.backend.model.Order;
 import com.auradot.backend.model.Product;
 import com.auradot.backend.model.enums.OrderStatus;
-import com.auradot.backend.repository.CartItemsRepository;
+import com.auradot.backend.repository.CartRepository;
 import com.auradot.backend.repository.OrderRepository;
 import com.auradot.backend.repository.ProductRepository;
 import com.auradot.backend.service.CartService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
-import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
 public class CartServiceImpl implements CartService {
 
-    private static final Logger logger = LoggerFactory.getLogger(CartServiceImpl.class);
-
     private final OrderRepository orderRepository;
-    private final CartItemsRepository cartItemsRepository;
+
+    private final CartRepository cartRepository;
+
     private final ProductRepository productRepository;
 
     public CartServiceImpl(OrderRepository orderRepository,
-                           CartItemsRepository cartItemsRepository,
-                           ProductRepository productRepository) {
+                           ProductRepository productRepository,
+                           CartRepository cartRepository) {
         this.orderRepository = orderRepository;
-        this.cartItemsRepository = cartItemsRepository;
         this.productRepository = productRepository;
+        this.cartRepository=cartRepository;
     }
 
     @Override
-    public ResponseEntity<?> addProductToCart(ProductInCartDTO addProductToCart) {
-        logger.info("Adding product to cart: {}", addProductToCart.getProductId());
+    public CartDTO addProductToCart(AddProductToCartDTO dto) throws NotFoundException {
+        Cart cart = cartRepository.findById(dto.getCartId()).orElse(new Cart());
 
-        Order activeOrder = orderRepository.findByOrderStatus(OrderStatus.pending);
-        if (activeOrder == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("No active order found for the user.");
+        Product product = productRepository.findById(dto.getProductId())
+                .orElseThrow(() -> new NotFoundException("Product not found"));
+
+        if (!cart.getProducts().contains(product)) {
+            cart.getProducts().add(product);
         }
-
-        Optional<CartItems> existingCartItem = cartItemsRepository
-                .findByProductIdAndOrderId(addProductToCart.getProductId(), activeOrder.getId());
-
-        if (existingCartItem.isPresent()) {
-            return ResponseEntity.status(HttpStatus.CONFLICT)
-                    .body("Product is already in the cart.");
-        }
-
-        Optional<Product> product = productRepository.findById(addProductToCart.getProductId());
-        if (product.isPresent()) {
-            CartItems cartItem = new CartItems();
-            cartItem.setProduct(product.get());
-            cartItem.setPrice(product.get().getPrice());
-            cartItem.setQuantity(1L);
-            cartItem.setOrder(activeOrder);
-
-            CartItems savedCartItem = cartItemsRepository.save(cartItem);
-            logger.info("Product saved to cart: {}", savedCartItem);
-
-            activeOrder.setTotalAmount(activeOrder.getTotalAmount() + cartItem.getPrice());
-            activeOrder.setAmount(activeOrder.getAmount() + cartItem.getPrice());
-            activeOrder.getCartItems().add(savedCartItem);
-
-            orderRepository.save(activeOrder);
-            return ResponseEntity.status(HttpStatus.CREATED).body(savedCartItem);
-        }
-
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product not found.");
+        Cart savedCart = cartRepository.save(cart);
+        return convertToCartDTO(savedCart);
     }
 
     @Override
-    public OrderDTO getCartByPendingOrders() throws NotFoundException {
-        Order order = orderRepository.findByOrderStatus(OrderStatus.pending);
-        if (order == null) {
-            throw new NotFoundException("No active cart found.");
-        }
-
-        List<CartItemsDTO> cartItemsDTOList = order.getCartItems()
-                .stream()
-                .map(CartItems::getCartDto)
-                .collect(Collectors.toList());
-
-        OrderDTO orderDTO = new OrderDTO();
-        orderDTO.setAmount(order.getAmount());
-        orderDTO.setId(order.getId());
-        orderDTO.setOrderStatus(order.getOrderStatus());
-        orderDTO.setTotalAmount(order.getTotalAmount());
-        orderDTO.setCartItems(cartItemsDTOList);
-
-        return orderDTO;
+    public CartDTO getCart(Long cartId) throws NotFoundException {
+        Cart cart = cartRepository.findById(cartId)
+                .orElseThrow(() -> new NotFoundException("Cart not found"));
+        return convertToCartDTO(cart);
     }
 
     @Override
-    public OrderDTO increaseProductQuantity(ProductInCartDTO productInCartDTO) throws NotFoundException  {
-        Order order = orderRepository.findByOrderStatus(OrderStatus.pending);
-        if (order == null) {
-            throw new NotFoundException ("No active order found.");
-        }
+    public OrderDTO placeOrder(PlaceOrderDTO dto) throws NotFoundException {
+        Cart cart = cartRepository.findById(dto.getCartId())
+                .orElseThrow(() -> new NotFoundException("Cart not found"));
 
-        Optional<CartItems> cartItemOptional = cartItemsRepository
-                .findByProductIdAndOrderId(productInCartDTO.getProductId(), order.getId());
+        Long total = cart.getProducts().stream()
+                .mapToLong(Product::getPrice)
+                .sum();
 
-        if (cartItemOptional.isPresent()) {
-            CartItems cartItem = cartItemOptional.get();
-            cartItem.setQuantity(cartItem.getQuantity() + 1);
-            cartItemsRepository.save(cartItem);
-
-            order.setAmount(order.getAmount() + cartItem.getPrice());
-            order.setTotalAmount(order.getTotalAmount() + cartItem.getPrice());
-            orderRepository.save(order);
-
-            return order.getOrderDTO();
-        }
-
-        throw new NotFoundException ("Product not found in cart.");
-    }
-
-    @Override
-    public OrderDTO placeOrder(PlaceOrderDTO placeOrderDTO) throws NotFoundException  {
-        Order order = orderRepository.findByOrderStatus(OrderStatus.pending);
-        if (order == null) {
-            throw new NotFoundException ("No active order to place.");
-        }
-
-        order.setOrderDescription(placeOrderDTO.getOrderDescription());
-        order.setAddress(placeOrderDTO.getAddress());
+        Order order = new Order();
+        order.setCart(cart);
         order.setDate(new Date());
-        order.setOrderStatus(OrderStatus.placed);
+        order.setAddress(dto.getAddress());
+        order.setTotalAmount(total);
         order.setTrackingId(UUID.randomUUID());
+        order.setOrderStatus(OrderStatus.PLACED);
 
-        orderRepository.save(order);
+        Order savedOrder = orderRepository.save(order);
 
-        Order newOrder = new Order();
-        newOrder.setAmount(0L);
-        newOrder.setTotalAmount(0L);
-        newOrder.setOrderStatus(OrderStatus.pending);
-        orderRepository.save(newOrder);
+        cart.getProducts().clear();
+        cartRepository.save(cart);
 
-        return order.getOrderDTO();
+        return convertToOrderDTO(savedOrder);
     }
 
     @Override
-    public int getCartItemCount() {
-        return (int) cartItemsRepository.count();
+    public CartDTO removeProductFromCart(Long cartId, Long productId) throws NotFoundException {
+        Cart cart = cartRepository.findById(cartId)
+                .orElseThrow(() -> new NotFoundException("Cart not found"));
+
+        boolean removed = cart.getProducts().removeIf(product -> product.getId().equals(productId));
+        if (!removed) {
+            throw new NotFoundException("Product not found in cart");
+        }
+        Cart savedCart = cartRepository.save(cart);
+        return convertToCartDTO(savedCart);
     }
 
-    public List<OrderDTO> getPlacedOrders(){
-        return orderRepository.findByOrderStatusIn(List.of(OrderStatus.placed, OrderStatus.delivered, OrderStatus.shipped))
-                .stream().map(Order::getOrderDTO).collect(Collectors.toList());
+    @Override
+    public int getCartProductCount(Long cartId) throws NotFoundException {
+        Cart cart = cartRepository.findById(cartId)
+                .orElseThrow(() -> new NotFoundException("Cart not found"));
+        return cart.getProducts().size();
+    }
+
+    private CartDTO convertToCartDTO(Cart cart) {
+        CartDTO dto = new CartDTO();
+        dto.setId(cart.getId());
+        dto.setProducts(cart.getProducts().stream().map(product -> {
+            ProductDTO pDto = new ProductDTO();
+            pDto.setId(product.getId());
+            pDto.setName(product.getName());
+            pDto.setPrice(product.getPrice());
+            pDto.setDescription(product.getDescription());
+            return pDto;
+        }).collect(Collectors.toList()));
+        return dto;
+    }
+
+    private OrderDTO convertToOrderDTO(Order order) {
+        OrderDTO dto = new OrderDTO();
+        dto.setId(order.getId());
+        dto.setDate(order.getDate());
+        dto.setAddress(order.getAddress());
+        dto.setTotalAmount(order.getTotalAmount());
+        dto.setTrackingId(order.getTrackingId());
+        dto.setOrderStatus(order.getOrderStatus());
+        dto.setCart(convertToCartDTO(order.getCart()));
+        return dto;
     }
 }

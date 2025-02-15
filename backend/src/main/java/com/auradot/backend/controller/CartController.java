@@ -1,70 +1,76 @@
 package com.auradot.backend.controller;
 
+import com.auradot.backend.dto.AddProductToCartDTO;
+import com.auradot.backend.dto.CartDTO;
 import com.auradot.backend.dto.OrderDTO;
 import com.auradot.backend.dto.PlaceOrderDTO;
-import com.auradot.backend.dto.ProductInCartDTO;
 import com.auradot.backend.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api/carts")
+@CrossOrigin(origins = "http://localhost:4200")
 public class CartController {
 
-    private final CartService cartService;
+    @Autowired
+    private CartService cartService;
 
-    public CartController(CartService cartService) {
-        this.cartService = cartService;
-    }
-
-    @PostMapping
-    public ResponseEntity<?> addProductToCart(@RequestBody ProductInCartDTO productInCartDTO) {
-        return cartService.addProductToCart(productInCartDTO);
-    }
-
-    @GetMapping("/available")
-    public ResponseEntity<?> getCartByPendingOrders() {
+    @PostMapping("/addProduct")
+    public ResponseEntity<?> addProductToCart(@RequestBody AddProductToCartDTO dto) {
         try {
-            OrderDTO orderDTO = cartService.getCartByPendingOrders();
-            return ResponseEntity.status(HttpStatus.OK).body(orderDTO);
+            CartDTO cartDTO = cartService.addProductToCart(dto);
+            return ResponseEntity.status(HttpStatus.CREATED).body(cartDTO);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(e.getMessage());
         }
     }
 
-    @PostMapping("/addition")
-    public ResponseEntity<?> increaseProductQty(@RequestBody ProductInCartDTO productInCartDTO) {
+    @GetMapping("/{cartId}")
+    public ResponseEntity<?> getCart(@PathVariable Long cartId) {
         try {
-            OrderDTO orderDTO = cartService.increaseProductQuantity(productInCartDTO);
-            return ResponseEntity.status(HttpStatus.OK).body(orderDTO);
+            CartDTO cartDTO = cartService.getCart(cartId);
+            return ResponseEntity.ok(cartDTO);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(e.getMessage());
         }
     }
 
     @PostMapping("/placeOrder")
-    public ResponseEntity<?> placeOrder(@RequestBody PlaceOrderDTO placeOrderDTO) {
+    public ResponseEntity<?> placeOrder(@RequestBody PlaceOrderDTO dto) {
         try {
-            OrderDTO orderDTO = cartService.placeOrder(placeOrderDTO);
+            OrderDTO orderDTO = cartService.placeOrder(dto);
             return ResponseEntity.status(HttpStatus.CREATED).body(orderDTO);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(e.getMessage());
         }
     }
 
-    @GetMapping("/count")
-    public ResponseEntity<Integer> getCartItemCount() {
-        int count = cartService.getCartItemCount();
-        return ResponseEntity.status(HttpStatus.OK).body(count);
+    @DeleteMapping("/{cartId}/removeProduct/{productId}")
+    public ResponseEntity<?> removeProductFromCart(@PathVariable Long cartId,
+                                                   @PathVariable Long productId) {
+        try {
+            CartDTO updatedCart = cartService.removeProductFromCart(cartId, productId);
+            return ResponseEntity.ok(updatedCart);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(e.getMessage());
+        }
     }
 
-    @GetMapping("/myOrders")
-    public ResponseEntity<List<OrderDTO>> myPlacedOrders(){
-        return ResponseEntity.ok(cartService.getPlacedOrders());
+    @GetMapping("/{cartId}/productCount")
+    public ResponseEntity<Integer> getCartProductCount(@PathVariable Long cartId) {
+        try {
+            int productCount = cartService.getCartProductCount(cartId);
+            return ResponseEntity.ok(productCount);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(null);
+        }
     }
 }

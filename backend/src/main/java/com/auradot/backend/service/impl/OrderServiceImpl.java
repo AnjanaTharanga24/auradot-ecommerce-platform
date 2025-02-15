@@ -1,20 +1,14 @@
 package com.auradot.backend.service.impl;
 
-import com.auradot.backend.controller.request.OrderRequest;
-import com.auradot.backend.controller.response.OrderResponse;
 import com.auradot.backend.dto.OrderDTO;
+import com.auradot.backend.exception.NotFoundException;
 import com.auradot.backend.model.Order;
 import com.auradot.backend.model.enums.OrderStatus;
-import com.auradot.backend.repository.CartItemsRepository;
 import com.auradot.backend.repository.OrderRepository;
-import com.auradot.backend.repository.ProductRepository;
 import com.auradot.backend.service.OrderService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -25,39 +19,41 @@ public class OrderServiceImpl implements OrderService {
         this.orderRepository = orderRepository;
     }
 
-    public OrderResponse createOrder(OrderRequest orderRequest) {
-        Order order = new Order();
-        order.setAmount(0L);
-        order.setTotalAmount(0L);
-        order.setOrderStatus(OrderStatus.pending);
-
-        Order savedOrder = orderRepository.save(order);
-
-        return OrderResponse.builder()
-                .id(savedOrder.getId())
-                .address(savedOrder.getAddress())
-                .totalPrice(savedOrder.getTotalAmount())
-                .build();
+    @Override
+    public List<OrderDTO> getAllOrders() {
+        List<Order> orders = orderRepository.findAll();
+        return orders.stream().map(this::convertToOrderDTO).collect(Collectors.toList());
     }
 
-    public List<OrderDTO> getAllPlacedOrders(){
-        List<Order> orderList = orderRepository.findAllByOrderStatusIn(List.of(OrderStatus.placed, OrderStatus.delivered, OrderStatus.shipped));
-        return orderList.stream().map(Order::getOrderDTO).collect(Collectors.toList());
-    }
-
-    public OrderDTO changeOrderStatus(Long orderId, String orderStatus){
-        Optional<Order> optionalOrder = orderRepository.findById(orderId);
-        if(optionalOrder.isPresent()){
-            Order order = optionalOrder.get();
-            if(Objects.equals(orderStatus,"shipped")){
-                order.setOrderStatus(OrderStatus.shipped);
-            }else if(Objects.equals(orderStatus, "delivered")){
-                order.setOrderStatus(OrderStatus.delivered);
-            }
-            return orderRepository.save(order).getOrderDTO();
+    @Override
+    public OrderDTO changeOrderStatus(Long orderId, String status) throws NotFoundException {
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new NotFoundException("Order not found"));
+        if (status.equalsIgnoreCase("shipped")) {
+            order.setOrderStatus(OrderStatus.SHIPPED);
+        } else if (status.equalsIgnoreCase("delivered")) {
+            order.setOrderStatus(OrderStatus.DELIVERED);
         }
-        return null;
+        Order savedOrder = orderRepository.save(order);
+        return convertToOrderDTO(savedOrder);
     }
 
+    @Override
+    public List<OrderDTO> getAllPlacedOrders() {
+        List<Order> orders = orderRepository.findByOrderStatus(OrderStatus.PLACED);
+        return orders.stream()
+                .map(this::convertToOrderDTO)
+                .collect(Collectors.toList());
+    }
 
+    private OrderDTO convertToOrderDTO(Order order) {
+        OrderDTO dto = new OrderDTO();
+        dto.setId(order.getId());
+        dto.setDate(order.getDate());
+        dto.setAddress(order.getAddress());
+        dto.setTotalAmount(order.getTotalAmount());
+        dto.setTrackingId(order.getTrackingId());
+        dto.setOrderStatus(order.getOrderStatus());
+        return dto;
+    }
 }
