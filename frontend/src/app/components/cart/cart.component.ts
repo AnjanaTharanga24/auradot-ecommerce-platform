@@ -23,11 +23,9 @@ throw new Error('Method not implemented.');
 removeFromCart(arg0: any) {
 throw new Error('Method not implemented.');
 }
-
   
   cartItems : any[] = [];
   order: any;
-  
 
   constructor(private http: HttpClient,
     private snackbar : MatSnackBar,
