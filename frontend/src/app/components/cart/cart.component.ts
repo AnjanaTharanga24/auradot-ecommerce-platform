@@ -8,8 +8,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { PlaceOrderComponent } from '../place-order/place-order.component';
 import { CustomerService } from '../../services/customer.service';
 import { CartItemComponent } from "../../UIcomponents/cart-item/cart-item.component";
-import { CartItem } from '../../common/cart-item';
-import { Order } from '../../common/order';
 
 
 @Component({
@@ -26,10 +24,8 @@ removeFromCart(arg0: any) {
 throw new Error('Method not implemented.');
 }
   
-  cartItems : CartItem[] = [];
-  order!: any;
-  totalAmount: number = 0;
-  
+  cartItems : any[] = [];
+  order: any;
 
   constructor(private http: HttpClient,
     private snackbar : MatSnackBar,
@@ -42,41 +38,26 @@ throw new Error('Method not implemented.');
      this.getCart();
     }
 
-    getCart(): void {
-      this.customerService.getCart()
-        .then((res) => {
-          this.order = res;
-          this.cartItems = res.products || [];
-          this.calculateTotalAmount();
-        })
-        .catch((error) => {
-          console.log('Error fetching cart:', error);
-        });
+    async getCart(): Promise<void> {
+      try {
+        const res = await this.customerService.getCart();
+        this.order = res;
+        this.cartItems = res.cartItems || [];
+      } catch (error) {
+        console.error('Error fetching cart:', error);
+      }
     }
-    calculateTotalAmount(): void {
-      this.totalAmount = this.cartItems.reduce((total, item) => total + item.price, 0);
+  
+    async increaseQuantity(id: any): Promise<void> {
+      try {
+        await this.customerService.increaseQuantity(id);
+        this.snackbar.open('Increased', 'Close', { duration: 2000 });
+        this.getCart();
+      } catch (error) {
+        console.error('Error adding product to cart:', error);
+      }
     }
     
-    increaseQuantity(id: any): void {
-      this.customerService.increaseQuantity(id)
-        .then(() => {
-          this.snackbar.open('Increased', 'Close', { duration: 2000 });
-          this.getCart();
-        })
-        .catch((error) => {
-          console.log('Error adding product to cart:', error);
-        });
-    }
-    removeItem(productId: number): void {
-      this.customerService.removeFromCart(productId)
-        .then(() => {
-          this.snackbar.open('Removed from cart', 'Close', { duration: 2000 });
-          this.getCart();
-        })
-        .catch((error) => {
-          console.log('Error removing product from cart:', error);
-        });
-    }
     placeOrder(){
       this.dialog.open(PlaceOrderComponent);
     }
