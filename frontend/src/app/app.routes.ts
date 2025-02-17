@@ -17,7 +17,7 @@ export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: 'orders', component: OrdersComponent },
     { path: 'payment', component: CheckoutComponent },
-    { path: 'product', component: ProductComponent },
+    // { path: 'product', component: ProductComponent },
     { path: 'carts', component: CartComponent },
     { path: 'adminOrders', component: ManageOrderComponent },
     { path: 'myOrders', component: MyOrdersComponent },

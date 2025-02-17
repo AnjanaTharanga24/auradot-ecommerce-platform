@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { SellerComponent } from "./seller/seller.component";
+import { CustomerService } from './services/customer.service';
 
 @Component({
   selector: 'app-root',
@@ -17,12 +18,18 @@ import { SellerComponent } from "./seller/seller.component";
 export class AppComponent implements OnInit {
   cartCount: number = 0;
 
-  constructor(private cartService: CartService) {}
+  constructor(private customerService: CustomerService) {}
 
-  ngOnInit(): void {
-    this.cartService.cartCount$.subscribe((count) => {
-      this.cartCount = count; 
-    });
+  async ngOnInit(): Promise<void> {
+    await this.fetchCartCount();
+  }
+
+  async fetchCartCount(): Promise<void> {
+    try {
+      this.cartCount = await this.customerService.getCartCount();
+    } catch (error) {
+      console.error('Error fetching cart count:', error);
+    }
   }
   title = 'frontend';
 }
