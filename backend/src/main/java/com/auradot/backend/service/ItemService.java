@@ -15,5 +15,4 @@ public interface ItemService {
     ItemResponse getItemById(Long id) throws NotFoundException;
     String deleteItemById(Long id) throws NotFoundException;
     List<ItemCategory> getAllItemCategories();
-
 }

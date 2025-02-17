@@ -16,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -79,6 +80,7 @@ public class ItemServiceImpl implements ItemService {
                 .status(savedInventory.getStockStatus())
                 .build();
     }
+
     @Override
     public List<Item> getAllItems() {
         List<Item> items = itemRepository.findByIsActiveTrue();
@@ -122,6 +124,7 @@ public class ItemServiceImpl implements ItemService {
     public List<ItemCategory> getAllItemCategories() {
         return itemCategoryRepository.findAll();
     }
+
 
 
 }
