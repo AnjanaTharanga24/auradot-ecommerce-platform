@@ -12,6 +12,7 @@ export class CartItemComponent {
   @Input() item: any;
   @Output() increaseQuantity = new EventEmitter<string>();
   @Output() decreaseQuantity = new EventEmitter<string>();
+  @Output() removeItem = new EventEmitter<number>();
 
   onIncrease() {
     this.increaseQuantity.emit(this.item.productId);
@@ -19,5 +20,9 @@ export class CartItemComponent {
 
   onDecrease() {
     this.decreaseQuantity.emit(this.item.productId);
+  }
+
+  onRemove() {
+    this.removeItem.emit(this.item.id); 
   }
 }

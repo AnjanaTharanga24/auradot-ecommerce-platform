@@ -22,12 +22,14 @@ export class MyOrdersComponent implements OnInit {
    this.getMyOrders();
   }
 
-  async getMyOrders(): Promise<void> {
-    try {
-      this.myOrders = await this.customerService.getMyOrders();
-    } catch (error) {
-      console.error('Error fetching orders:', error);
-    }
+  getMyOrders(): void {
+    this.customerService.getMyOrders()
+      .then((orders) => {
+        this.myOrders = orders;
+      })
+      .catch((error) => {
+        console.log('Error getting orders:', error);
+      });
   }
 
   getOrderProgress(status: string): string {
