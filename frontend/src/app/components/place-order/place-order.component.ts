@@ -36,8 +36,9 @@ throw new Error('Method not implemented.');
   }
   async placeOrder() {
     if (this.orderForm.valid) {
+      const address = this.orderForm.get('address')?.value;
       try {
-        const response = await this.customerService.placeOrder(this.orderForm.value);
+        const response = await this.customerService.placeOrder(address);
         this.snackBar.open('Order placed successfully!', 'Close', { duration: 3000 });
         this.dialog.closeAll(); 
       } catch (error) {

@@ -1,28 +1,35 @@
-<app-cart-item *ngFor="let item of cartItems" [item]="item" (increase)="increaseQuantity($event)" ></app-cart-item>
-<div class="order-summary bg-white p-4 rounded-lg shadow-md mt-6">
-  <div class="text-lg font-semibold text-gray-800">
-    Order Summary
+<div class="cart-container">
+  <div class="cart-items" *ngIf="cartItems.length > 0; else emptyCart">
+    <app-cart-item
+      *ngFor="let item of cartItems"
+      [item]="item"
+      (increase)="increaseQuantity($event)"
+      (removeItem)="removeItem($event)">
+      
+    </app-cart-item>
   </div>
-  <div class="total-price text-gray-600 mt-2">
-    Total Amount: <span class="font-semibold">LKR {{ order.totalAmount }}</span>
+
+    <div class="order-summary mt-6 p-4 bg-gray-100 rounded-lg">
+      <h3 class="text-xl font-semibold mb-4">Order Summary</h3>
+      <div class="flex justify-between items-center mb-2">
+        <span class="text-gray-700">Subtotal</span>
+        <span class="font-semibold">LKR {{ totalAmount }}</span>
+      </div>
+      <div class="flex justify-between items-center mb-2">
+        <span class="text-gray-700">Shipping</span>
+        <span class="font-semibold">LKR 0</span>
+      </div>
+      <div class="flex justify-between items-center mb-4">
+        <span class="text-gray-700">Total</span>
+        <span class="font-semibold text-lg">LKR {{ totalAmount }}</span>
+      </div>
+    <button mat-raised-button color="primary" (click)="placeOrder()">Place Order</button>
   </div>
-  <div class="total-price text-gray-600">
-    Amount: <span class="font-semibold">LKR {{ order.amount }}</span>
-  </div>
-  <button
-    mat-raised-button
-    color="primary" (click)="placeOrder()"
-    class="mt-4 bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition"
-  >
-    Place Order
-  </button>
 </div>
 
 <ng-template #emptyCart>
-<div class="empty-cart flex flex-col items-center justify-center h-64">
-<mat-icon class="icon text-gray-400 text-6xl mb-4">
-  remove_shopping_cart
-</mat-icon>
-<span class="text-lg text-gray-500">Your cart is empty</span>
-</div>
+  <div class="empty-cart flex flex-col items-center justify-center h-64">
+    <mat-icon class="icon text-gray-400 text-6xl mb-4">remove_shopping_cart</mat-icon>
+    <span class="text-lg text-gray-500 mr-40">No products found in cart</span>
+  </div>
 </ng-template>
