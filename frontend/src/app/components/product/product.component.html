@@ -1,3 +1,4 @@
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
   <app-product-card *ngFor="let product of products" [product]="product" (addToCart)="addToCart($event)"></app-product-card>
+  <app-item-card *ngFor="let product of products" [item]="product" (addToCart)="addToCart($event)"></app-item-card>
 </div>
