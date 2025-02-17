@@ -1,0 +1,145 @@
+.notification-page {
+    min-height: 100vh;
+    background-color: #f8f9fa;
+}
+
+.notifications-container {
+    max-width: 1050px;
+    margin-left: 200px;
+    padding: 20px;
+}
+
+.notification-card {
+    background: white;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    min-height: 140px;
+}
+
+.notification-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.out-of-stock {
+    border-left: 4px solid #e74c3c;
+}
+
+.low-stock {
+    border-left: 4px solid #f1c40f;
+}
+
+.content-wrapper {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+}
+
+.image-section {
+    flex-shrink: 0;
+    width: 100px;
+    height: 100px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #eee;
+}
+
+.product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.notification-card:hover .product-image {
+    transform: scale(1.05);
+}
+
+.info-section {
+    flex: 1;
+}
+
+.product-title {
+    margin: 0 0 8px 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.alert-message {
+    margin: 0;
+    color: #666;
+    line-height: 1.5;
+    font-size: 1rem;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-right: 8px;
+}
+
+.status-badge.out {
+    background-color: #fde8e8;
+    color: #e74c3c;
+}
+
+.status-badge.low {
+    background-color: #fef6e7;
+    color: #f1c40f;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.notification-card {
+    animation: slideIn 0.3s ease-out forwards;
+    animation-delay: calc(var(--data-index) * 0.1s);
+}
+
+@media (max-width: 1200px) {
+    .notifications-container {
+        margin-left: 100px;
+        max-width: calc(100% - 120px);
+    }
+}
+
+@media (max-width: 768px) {
+    .notifications-container {
+        margin-left: 20px;
+        margin-right: 20px;
+        max-width: calc(100% - 40px);
+    }
+
+    .content-wrapper {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .image-section {
+        width: 120px;
+        height: 120px;
+        margin: 0 auto;
+    }
+
+    .status-badge {
+        margin-bottom: 8px;
+    }
+}

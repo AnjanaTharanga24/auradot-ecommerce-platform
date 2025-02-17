@@ -6,11 +6,12 @@ import { Item } from '../../common/item';
 import { InventoryServiceService } from '../../services/inventory-service/inventory-service.service';
 import { AlertService } from '../../services/alert-service/alert.service';
 import { CommonModule } from '@angular/common';
+import { SellerNotificationsComponent } from "../seller-notifications/seller-notifications.component";
 
 @Component({
   selector: 'app-seller-view-item',
   standalone: true,
-  imports: [SellerNavComponent,RouterLink,CommonModule],
+  imports: [SellerNavComponent, RouterLink, CommonModule, SellerNotificationsComponent],
   templateUrl: './seller-view-item.component.html',
   styleUrl: './seller-view-item.component.css'
 })

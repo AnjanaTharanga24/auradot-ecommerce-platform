@@ -11,6 +11,7 @@ import { SellerAddItemFormComponent } from './seller/seller-add-item-form/seller
 import { SellerViewItemComponent } from './seller/seller-view-item/seller-view-item.component';
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
 import { AdminViewItemTableComponent } from './admin/admin-view-item-table/admin-view-item-table.component';
+import { SellerNotificationsComponent } from './seller/seller-notifications/seller-notifications.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'product', pathMatch: 'full' },
@@ -23,6 +24,7 @@ export const routes: Routes = [
     { path: 'home', component: HomeComponent },
     { path: 'seller-dashboard', component: SellerDashboardComponent },
     { path: 'seller-view', component: SellerViewItemComponent },
+    { path: 'seller-notification', component: SellerNotificationsComponent },
     { path: 'admin-dashboard', component: AdminDashboardComponent },
     { path: 'admin-view-item', component: AdminViewItemTableComponent },
 
