@@ -9,7 +9,6 @@ import com.auradot.backend.exception.NotFoundException;
 import com.auradot.backend.model.Cart;
 import com.auradot.backend.model.Item;
 import com.auradot.backend.model.Order;
-import com.auradot.backend.model.Order;
 import com.auradot.backend.model.enums.OrderStatus;
 import com.auradot.backend.repository.CartRepository;
 import com.auradot.backend.repository.ItemRepository;
