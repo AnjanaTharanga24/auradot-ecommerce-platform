@@ -11,7 +11,7 @@ public class OrderDTO {
     private Long id;
     private Date date;
     private String address;
-    private Long totalAmount;
+    private double totalAmount;
     private UUID trackingId;
     private OrderStatus orderStatus;
     private CartDTO cart;

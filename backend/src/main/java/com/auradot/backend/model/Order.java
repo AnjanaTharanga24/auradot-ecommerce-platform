@@ -17,7 +17,7 @@ public class Order {
 
     private Date date;
     private String address;
-    private Long totalAmount;
+    private double totalAmount;
     private UUID trackingId;
 
     @Enumerated(EnumType.STRING)
