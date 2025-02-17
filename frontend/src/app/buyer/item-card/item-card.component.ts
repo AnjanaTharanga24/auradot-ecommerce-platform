@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ItemService } from '../../services/item-service/item.service';
+import { CustomerService } from '../../services/customer.service';
 
 @Component({
   selector: 'app-item-card',
@@ -10,9 +11,12 @@ import { ItemService } from '../../services/item-service/item.service';
   styleUrl: './item-card.component.css'
 })
 export class ItemCardComponent {
+onAddToCart() {
+ this.addToCart(this.item.id);
+}
   @Input() item: any;
 
-  constructor(private itemService: ItemService) {}
+  constructor(private itemService: ItemService, private customerService: CustomerService) {}
 
   getStockStatusClass(status: string): string {
     switch(status) {
@@ -40,6 +44,14 @@ export class ItemCardComponent {
       item.quantity = item.quantity - 1; 
     } else {
       alert("Quantity can't be less than 0");
+    }
+  }
+  async addToCart(id: any): Promise<void> {
+    try {
+      const response = await this.customerService.addToCart(id);
+      alert('Product added to cart: ' + response);
+    } catch (error) {
+      console.log('Error adding product:', error);
     }
   }
 }

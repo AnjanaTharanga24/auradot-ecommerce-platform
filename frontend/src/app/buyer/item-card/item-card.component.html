@@ -31,7 +31,7 @@
 
   <div class="d-flex justify-content-between">
     <p class="price">{{ item.price | currency : "USD" }}</p>
-    <button class="btn btn-primary cart-btn">
+    <button class="btn btn-primary cart-btn"  (click)="onAddToCart()">
       Add to Cart
     </button>
   </div>
