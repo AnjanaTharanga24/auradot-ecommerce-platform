@@ -4,10 +4,11 @@ import { Component, OnInit } from '@angular/core';
 import { CartService } from '../../cart.service';
 import { CustomerService } from '../../services/customer.service';
 import { ProductCardComponent } from "../../UIcomponents/product-card/product-card.component";
+import { ItemCardComponent } from "../../buyer/item-card/item-card.component";
 
 @Component({
   selector: 'app-product',
-  imports: [CommonModule, ProductCardComponent],
+  imports: [CommonModule, ProductCardComponent, ItemCardComponent],
   templateUrl: './product.component.html',
   styleUrl: './product.component.css'
 })

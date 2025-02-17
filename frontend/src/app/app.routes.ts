@@ -14,10 +14,10 @@ import { AdminViewItemTableComponent } from './admin/admin-view-item-table/admin
 import { SellerNotificationsComponent } from './seller/seller-notifications/seller-notifications.component';
 
 export const routes: Routes = [
-    { path: '', redirectTo: 'product', pathMatch: 'full' },
+    { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: 'orders', component: OrdersComponent },
     { path: 'payment', component: CheckoutComponent },
-    { path: 'product', component: ProductComponent },
+    // { path: 'product', component: ProductComponent },
     { path: 'carts', component: CartComponent },
     { path: 'adminOrders', component: ManageOrderComponent },
     { path: 'myOrders', component: MyOrdersComponent },
