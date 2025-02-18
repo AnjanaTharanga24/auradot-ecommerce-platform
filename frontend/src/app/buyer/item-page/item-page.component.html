@@ -1,0 +1,86 @@
+<div class="product-container">
+  <div class="container py-4">
+    <div class="product-card">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="image-gallery">
+            <div class="main-image">
+              <img
+                src="{{ item?.imgUrl }}"
+                class="img"
+              />
+              <div class="status-overlay">
+                <span class="status-indicator">
+                  <i class="fas fa-circle"></i>
+                  {{ item?.status | lowercase }}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="product-info">
+            <div class="category">
+              <i class="fas fa-tag"></i>
+              {{ item?.category }}
+            </div>
+
+            <h1 class="product-title">{{ item?.name }}</h1>
+
+            <div class="price-box">
+              <span class="current-price">${{ item?.price }}</span>
+              <div class="rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="far fa-star"></i>
+              </div>
+            </div>
+
+            <div class="product-description">
+              <h3>Product Details</h3>
+              <p>{{ item?.description }}</p>
+            </div>
+
+            <div class="product-actions">
+              <div class="quantity-selector">
+                <button class="btn quantity-btn">-</button>
+                <input type="number" value="1" class="quantity-input" />
+                <button class="btn quantity-btn">+</button>
+              </div>
+              <button class="btn add-to-cart-btn">
+                <i class="fas fa-shopping-cart"></i>
+                Add to Cart
+              </button>
+              <button class="btn wishlist-btn">
+                <i class="far fa-heart"></i>
+              </button>
+            </div>
+
+            <div class="additional-info">
+              <div class="info-item">
+                <i class="fas fa-truck"></i>
+                <span>Free Shipping</span>
+              </div>
+              <div class="info-item">
+                <i class="fas fa-undo"></i>
+                <span>30 Days Return</span>
+              </div>
+              <div class="info-item">
+                <i class="fas fa-shield-alt"></i>
+                <span>Secure Payment</span>
+              </div>
+            </div>
+
+            <div class="listing-date">
+              <i class="far fa-calendar-alt"></i>
+              Listed on: {{ item?.created_at }}
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

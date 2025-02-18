@@ -69,4 +69,14 @@ export class ItemService {
       });
   }
 
+  getItemById(id: number) {
+    return axios.get(`${this.baseUrl}/buyer/items/${id}`).then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.error('Error fetching item by ID:', error);
+      throw error;
+    })
+  }
+
 }

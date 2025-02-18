@@ -12,6 +12,7 @@ import { SellerViewItemComponent } from './seller/seller-view-item/seller-view-i
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
 import { AdminViewItemTableComponent } from './admin/admin-view-item-table/admin-view-item-table.component';
 import { SellerNotificationsComponent } from './seller/seller-notifications/seller-notifications.component';
+import { ItemPageComponent } from './buyer/item-page/item-page.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -27,6 +28,7 @@ export const routes: Routes = [
     { path: 'seller-notification', component: SellerNotificationsComponent },
     { path: 'admin-dashboard', component: AdminDashboardComponent },
     { path: 'admin-view-item', component: AdminViewItemTableComponent },
+    { path: 'item/:id', component: ItemPageComponent },
 
    
 ];
