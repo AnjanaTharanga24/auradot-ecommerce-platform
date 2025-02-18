@@ -17,3 +17,18 @@ export class Inventory {
     ) {}
   }
   
+  export class ItemResponse{
+    constructor(
+      public  id: number | null,
+      public name: string,
+      public description: string,
+      public imgUrl: string,
+      public category: string,
+      public stockQuantity: number,
+      public minimumStockLevel: number,
+      public price: number,
+      public created_at: string,
+      public status: string){
+
+      }
+  }

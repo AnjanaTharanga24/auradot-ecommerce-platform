@@ -13,6 +13,8 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Builder
 public class ItemResponse {
+
+    private Long id;
     private String name;
     private String description;
     private String imgUrl;
