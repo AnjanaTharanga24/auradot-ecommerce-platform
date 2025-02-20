@@ -1,7 +1,9 @@
 package com.auradot.backend.controller;
 
 import com.auradot.backend.controller.request.ItemRequest;
+import com.auradot.backend.controller.request.UpdateRequest;
 import com.auradot.backend.controller.response.ItemResponse;
+import com.auradot.backend.controller.response.UpdateResponse;
 import com.auradot.backend.exception.NotFoundException;
 import com.auradot.backend.model.Item;
 import com.auradot.backend.model.ItemCategory;
@@ -48,6 +50,10 @@ public class ItemController {
         return itemService.getAllItemCategories();
     }
 
+    @PutMapping("/{item-id}")
+    public UpdateResponse updateItemById(@PathVariable("item-id") Long id , @RequestBody UpdateRequest updateRequest) throws NotFoundException{
+        return itemService.updateItemById(id, updateRequest);
+    }
 
 
 }

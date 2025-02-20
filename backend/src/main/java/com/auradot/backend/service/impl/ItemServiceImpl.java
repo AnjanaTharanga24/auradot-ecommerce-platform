@@ -1,7 +1,9 @@
 package com.auradot.backend.service.impl;
 
 import com.auradot.backend.controller.request.ItemRequest;
+import com.auradot.backend.controller.request.UpdateRequest;
 import com.auradot.backend.controller.response.ItemResponse;
+import com.auradot.backend.controller.response.UpdateResponse;
 import com.auradot.backend.exception.NotFoundException;
 import com.auradot.backend.model.Inventory;
 import com.auradot.backend.model.Item;
@@ -125,6 +127,45 @@ public class ItemServiceImpl implements ItemService {
         return itemCategoryRepository.findAll();
     }
 
+    @Override
+    public UpdateResponse updateItemById(Long id, UpdateRequest updateRequest) throws NotFoundException {
+        Optional<Item> optionalItem = itemRepository.findById(id);
+        Optional<Inventory> optionalInventory = inventoryRepository.findByItem_Id(id);
+
+        if (!optionalItem.isPresent() && !optionalInventory.isPresent()){
+            throw new NotFoundException("Item not found with id :" + id);
+        }
+
+        Item foundItem = optionalItem.get();
+        foundItem.setName(updateRequest.getName());
+        foundItem.setDescription(updateRequest.getDescription());
+        foundItem.setPrice(updateRequest.getPrice());
+
+        itemRepository.save(foundItem);
+
+        Inventory foundInventory = optionalInventory.get();
+        foundInventory.setStockQuantity(updateRequest.getStockQuantity());
+        foundInventory.setMinimumStockLevel(updateRequest.getMinimumStockLevel());
+
+        if (updateRequest.getStockQuantity() > foundInventory.getMinimumStockLevel()){
+            foundInventory.setStockStatus(StockStatus.AVAILABLE);
+        } else if (updateRequest.getStockQuantity() < foundInventory.getMinimumStockLevel() && updateRequest.getStockQuantity() > 0) {
+            foundInventory.setStockStatus(StockStatus.LOW_STOCK);
+        }else {
+            foundInventory.setStockStatus(StockStatus.OUT_OF_STOCK);
+        }
+
+        inventoryRepository.save(foundInventory);
+
+
+        return UpdateResponse.builder()
+                .name(foundItem.getName())
+                .description(foundItem.getDescription())
+                .stockQuantity(foundInventory.getStockQuantity())
+                .minimumStockLevel(foundInventory.getMinimumStockLevel())
+                .price(foundItem.getPrice())
+                .build();
+    }
 
 
 }

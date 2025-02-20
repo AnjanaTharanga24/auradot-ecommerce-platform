@@ -6,12 +6,11 @@ import { CartService } from './cart.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { SellerComponent } from "./seller/seller.component";
 import { CustomerService } from './services/customer.service';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet,RouterLink, FormsModule, CommonModule, MatToolbarModule, SellerComponent],
+  imports: [RouterOutlet,RouterLink, FormsModule, CommonModule, MatToolbarModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
