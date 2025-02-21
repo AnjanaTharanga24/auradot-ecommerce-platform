@@ -137,15 +137,28 @@ public class ItemServiceImpl implements ItemService {
         }
 
         Item foundItem = optionalItem.get();
-        foundItem.setName(updateRequest.getName());
-        foundItem.setDescription(updateRequest.getDescription());
-        foundItem.setPrice(updateRequest.getPrice());
+
+        if (updateRequest.getName() != null){
+            foundItem.setName(updateRequest.getName());
+        }
+        if (updateRequest.getDescription() != null){
+            foundItem.setDescription(updateRequest.getDescription());
+        }
+        if(updateRequest.getPrice() != null){
+            foundItem.setPrice(updateRequest.getPrice());
+        }
 
         itemRepository.save(foundItem);
 
         Inventory foundInventory = optionalInventory.get();
-        foundInventory.setStockQuantity(updateRequest.getStockQuantity());
-        foundInventory.setMinimumStockLevel(updateRequest.getMinimumStockLevel());
+
+        if(updateRequest.getStockQuantity() != null){
+            foundInventory.setStockQuantity(updateRequest.getStockQuantity());
+        }
+        if (updateRequest.getMinimumStockLevel() != null){
+            foundInventory.setMinimumStockLevel(updateRequest.getMinimumStockLevel());
+        }
+
 
         if (updateRequest.getStockQuantity() > foundInventory.getMinimumStockLevel()){
             foundInventory.setStockStatus(StockStatus.AVAILABLE);
