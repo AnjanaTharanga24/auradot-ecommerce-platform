@@ -32,3 +32,15 @@ export class Inventory {
 
       }
   }
+
+  export class updateRequest{
+    constructor(
+      public name: string,
+      public description: string,
+      public stockQuantity: number,
+      public minimumStockLevel: number,
+      public price: number
+    ){
+
+    }
+  }
