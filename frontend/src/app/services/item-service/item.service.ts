@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import axios from 'axios';
 import { environment } from '../../../environments/environment';
-import { Item } from '../../common/item';
+import { Item, updateRequest } from '../../common/item';
 
 @Injectable({
   providedIn: 'root',
@@ -77,6 +77,16 @@ export class ItemService {
       console.error('Error fetching item by ID:', error);
       throw error;
     })
+  }
+
+  updateItemById(id:number,item: updateRequest){
+     return axios.put(`${this.baseUrl}/items/${id}`,item)
+     .then((response)=>{
+       return response.data
+     })
+     .catch((error)=>{
+      throw error;
+     })
   }
 
 }
