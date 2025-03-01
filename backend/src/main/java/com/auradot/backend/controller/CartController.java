@@ -39,7 +39,6 @@ public class CartController {
                     .body(e.getMessage());
         }
     }
-
     @PostMapping("/placeOrder")
     public ResponseEntity<?> placeOrder(@RequestBody PlaceOrderDTO dto) {
         try {
