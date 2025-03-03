@@ -1,26 +1,33 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ItemService } from '../../services/item-service/item.service';
 import { CustomerService } from '../../services/customer.service';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-item-card',
   standalone: true,
-  imports: [CommonModule,RouterLink],
+  imports: [CommonModule, RouterLink],
   templateUrl: './item-card.component.html',
-  styleUrl: './item-card.component.css'
+  styleUrl: './item-card.component.css',
 })
-export class ItemCardComponent {
-onAddToCart() {
- this.addToCart(this.item.id);
-}
+export class ItemCardComponent implements OnInit {
+
+
+  onAddToCart() {
+    this.addToCart(this.item.id);
+  }
+
   @Input() item: any;
 
-  constructor(private itemService: ItemService, private customerService: CustomerService) {}
+  constructor(
+    private itemService: ItemService,
+    private customerService: CustomerService,
+   
+  ) {}
 
   getStockStatusClass(status: string): string {
-    switch(status) {
+    switch (status) {
       case 'available':
         return 'status-available';
       case 'low_stock':
@@ -34,15 +41,15 @@ onAddToCart() {
 
   handleIncrease(item: any) {
     if (item.quantity < 10) {
-      item.quantity = item.quantity + 1; 
+      item.quantity = item.quantity + 1;
     } else {
-      alert("You can only add up to 10 items");
+      alert('You can only add up to 10 items');
     }
   }
-  
+
   handleDecrease(item: any) {
     if (item.quantity > 0) {
-      item.quantity = item.quantity - 1; 
+      item.quantity = item.quantity - 1;
     } else {
       alert("Quantity can't be less than 0");
     }
@@ -55,4 +62,9 @@ onAddToCart() {
       console.log('Error adding product:', error);
     }
   }
+
+  ngOnInit() {
+  }
+
+ 
 }
