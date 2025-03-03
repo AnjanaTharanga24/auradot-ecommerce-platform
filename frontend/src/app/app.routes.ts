@@ -14,6 +14,7 @@ import { AdminViewItemTableComponent } from './admin/admin-view-item-table/admin
 import { SellerNotificationsComponent } from './seller/seller-notifications/seller-notifications.component';
 import { ItemPageComponent } from './buyer/item-page/item-page.component';
 import { UpdateItemComponent } from './seller/update-item/update-item.component';
+import { ItemCardComponent } from './buyer/item-card/item-card.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -31,6 +32,7 @@ export const routes: Routes = [
     { path: 'admin-dashboard', component: AdminDashboardComponent },
     { path: 'admin-view-item', component: AdminViewItemTableComponent },
     { path: 'item/:id', component: ItemPageComponent },
+    { path: 'search/:name', component: HomeComponent },
 
    
 ];
