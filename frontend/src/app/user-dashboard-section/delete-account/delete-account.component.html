@@ -1,0 +1,19 @@
+<div class="row m-0" id="accountDelete">
+    <div class="col-xl-12 col-lg-12 col-12 p-0" id="form">
+      <h1>delete my account</h1>
+      <p>Before delete your account confirm your account here.</p>
+      <form [formGroup]="accountDeleteForm" (ngSubmit)="onSubmit()">
+        <div class="form-group mt-2">
+          <input class="form-control" type="password" id="password" placeholder="Enter your password" formControlName="password" required />
+        
+          <small class="text-danger" *ngIf="accountDeleteForm.controls['password'].invalid && accountDeleteForm.controls['password'].touched">
+            <span *ngIf="accountDeleteForm.controls['password'].errors?.['required']">Password is required.</span>
+            <span *ngIf="accountDeleteForm.controls['password'].errors?.['minlength']">Must be at least 4 characters.</span>
+          </small>
+        </div>
+        <div class="form-group mt-1 pb-4" id="btnTag">
+          <button class="btn mt-4" type="submit" id="deleteButton">Delete Account</button>
+        </div>
+      </form>
+    </div>
+  </div>    

@@ -1,0 +1,59 @@
+<div class="row m-0 p-0 container-fluid" id="signupPage">
+    <div class="col-xl-12 col-lg-12 col-12 p-0 m-0 " id="form">
+      <h1>Signup here</h1>
+      <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="user_name" class="form-label">User Name</label>
+          <input class="form-control" type="text" id="user_name" name="user_name" placeholder="Example" formControlName="user_name" required />
+          
+          <small class="text-danger" *ngIf="signupForm.controls['user_name'].invalid && signupForm.controls['user_name'].touched">
+            <p *ngIf="signupForm.controls['user_name'].errors?.['required']">user name is required.</p>
+            <p *ngIf="signupForm.controls['user_name'].errors?.['minlength']">Password must be at least 4 characters long.</p>
+            <p *ngIf="signupForm.controls['user_name'].errors?.['maxlength']">Password must not be more than 12 characters.</p>
+          </small>
+        </div>
+        <div class="form-group">
+          <label for="user_email" class="form-label">Email</label>
+          <input class="form-control" type="email" id="user_email" name="user_email" placeholder="Example@gmail.com" formControlName="user_email"  required />
+          
+          <small class="text-danger" *ngIf="signupForm.controls['user_email'].invalid && signupForm.controls['user_email'].touched">
+            <p *ngIf="signupForm.controls['user_email'].errors?.['required']">Email is required.</p>
+            <p *ngIf="signupForm.controls['user_email'].errors?.['email']">Invalid email format.</p>
+          </small>
+        </div> 
+        <div class="form-group">
+          <label for="phone_no" class="form-label">Phone Number</label>
+          <input class="form-control" type="text" id="phone_no" name="phone_no" placeholder="077 56 54 469" formControlName="phone_no"  required />
+          
+          <small class="text-danger" *ngIf="signupForm.controls['phone_no'].invalid && signupForm.controls['phone_no'].touched">
+            <p *ngIf="signupForm.controls['phone_no'].errors?.['required']">Phone number is required.</p>
+            <p *ngIf="signupForm.controls['phone_no'].errors?.['minlength'] ">Phone number must be in 10 characters long.</p>
+          </small>
+        </div>
+        <div class="form-group">
+          <label for="password" class="form-label">Password</label>
+          <input class="form-control" type="password" id="password" name="password" placeholder="password" formControlName="password"  required />
+
+          <small class="text-danger" *ngIf="signupForm.controls['password'].invalid && signupForm.controls['password'].touched">
+            <p *ngIf="signupForm.controls['password'].errors?.['required']">Password is required.</p>
+            <p *ngIf="signupForm.controls['password'].errors?.['minlength']">Password must be at least 4 characters long.</p>
+            <p *ngIf="signupForm.controls['password'].errors?.['maxlength']">Password must not be more than 12 characters.</p>
+          </small>
+        </div>
+        <div class="form-group">
+          <label for="confirmPassword" class="form-label">Confirm Password</label>
+          <input class="form-control" type="password" id="confirmPassword" name="confirmPassword" placeholder="Re-Enter Password" formControlName="confirmPassword"  required />
+          
+          <small class="text-danger" *ngIf="signupForm.controls['confirmPassword'].invalid && signupForm.controls['confirmPassword'].touched">
+            <p *ngIf="signupForm.controls['confirmPassword'].errors?.['required'] && signupForm.controls['confirmPassword'].touched">Confimation Password is required.</p>
+            <p *ngIf="signupForm.controls['confirmPassword'].errors?.['mismatch'] && signupForm.controls['confirmPassword'].touched">Passwords do not match.</p>
+          </small>
+        </div>
+        <div class="form-group mt-1 p-0 mb-0" id="btnTag">
+          <button class="btn btn-primary m-0" type="submit">SignUp</button>
+        </div>
+      </form>
+      <span routerLink="/signin" style="color:#200E3A; font-size:18px; font-weight:500; padding-bottom:3px; margin: 0">Already have an account? <a style="color:#ff735c; font-size:16px; font-weight:400; cursor: pointer; text-decoration: underline;">click here</a></span>
+    </div>
+  </div>
+  

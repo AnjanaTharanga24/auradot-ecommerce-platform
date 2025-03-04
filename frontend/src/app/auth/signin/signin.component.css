@@ -1,0 +1,128 @@
+@import url('https://fonts.googleapis.com/css2?family=Rowdies&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Rowdies&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+body{
+    padding: 0;
+    margin: 0;
+}
+
+#signinPage{
+    background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('../../Assets/signupPic.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 91vh;
+    max-width: 100vw;
+    font-family: "Ubuntu", sans-serif;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+#signinPage #form{
+    background-color: rgba(225,225,225, 0.9);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 450px;
+    height: 470px;
+    margin: 20px 0 !important;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4);
+}
+#signinPage h1{
+    font-family: "Dancing Script", cursive;
+    font-weight: 900;
+    margin-bottom: 30px;
+    font-size: 50px;
+    color: #ff735c;
+    margin-top: 40px;
+}
+#signinPage #form form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+#signinPage #form form div{
+    width: 350px; 
+    height: 75px;
+    font-size: 16px;
+}
+#signinPage #form form div input{
+    background-color: transparent;
+    outline: none;
+    border: 2px solid rgba(255, 115, 92, 0.6);
+    border-radius: 30px;
+}
+#signinPage #form form #btnTag {
+    display: flex;
+    flex-direction:column;
+    border-bottom: 1px solid rgba(255, 115, 92, 0.6);
+}
+#signinPage #form form #btnTag a{
+    text-align: end;
+    text-decoration: none;
+    font-size: 16px;
+}
+#signinPage #form form #btnTag button{
+    width: 200px;
+    align-self: center;
+    border-radius: 30px;
+    font-size: 22px;
+    background-color:#ff735c;
+    color: #e5e2e2;
+    border: none;
+    outline: none;
+    
+}
+#signinPage #form form #signup a{
+    text-decoration: none;
+}
+
+@media (max-width: 973px){
+    #signinPage #form form div{
+        width: 35vw; 
+    }
+}
+
+@media (max-width: 767px){
+    #signinPage{
+        background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.3)), url('../../Assets/signupPic.jpg');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        padding: 0;
+    }
+    #signinPage #img{
+        background: none;
+    }
+    #signinPage #form form{
+        margin-left: 4vw;
+        margin-right: 4vw;
+
+    }
+    #signinPage #form{
+        height: 70vh;
+        position: relative;
+        bottom: 50px;
+        width: auto;
+        margin: auto;
+        opacity: 0.9;
+    }
+    #signinPage #form form div{
+        width: 50vw; 
+    }
+}
+@media (max-width: 580px){
+    #signinPage #form form div{
+        width: 75vw; 
+    }
+    #signinPage #form form #btnTag button{
+        width: 50vw;
+    }
+
+}

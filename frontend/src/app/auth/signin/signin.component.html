@@ -1,0 +1,31 @@
+<div class="row m-0" id="signinPage">
+    <div class="col-xl-12 col-lg-12 col-12 p-0" id="form">
+      <h1>Login here</h1>
+      <form [formGroup]="signinForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="userName" class="form-label">User Name</label>
+          <input class="form-control" type="text" id="user_name" placeholder="Example" formControlName="userName" required />
+        
+          <small class="text-danger" *ngIf="signinForm.controls['userName'].invalid && signinForm.controls['userName'].touched">
+            <span *ngIf="signinForm.controls['userName'].errors?.['required']">user name is required.</span>
+          </small>
+        </div>
+        <div class="form-group mt-2">
+          <label for="password" class="form-label">Password</label>
+          <input class="form-control" type="password" id="password" placeholder="Enter your password" formControlName="password" required />
+        
+          <small class="text-danger" *ngIf="signinForm.controls['password'].invalid && signinForm.controls['password'].touched">
+            <span *ngIf="signinForm.controls['password'].errors?.['required']">Password is required.</span>
+            <span *ngIf="signinForm.controls['password'].errors?.['minlength']">Must be at least 4 characters.</span>
+          </small>
+        </div>
+        <div class="form-group mt-1 pb-4" id="btnTag">
+          <a href="#">Forgot password?</a>
+          <button class="btn btn-primary mt-4" type="submit">Login</button>
+        </div>
+        <div class="form-group text-center mt-3" id="signup">
+          <span style="color:#200E3A; font-size:18px; font-weight:500; padding-bottom:3px; margin: 0">Create your account here - <a routerLink="/signup" style="color:#ff735c; font-size:16px; font-weight:400; cursor: pointer; text-decoration: underline;">signup</a></span>
+        </div>
+      </form>
+    </div>
+  </div>    

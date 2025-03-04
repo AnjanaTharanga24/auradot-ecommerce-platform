@@ -48,7 +48,7 @@
         <i class="fa fa-user"></i>
       </button>
       <ul class="dropdown-menu mt-3 account-dropdown" style="margin-left: -110px;">
-        <li><a class="dropdown-item" href="#">My Profile</a></li>
+        <li><a class="dropdown-item" routerLink="/user-dashboard">My Profile</a></li>
         <li><a class="dropdown-item" routerLink="/seller-dashboard">Seller Dashboard</a></li>
         <li><a class="dropdown-item" routerLink="/admin-dashboard">Admin Dashboard</a></li>
         <li><a class="dropdown-item" routerLink="/adminOrders">Order Dashboard</a></li>
@@ -58,6 +58,6 @@
   </div>
 </mat-toolbar>
 
-<main class="container mx-auto mt-6">
+<main class="container-fluid p-0">
   <router-outlet></router-outlet>
 </main>

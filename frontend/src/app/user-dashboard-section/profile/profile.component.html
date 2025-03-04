@@ -1,0 +1,51 @@
+<div class="row m-0" id="profile-container">
+    <div *ngIf="!isEditing" class="col-xl-12 col-lg-12 col-12 p-0" id="user-profile">
+      <h1>User Profile</h1>
+      <form class="profile-form">
+        <div class="form-group">
+          <label class="form-label">User Name</label>
+          <input class="form-control" type="text" [value]="user.userName" name="userName" readonly />
+        </div>
+    
+        <div class="form-group">
+          <label class="form-label">User Email</label>
+          <input class="form-control" type="email" [value]="user.userEmail" name="userEmail" readonly />
+        </div>
+    
+        <div class="form-group">
+          <label class="form-label">Phone Number</label>
+          <input class="form-control" type="tel" [value]="user.phoneNo" name="phoneNo" readonly />
+        </div>
+    
+        <button type="button" class="btn" (click)="editProfile()" id="btnTag">Edit Details</button>
+      </form>
+    </div>
+
+
+    <div *ngIf="isEditing" class="col-xl-12 col-lg-12 col-12 p-0" id="user-profile">
+      <h1>Edit My Profile</h1>
+      <form class="profile-form">
+        <div class="form-group">
+          <label class="form-label">User Name</label>
+          <input [(ngModel)]="user.userName" class="form-control" name="userName" type="text" />
+        </div>
+    
+        <div class="form-group">
+          <label class="form-label">User Email</label>
+          <input [(ngModel)]="user.userEmail" class="form-control" name="userEmail" type="email" />
+        </div>
+    
+        <div class="form-group">
+          <label class="form-label">Phone Number</label>
+          <input [(ngModel)]="user.phoneNo" class="form-control" name="phoneNo" type="tel" />
+        </div>
+        <a routerLink="/user-dashboard/delete-account" routerLinkActive="active">delete your account</a>
+    
+        <div class="d-flex">
+          <button type="button" class="btn btn-warning w-75 m-1"  (click)="saveProfile()"  id="editBtnTag" >Save</button>
+          <button type="button" class="btn btn-danger w-75 m-1"  (click)="cancelEdit()"  id="editBtnTag" >Cancel</button>
+        </div>
+      </form>
+    </div>
+</div>
+  

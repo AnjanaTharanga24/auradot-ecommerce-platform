@@ -54,7 +54,7 @@ export class SellerAddItemFormComponent implements OnInit{
   async getAllCategories(){
     try{
      this.categories = await this.itemService.getAllCategories();
-     console.log(this.categories);
+     console.log("categories : ",this.categories);
     }catch(error){
       console.log("error fetching categories");
     }

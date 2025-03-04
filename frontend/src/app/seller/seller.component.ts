@@ -23,7 +23,7 @@ export class SellerComponent {
   async onSubmit() {
     try {
       const response = await axios.post(`http://localhost:8080/api/items/`, this.item);
-      console.log(response.data);
+      console.log("response : ",response.data);
       Swal.fire({
         position: "top-end",
         icon: "success",

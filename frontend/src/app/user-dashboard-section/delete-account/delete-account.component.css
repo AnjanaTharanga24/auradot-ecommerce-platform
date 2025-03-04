@@ -1,0 +1,140 @@
+@import url('https://fonts.googleapis.com/css2?family=Rowdies&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Rowdies&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+body{
+    padding: 0;
+    margin: 0;
+}
+
+#accountDelete{
+    height: 90vh; 
+    font-family: "Ubuntu", sans-serif;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#accountDelete p{
+    align-items: center;
+    color: #4a1209;
+    padding-left: 20px;
+    width: 400px;
+}
+
+#accountDelete #form{
+    background-color: rgba(225,225,225, 0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 450px;
+    height: 470px;
+    margin: 10px 0 !important;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4);
+}
+#accountDelete h1{
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    font-weight: 900;
+    margin-bottom: 20px;
+    font-size: 40px;
+    color: #ff735c;
+    margin-top: 0px;
+    padding: 0;
+}
+#accountDelete #form form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+#accountDelete #form form div{
+    width: 350px; 
+    height: 75px;
+    font-size: 16px;
+}
+#accountDelete #form form div input{
+    background-color: transparent;
+    outline: none;
+    border: 2px solid rgba(255, 115, 92, 0.6);
+    border-radius: 30px;
+    margin-top: 30px;
+}
+#accountDelete #form form #btnTag {
+    display: flex;
+    flex-direction:column;
+}
+#accountDelete #form form #btnTag a{
+    text-align: end;
+    text-decoration: none;
+    font-size: 16px;
+}
+#accountDelete #form form #deleteButton{
+    width: 200px;
+    align-self: center;
+    border-radius: 30px;
+    font-size: 18px;
+    background-color:#ff735c;
+    color: #e5e2e2;
+    border: none;
+    outline: none;
+    margin-top: 10px;
+    
+}
+#accountDelete #form form #deleteButton{
+  align-self: center;
+  border-radius: 30px;
+  font-size: 18px;
+  border: none;
+  outline: none;
+  margin-top: 10px;
+}
+
+#accountDelete #form form #signup a{
+    text-decoration: none;
+}
+
+@media (max-width: 973px){
+    #accountDelete #form form div{
+        width: 35vw; 
+    }
+}
+
+@media (max-width: 767px){
+    /* #accountDelete{
+        background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.3)), url('../../Assets/signupPic.jpg');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        padding: 0;
+    } */
+    #accountDelete #img{
+        background: none;
+    }
+    #accountDelete #form form{
+        margin-left: 4vw;
+        margin-right: 4vw;
+
+    }
+    #accountDelete #form{
+        height: 70vh;
+        position: relative;
+        bottom: 50px;
+        width: auto;
+        margin: auto;
+        opacity: 0.9;
+    }
+    #accountDelete #form form div{
+        width: 50vw; 
+    }
+}
+@media (max-width: 580px){
+    #accountDelete #form form div{
+        width: 75vw; 
+    }
+    #accountDelete #form form #btnTag button{
+        width: 50vw;
+    }
+
+}
