@@ -7,7 +7,6 @@
     width: 100%;
   }
 
-  /* Container for the entire cart page */
   .cart-container {
     width: 100%;
     max-width: 800px;
@@ -16,14 +15,12 @@
     gap: 20px;
   }
 
-  /* Cart page layout: two columns on larger screens */
   .cart-page {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
   }
 
-  /* Left side: Cart Items */
   .cart-items {
     flex: 2;
     display: flex;
@@ -32,7 +29,6 @@
     width: 100%;
   }
 
-  /* Right side: Order Summary */
   .order-summary {
     flex: 1;
     min-width: 300px;
@@ -44,9 +40,8 @@
     align-self: flex-start;
   }
 
-  /* Product card styles with fixed width */
   .product-info {
-    width: 700px; /* Fixed width for all product cards */
+    width: 700px; 
     display: flex;
     flex-direction: row;
     background-color: white;
@@ -61,7 +56,7 @@
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
   }
 
-  /* Product image */
+
   .product-image {
     flex: 0 0 150px;
     overflow: hidden;
@@ -75,7 +70,6 @@
     border-bottom-left-radius: 12px;
   }
 
-  /* Product details */
   .product-details {
     flex: 1;
     padding: 16px;
@@ -97,7 +91,6 @@
     margin-top: 5px;
   }
 
-  /* Button styles */
   button {
     font-size: 1rem;
     font-weight: bold;
@@ -127,7 +120,6 @@
     background: #037dff;
   }
 
-  /* Empty cart styles */
   .empty-cart {
     text-align: center;
     color: #777;
