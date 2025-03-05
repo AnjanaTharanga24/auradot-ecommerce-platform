@@ -7,7 +7,8 @@ import java.util.List;
 
 public interface ItemRepository extends JpaRepository<Item,Long> {
 
-    List<Item> findByNameContaining(String name);
+    List<Item> findByNameContainingAndIsActiveTrue(String name);
     List<Item> findByIsActiveTrue();
+    Item findByIsActiveTrueAndId(Long id);
 
 }

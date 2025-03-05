@@ -4,11 +4,12 @@
       <div class="search">
         <i class="fa fa-search"></i>
         <input
-          type="text"
+         #myInput type="text"
           class="form-control"
           placeholder="Search for products"
+          (keyup.enter)="doSearch(myInput.value)"
         />
-        <button class="btn btn-primary">Search</button>
+        <button class="btn btn-primary" (click)="doSearch(myInput.value)">Search</button>
       </div>
     </div>
   </div>

@@ -89,4 +89,14 @@ export class ItemService {
      })
   }
 
+  searchItems(name:string){
+    return axios.get(`${this.baseUrl}/buyer/items/search/${name}`)
+    .then((response)=>{
+      return response.data;
+    })
+    .catch((error)=>{
+      throw error;
+    })
+  }
+
 }

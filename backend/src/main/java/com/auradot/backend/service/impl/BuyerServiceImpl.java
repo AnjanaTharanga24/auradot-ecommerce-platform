@@ -21,7 +21,7 @@ public class BuyerServiceImpl implements BuyerService {
     @Override
     public List<Item> findItemsByName(String name) throws NotFoundException {
 
-        List<Item> itemList = itemRepository.findByNameContaining(name);
+        List<Item> itemList = itemRepository.findByNameContainingAndIsActiveTrue(name);
 
         if (itemList == null){
             throw new NotFoundException("items not found with name " + name);
