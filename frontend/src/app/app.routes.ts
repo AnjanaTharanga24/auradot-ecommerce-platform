@@ -17,6 +17,7 @@ import { UserDashboardComponent } from './user-dashboard-section/user-dashboard/
 import { ProfileComponent } from './user-dashboard-section/profile/profile.component';
 import { OrderHistoryComponent } from './user-dashboard-section/order-history/order-history.component';
 import { DeleteAccountComponent } from './user-dashboard-section/delete-account/delete-account.component';
+import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
     // { path: '', redirectTo: 'product', pathMatch: 'full' },
@@ -38,11 +39,12 @@ export const routes: Routes = [
     {
         path: 'user-dashboard',
         component: UserDashboardComponent,
+        canActivate: [authGuard],
+        data: { role: 'USER' },
         children: [
             { path: 'profile', component: ProfileComponent},
             { path: 'delete-account', component: DeleteAccountComponent},
             { path: 'orders-history', component: OrderHistoryComponent},
-
             { path: '', redirectTo: 'profile', pathMatch: 'full' },
         ]
     }

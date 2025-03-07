@@ -6,7 +6,7 @@ import { RouterLink} from '@angular/router';
 import { AuthService } from '../../services/auth-service/auth.service';
 import { AlertService } from '../../services/alert-service/alert.service';
 import { Router } from '@angular/router';
-import { tokenService } from '../../services/auth-service/token.service';
+import TokenService from '../../services/auth-service/token.service';
 import { UserService } from '../../services/auth-service/user.service';
 
 @Component({
@@ -23,7 +23,7 @@ export class DeleteAccountComponent implements OnInit{
               private authService: AuthService,
               private alertService: AlertService,
               private router: Router,
-              private tokenService: tokenService,
+              private tokenService: TokenService,
               private userService: UserService
               ) {}
 
@@ -48,6 +48,7 @@ export class DeleteAccountComponent implements OnInit{
           this.userService.updateUser(this.formData).then(
             response => {
               if(response.status == 200){
+                this.tokenService.removeTokenFromCookie()
                 this.alertService.showSuccess("Successfully deleted your account.")
                 setTimeout(() => {
                   this.router.navigate(['/signin'])

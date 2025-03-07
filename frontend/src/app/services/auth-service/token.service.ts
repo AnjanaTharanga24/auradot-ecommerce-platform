@@ -2,11 +2,19 @@ import { Injectable } from "@angular/core";
 import { CookieService} from 'ngx-cookie-service';
 import {jwtDecode} from 'jwt-decode';
 
+
+interface DecodedToken {
+  sub: string;
+  role: string;
+  user_id: number;
+  iat: number;
+  exp: number;
+}
 @Injectable({
     providedIn: 'root'
   })
 
-  export class tokenService{
+  export default class TokenService{
         
         constructor(private cookieService: CookieService){ }
     
@@ -18,11 +26,33 @@ import {jwtDecode} from 'jwt-decode';
             return this.cookieService.get('jwtToken')
         }
 
+        removeTokenFromCookie(){
+          return this.cookieService.delete('jwtToken', '/')
+        }
+
         getDetailsFromToken(){
           const token = this.getTokenFromCookie()
           if(token){
-            return jwtDecode(token)
+            try{
+              return jwtDecode<DecodedToken>(token)
+            }catch(error){
+              return null;
+            }
+
           }
           return null
+        }
+
+        getRoleFromToken(){
+          return this.getDetailsFromToken()?.role || null
+        }
+
+        isAuthenticated() {
+          return !!this.getTokenFromCookie();
+        }
+
+        hasRole(role: string) {
+          const userRole = this.getRoleFromToken();
+          return userRole === role;
         }
   } 

@@ -6,7 +6,7 @@ import { RouterLink} from '@angular/router';
 import { AuthService } from '../../services/auth-service/auth.service';
 import { AlertService } from '../../services/alert-service/alert.service';
 import { Router } from '@angular/router';
-import { tokenService } from '../../services/auth-service/token.service';
+import TokenService from '../../services/auth-service/token.service';
 
 @Component({
   selector: 'app-signin',
@@ -22,7 +22,7 @@ export class SigninComponent implements OnInit{
               private authService: AuthService,
               private alertService: AlertService,
               private router: Router,
-              private tokenService: tokenService
+              private tokenService: TokenService
               ) {}
 
   ngOnInit(): void {

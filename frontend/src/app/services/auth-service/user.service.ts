@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import axios, { AxiosResponse } from 'axios';
 import { environment } from '../../../environments/environment';
-import { tokenService } from './token.service';
+import TokenService from './token.service';
 
 export interface Role {
     roleId: number;
@@ -26,7 +26,7 @@ export interface User {
 export class UserService {
     private baseURL = environment.baseUrl
 
-    constructor(private tokenServices: tokenService) { } 
+    constructor(private tokenServices: TokenService) { } 
 
     getUser(): Promise<User> {
 
