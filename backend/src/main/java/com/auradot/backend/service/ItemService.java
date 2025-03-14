@@ -3,6 +3,7 @@ package com.auradot.backend.service;
 import com.auradot.backend.controller.request.ItemRequest;
 import com.auradot.backend.controller.request.UpdateRequest;
 import com.auradot.backend.controller.response.ItemResponse;
+import com.auradot.backend.controller.response.NotificationResponse;
 import com.auradot.backend.controller.response.UpdateResponse;
 import com.auradot.backend.exception.NotFoundException;
 import com.auradot.backend.model.Item;
@@ -18,4 +19,5 @@ public interface ItemService {
     String deleteItemById(Long id) throws NotFoundException;
     List<ItemCategory> getAllItemCategories();
     UpdateResponse updateItemById(Long id, UpdateRequest updateRequest) throws NotFoundException;
+    List<NotificationResponse> getNotification();
 }

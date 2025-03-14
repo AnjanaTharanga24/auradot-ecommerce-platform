@@ -16,7 +16,7 @@
           />
         </div>
         <div class="info-section">
-          <h3 class="product-title">{{ outOfStock.name }}</h3>
+          <h3 class="product-title">{{ outOfStock.itemName }}</h3>
           <p class="alert-message">
             <span class="status-badge out">Out of Stock</span>
             This item needs immediate attention. This item is out of stock.
@@ -32,7 +32,7 @@
           <img [src]="lowStock.imgUrl" class="product-image" />
         </div>
         <div class="info-section">
-          <h3 class="product-title">{{ lowStock.name }}</h3>
+          <h3 class="product-title">{{ lowStock.itemName }}</h3>
           <p class="alert-message">
             <span class="status-badge low">Low Stock</span>
             This item is running low. Update stock quantity

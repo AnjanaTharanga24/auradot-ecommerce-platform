@@ -3,6 +3,7 @@ package com.auradot.backend.service.impl;
 import com.auradot.backend.controller.request.ItemRequest;
 import com.auradot.backend.controller.request.UpdateRequest;
 import com.auradot.backend.controller.response.ItemResponse;
+import com.auradot.backend.controller.response.NotificationResponse;
 import com.auradot.backend.controller.response.UpdateResponse;
 import com.auradot.backend.exception.NotFoundException;
 import com.auradot.backend.model.Inventory;
@@ -178,6 +179,29 @@ public class ItemServiceImpl implements ItemService {
                 .minimumStockLevel(foundInventory.getMinimumStockLevel())
                 .price(foundItem.getPrice())
                 .build();
+    }
+
+    @Override
+    public List<NotificationResponse> getNotification() {
+         List<Item> activateItems = itemRepository.findByIsActiveTrue();
+         List<NotificationResponse> notificationResponses = new ArrayList<>();
+
+         for(Item item : activateItems){
+             Inventory inventory = item.getInventory();
+             if(inventory.getStockStatus() == StockStatus.LOW_STOCK ||
+                     inventory.getStockStatus() == StockStatus.OUT_OF_STOCK){
+                 notificationResponses.add(NotificationResponse.builder()
+                         .itemName(item.getName())
+                         .description(item.getDescription())
+                         .stockQuantity(inventory.getStockQuantity())
+                         .minimumStockLevel(inventory.getMinimumStockLevel())
+                         .stockStatus(inventory.getStockStatus())
+                                 .imgUrl(item.getImgUrl())
+                         .build());
+             }
+         }
+
+        return  notificationResponses;
     }
 
 
