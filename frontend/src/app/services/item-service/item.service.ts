@@ -99,4 +99,14 @@ export class ItemService {
     })
   }
 
+  async getNotifications() {
+    try {
+      const response = await axios.get(`${this.baseUrl}/items/notification`);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching notifications:', error);
+      throw error;
+    }
+  }
+  
 }
