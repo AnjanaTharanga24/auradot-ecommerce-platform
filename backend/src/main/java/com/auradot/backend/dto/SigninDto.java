@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SigninDto {
-    @NotNull(message = "user name is required")
     private String userName;
-    @NotNull(message = "Email is required")
+    private String userEmail;
+    @NotNull(message = "password is required")
     private String password;
 }

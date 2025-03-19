@@ -7,6 +7,7 @@ import com.auradot.backend.dto.DetailsUpdateRequestDto;
 import com.auradot.backend.dto.ResponseDto.GetUserDetailsResponse;
 import com.auradot.backend.dto.ResponseDto.SigninResponse;
 import com.auradot.backend.dto.SigninDto;
+import com.auradot.backend.exception.ConflictException;
 import com.auradot.backend.exception.CustomException;
 import com.auradot.backend.model.RoleModel;
 import com.auradot.backend.model.UserModel;
@@ -77,6 +78,14 @@ public class AuthServiceImpl implements AuthService {
     public void detailsUpdate(Integer userId, DetailsUpdateRequestDto detailsUpdateRequestDto) {
         if (userId == null) {
             throw new CustomException("user id cannot be null.", HttpStatus.BAD_REQUEST);
+        }
+        if(detailsUpdateRequestDto.getUserName() != null || detailsUpdateRequestDto.getUserEmail() != null){
+            if(userRepository.existsByUserName(detailsUpdateRequestDto.getUserName())){
+                throw new ConflictException("user name already exist");
+            }
+            if(userRepository.existsByUserEmail(detailsUpdateRequestDto.getUserEmail())){
+                throw new ConflictException("user email already exist");
+            }
         }
 
         userRepository.findById(userId.longValue())

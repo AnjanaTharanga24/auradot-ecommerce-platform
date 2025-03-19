@@ -3,6 +3,9 @@ import { UserService } from '../../services/auth-service/user.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { AlertService } from '../../services/alert-service/alert.service';
+import TokenService from '../../services/auth-service/token.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -16,7 +19,11 @@ export class ProfileComponent implements OnInit{
   isEditing = false
   originalUser: any = {}
 
-  constructor(private userService: UserService){ }
+  constructor(private userService: UserService,
+              private alertService: AlertService,
+              private tokenService: TokenService,
+              private router: Router
+  ){ }
 
   async ngOnInit() {  
       try{
@@ -50,11 +57,15 @@ export class ProfileComponent implements OnInit{
         return;
       }
 
-      const response = await this.userService.updateUser(updatedFields);
-      console.log('User updated successfully:', response);
+      await this.userService.updateUser(updatedFields)
+      this.alertService.showSuccess("Successful updated.")
       this.isEditing = false;
+      this.tokenService.removeTokenFromCookie
+      this.router.navigate(['/signin'])
+
       } catch (error) {
-      console.error('Failed to update user:', error);
+        let errorMsg = String(error)
+        this.alertService.showError(errorMsg)
     }
   }
 

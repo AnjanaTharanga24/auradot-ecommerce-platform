@@ -38,7 +38,6 @@ interface DecodedToken {
             }catch(error){
               return null;
             }
-
           }
           return null
         }
@@ -55,4 +54,4 @@ interface DecodedToken {
           const userRole = this.getRoleFromToken();
           return userRole === role;
         }
-  } 
+  }

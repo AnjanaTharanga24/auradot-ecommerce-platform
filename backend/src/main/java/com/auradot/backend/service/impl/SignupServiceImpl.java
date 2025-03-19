@@ -33,6 +33,9 @@ public class SignupServiceImpl implements SignupService {
         if (userRepository.existsByUserEmail(signupDto.getUser_email())) {
             throw new ConflictException("Email is already in use");
         }
+        if (userRepository.existsByUserName(signupDto.getUser_name())) {
+            throw new ConflictException("User name is already in use");
+        }
         UserModel userModel = new UserModel();
 
         try{

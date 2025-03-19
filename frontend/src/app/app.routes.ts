@@ -18,6 +18,7 @@ import { ProfileComponent } from './user-dashboard-section/profile/profile.compo
 import { OrderHistoryComponent } from './user-dashboard-section/order-history/order-history.component';
 import { DeleteAccountComponent } from './user-dashboard-section/delete-account/delete-account.component';
 import { authGuard } from './guards/auth.guard';
+import { InputFieldComponent } from './auth/input-field/input-field.component';
 
 export const routes: Routes = [
     // { path: '', redirectTo: 'product', pathMatch: 'full' },
@@ -49,5 +50,4 @@ export const routes: Routes = [
         ]
     }
 
-   
 ];

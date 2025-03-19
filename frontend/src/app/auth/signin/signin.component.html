@@ -2,7 +2,7 @@
     <div class="col-xl-12 col-lg-12 col-12 p-0" id="form">
       <h1>Login here</h1>
       <form [formGroup]="signinForm" (ngSubmit)="onSubmit()">
-        <div class="form-group">
+        <!-- <div class="form-group">
           <label for="userName" class="form-label">User Name</label>
           <input class="form-control" type="text" id="user_name" placeholder="Example" formControlName="userName" required />
         
@@ -18,7 +18,29 @@
             <span *ngIf="signinForm.controls['password'].errors?.['required']">Password is required.</span>
             <span *ngIf="signinForm.controls['password'].errors?.['minlength']">Must be at least 4 characters.</span>
           </small>
-        </div>
+        </div> -->
+        <app-input-field
+          label="username"
+          type="text"
+          placeholder="username"
+          [control]="userNameControl"
+          [errorMessages]="{
+            required: 'User name is required.',
+          }"
+        >
+        </app-input-field>
+
+        <app-input-field
+          label="password"
+          type="password"
+          placeholder="password"
+          [control]="passwordControl"
+          [errorMessages]="{
+            required: 'password is required.',
+          }"
+        >
+        </app-input-field>
+
         <div class="form-group mt-1 pb-4" id="btnTag">
           <a href="#">Forgot password?</a>
           <button class="btn btn-primary mt-4" type="submit">Login</button>

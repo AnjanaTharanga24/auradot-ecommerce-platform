@@ -1,0 +1,16 @@
+<div class="form-group">
+    <div class="form-label">{{ label }}</div>
+    <input  class="form-control" 
+            [type]="type"
+            [placeholder]="placeholder" 
+            [formControl]="control"
+            required
+    />
+    <small  class="text-danger" *ngIf="control.invalid && control.touched">
+        <div *ngFor="let error of errorKeys" >
+            <p *ngIf="control.errors?.[error]">
+                {{ errorMessages[error] }}
+            </p>
+        </div>
+    </small>
+</div>

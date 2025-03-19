@@ -1,0 +1,20 @@
+.form-group {
+    width: 350px; 
+    height: 75px;
+    font-size: 16px;
+    color: var(--liteViolate);
+}
+.form-group input{
+    background-color: transparent;
+    outline: none;
+    border: 2px solid rgba(255, 115, 92, 0.6);
+    border-radius: 30px;
+}
+.form-group input:focus{
+    outline: none;
+}
+.form-group div p{
+    font-size: 14px;
+    color: red;
+    text-align: end;
+}

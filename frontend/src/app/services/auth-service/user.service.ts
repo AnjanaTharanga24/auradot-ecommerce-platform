@@ -46,7 +46,6 @@ export class UserService {
             })
             .catch((error: any)  => {
                 console.log('responseError : ',error.response?.data)
-
                 throw error.response?.data;
             });
     }

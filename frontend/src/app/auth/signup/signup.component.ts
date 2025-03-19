@@ -1,22 +1,28 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink} from '@angular/router';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth-service/auth.service';
 import { AlertService } from '../../services/alert-service/alert.service';
 import { Router } from '@angular/router';
-
+import { InputFieldComponent } from '../input-field/input-field.component';
 
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, RouterLink],
+  imports: [ReactiveFormsModule, CommonModule, RouterLink, InputFieldComponent],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.css'
 })
 export class SignupComponent implements OnInit {
   signupForm!: FormGroup;
 
+  userNameControl!:FormControl
+  userEmailControl!:FormControl
+  phoneNoControl!:FormControl
+  passwordControl!: FormControl
+  confirmPasswordControl!: FormControl;
+  
   constructor(private fb: FormBuilder,
                private authService: AuthService,
                private alertService: AlertService,
@@ -32,6 +38,13 @@ export class SignupComponent implements OnInit {
         password: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(12)]],
         confirmPassword: ['', Validators.required]
       })
+
+      this.userNameControl = this.signupForm.get('user_name') as FormControl
+      this.userEmailControl = this.signupForm.get('user_email') as FormControl
+      this.phoneNoControl = this.signupForm.get('phone_no') as FormControl
+      this.passwordControl = this.signupForm.get('password') as FormControl
+      this.confirmPasswordControl = this.signupForm.get('confirmPassword') as FormControl;
+
   }
 
   onSubmit(): void{
@@ -44,8 +57,6 @@ export class SignupComponent implements OnInit {
       this.signupForm.markAsTouched;
       return;
     }
-
-    console.log('Signup successful', this.signupForm.value);
 
     this.authService.signup(this.signupForm.value).then(
       response => {
