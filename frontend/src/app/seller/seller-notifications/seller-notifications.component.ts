@@ -29,7 +29,7 @@ export class SellerNotificationsComponent implements OnInit {
       console.log('Out of stock items:', this.outOfStocks);
       console.log('Low stock items:', this.lowStocks);
     } catch (error) {
-      console.log('Error fetching notifications', error);
+      console.log('Error :', error);
     }
   }
 }
