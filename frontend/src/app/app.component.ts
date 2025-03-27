@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { SellerComponent } from "./seller/seller.component";
+import { AuthService } from './services/auth-service/auth.service';
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet,RouterLink, FormsModule, CommonModule, MatToolbarModule, SellerComponent],
@@ -15,23 +16,25 @@ import { SellerComponent } from "./seller/seller.component";
 })
 export class AppComponent implements OnInit {
   cartCount: number = 0;
-  showNavbar:boolean = true
+  showNavbar: boolean = true
 
   constructor(private cartService: CartService,
-              private router: Router
+              private router: Router,
+              private authService: AuthService
   ) {}
-
+  
   ngOnInit(): void {
     this.cartService.cartCount$.subscribe((count) => {
       this.cartCount = count; 
-
-      this.router.events.subscribe(() => {
-        const currentRoute = this.router.url;
-  
-        // Hide navbar for specific routes
-        this.showNavbar = !(currentRoute === '/signup' || currentRoute === '/signin');
-      });
     });
+
+    this.authService.authStatus$.subscribe((isAuthenticate) => {
+      this.showNavbar = isAuthenticate
+    })
+
+    this.router.events.subscribe(() => {
+      const currentRoute = this.router.url
+      this.showNavbar = !(currentRoute === '/signup' || currentRoute === '/signin')
+    })
   }
-  title = 'frontend';
 }

@@ -2,7 +2,7 @@
     <div *ngIf="!isEditing" class="col-xl-12 col-lg-12 col-12 p-0" id="user-profile">
       <h1>User Profile</h1>
       <form class="profile-form">
-        <div class="form-group">
+        <!-- <div class="form-group">
           <label class="form-label">User Name</label>
           <input class="form-control" type="text" [value]="user.userName" name="userName" readonly />
         </div>
@@ -15,7 +15,37 @@
         <div class="form-group">
           <label class="form-label">Phone Number</label>
           <input class="form-control" type="tel" [value]="user.phoneNo" name="phoneNo" readonly />
-        </div>
+        </div> -->
+
+        <app-input-field 
+          label="username"
+          type="text"
+          name="userName"
+          [control]="profileForm.controls['userName']"
+          [isReadonly]="true"
+          readonly
+          >
+        </app-input-field>
+
+        <app-input-field 
+          label="User Email"
+          type="email"
+          name="userEmail"
+          [control]="profileForm.controls['userEmail']"
+          [isReadonly]="true"
+          readonly
+          >
+        </app-input-field>
+
+        <app-input-field 
+          label="Phone Number"
+          type="tel"
+          name="phoneNo"
+          [control]="profileForm.controls['phoneNo']"
+          [isReadonly]="true"
+          readonly
+          >
+        </app-input-field>
     
         <button type="button" class="btn" (click)="editProfile()" id="btnTag">Edit Details</button>
       </form>

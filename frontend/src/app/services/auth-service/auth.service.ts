@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import axios from "axios";
 import { environment } from '../../../environments/environment';
+import { BehaviorSubject } from "rxjs";
 
 @Injectable({
     providedIn: 'root'
@@ -8,8 +9,15 @@ import { environment } from '../../../environments/environment';
 
   export class AuthService{
     private baseUrl = environment.baseUrl;
+
+    private authStatusSubject = new BehaviorSubject<boolean>(this.hasToken()); 
+    authStatus$ = this.authStatusSubject.asObservable();
     
     constructor(){ }
+
+    private hasToken(): boolean {
+      return !!localStorage.getItem('jwtToken')
+    }
 
     signup(formData: any): Promise<any> {
 
@@ -17,6 +25,7 @@ import { environment } from '../../../environments/environment';
           headers: {'Content-Type': 'application/json'}
         })
           .then(response => {
+            this.authStatusSubject.next(true)
             return response;
           })
           .catch(error => {
@@ -29,6 +38,7 @@ import { environment } from '../../../environments/environment';
           headers: {'Content-Type': 'application/json'}
         })
             .then(response => {
+              this.authStatusSubject.next(true)
                     return response;
                 }
             )

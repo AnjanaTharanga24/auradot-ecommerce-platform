@@ -1,23 +1,29 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/auth-service/user.service';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, FormControl, FormGroup } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { AlertService } from '../../services/alert-service/alert.service';
 import TokenService from '../../services/auth-service/token.service';
 import { Router } from '@angular/router';
+import { InputFieldComponent } from '../../auth/input-field/input-field.component';
 
 @Component({
   selector: 'app-profile',
-  imports: [FormsModule, CommonModule, RouterModule],
+  imports: [FormsModule, CommonModule, RouterModule, InputFieldComponent],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })
 
 export class ProfileComponent implements OnInit{
+  profileForm!: any
   user: any = {}
   isEditing = false
   originalUser: any = {}
+
+  userNameControl!:FormControl
+  userEmailControl!:FormControl
+  phoneNoControl!:FormControl
 
   constructor(private userService: UserService,
               private alertService: AlertService,
@@ -27,11 +33,25 @@ export class ProfileComponent implements OnInit{
 
   async ngOnInit() {  
       try{
-        this.user = await this.userService.getUser()
-        this.originalUser = {...this.user}
+        this.userService.getUser()
+        this.userService.user$.subscribe((userData) => {
+          if(userData){
+            this.user = userData
+            this.originalUser = {...userData}
+
+            this.profileForm = new FormGroup({
+              userName: new FormControl(this.user.userName),
+              userEmail: new FormControl(this.user.userEmail),
+              phoneNo: new FormControl(this.user.phoneNo)
+            })
+          }
+        }) 
+        
       } catch (error) {
         console.error('Failed to load user data:', error);
     }
+
+
   }
 
   editProfile() {

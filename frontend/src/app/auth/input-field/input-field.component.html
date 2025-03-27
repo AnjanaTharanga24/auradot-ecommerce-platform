@@ -4,6 +4,7 @@
             [type]="type"
             [placeholder]="placeholder" 
             [formControl]="control"
+            [readonly]="isReadonly"
             required
     />
     <small  class="text-danger" *ngIf="control.invalid && control.touched">

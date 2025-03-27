@@ -12,8 +12,10 @@ import { CommonModule } from '@angular/common';
 export class InputFieldComponent {
   @Input() label!: string;
   @Input() type: String = 'text'; 
+  @Input() value!: any;
   @Input() placeholder: string = '';
   @Input() control!: FormControl; 
+  @Input() isReadonly: boolean = false
   @Input() errorMessages!: { [key: string]: string};
 
   errorKeys: string[] = [];

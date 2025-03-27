@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import axios, { AxiosResponse } from 'axios';
 import { environment } from '../../../environments/environment';
 import TokenService from './token.service';
+import { BehaviorSubject } from 'rxjs';
 
 export interface Role {
     roleId: number;
@@ -26,14 +27,16 @@ export interface User {
 export class UserService {
     private baseURL = environment.baseUrl
 
+    private userSubject = new BehaviorSubject<User | null>(null)
+    user$ = this.userSubject.asObservable()
+
     constructor(private tokenServices: TokenService) { } 
 
-    getUser(): Promise<User> {
+    getUser(): void {
 
         const token = this.tokenServices.getTokenFromCookie();
-        console.log("tokenUser : ", token)
 
-        return axios
+        axios
             .get(`${this.baseURL}/v1/auth/get-user-details`,{
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -41,11 +44,10 @@ export class UserService {
                 }
             })
             .then((response:AxiosResponse<User>)  => {
-                console.log('response : ', response.data)
-                return response.data;
+                this.userSubject.next(response.data)
             })
             .catch((error: any)  => {
-                console.log('responseError : ',error.response?.data)
+                this.userSubject.next(null);
                 throw error.response?.data;
             });
     }
@@ -62,9 +64,11 @@ export class UserService {
                 }
             })
             .then((response: AxiosResponse<any>) => {
+                this.userSubject.next(response.data)
                 return response;
             })
             .catch((error: any)  => {
+                this.userSubject.next(null)
                 throw error.response?.data;
             });
     }
