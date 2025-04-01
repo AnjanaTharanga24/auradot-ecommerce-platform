@@ -10,6 +10,9 @@ import { CustomerService } from '../../services/customer.service';
 import { CartItemComponent } from "../../UIcomponents/cart-item/cart-item.component";
 import { CartItem } from '../../common/cart-item';
 import { Order } from '../../common/order';
+import { SuccessDialogComponent } from '../../success-dialog/success-dialog.component'; 
+
+
 
 
 @Component({
@@ -19,12 +22,12 @@ import { Order } from '../../common/order';
   styleUrl: './cart.component.css'
 })
 export class CartComponent implements OnInit{
-decreaseQuantity($event: number) {
-throw new Error('Method not implemented.');
-}
-removeFromCart(arg0: any) {
-throw new Error('Method not implemented.');
-}
+// decreaseQuantity($event: number) {
+// throw new Error('Method not implemented.');
+// }
+// removeFromCart(arg0: any) {
+// throw new Error('Method not implemented.');
+// }
   
   cartItems : CartItem[] = [];
   order!: any;
@@ -35,7 +38,8 @@ throw new Error('Method not implemented.');
     private snackbar : MatSnackBar,
     private fb: FormBuilder,
     public dialog: MatDialog,
-    private customerService: CustomerService,) 
+    private customerService: CustomerService,
+    ) 
     {}
   
     ngOnInit(): void {
@@ -54,23 +58,33 @@ throw new Error('Method not implemented.');
         });
     }
     calculateTotalAmount(): void {
-      this.totalAmount = this.cartItems.reduce((total, item) => total + item.price, 0);
+      this.totalAmount = this.cartItems.reduce(
+        (total, item) => total + (item.price * item.quantity), 0
+      );
     }
     
-    increaseQuantity(id: any): void {
-      this.customerService.increaseQuantity(id)
-        .then(() => {
-          this.snackbar.open('Increased', 'Close', { duration: 2000 });
-          this.getCart();
-        })
-        .catch((error) => {
-          console.log('Error adding product to cart:', error);
-        });
-    }
+    async increaseQuantity(productId: number): Promise<void> {
+      try {
+          await this.customerService.increaseQuantity(productId);
+          await this.getCart(); // Refresh cart data
+      } catch (error) {
+          this.snackbar.open('Error increasing quantity', 'Close', { duration: 2000 });
+      }
+  }
+  
+  async decreaseQuantity(productId: number): Promise<void> {
+      try {
+          await this.customerService.decreaseQuantity(productId);
+          await this.getCart(); 
+      } catch (error) {
+          this.snackbar.open('Error decreasing quantity', 'Close', { duration: 2000 });
+      }
+  }
     removeItem(productId: number): void {
       this.customerService.removeFromCart(productId)
         .then(() => {
-          this.snackbar.open('Removed from cart', 'Close', { duration: 2000 });
+          this.openSuccessDialog('Removed Item from cart successfully!'); //
+         // this.snackbar.open('Removed from cart', 'Close', { duration: 2000 });
           this.getCart();
         })
         .catch((error) => {
@@ -79,5 +93,22 @@ throw new Error('Method not implemented.');
     }
     placeOrder(){
       this.dialog.open(PlaceOrderComponent);
+    }
+    // decreaseQuantity(productId: number): void {
+    //   this.customerService.removeFromCart(productId)
+    //     .then(() => {
+    //       this.snackbar.open('Quantity decreased', 'Close', { duration: 2000 });
+    //       this.getCart();
+    //     })
+    //     .catch((error) => {
+    //       console.error('Error decreasing quantity:', error);
+    //     });
+    // }
+    openSuccessDialog(message: string): void {
+      this.dialog.open(SuccessDialogComponent, {
+        data: { message: message },
+        width: '300px', // Set the width of the dialog
+        panelClass: 'success-dialog' // Optional: Add a custom class for styling
+      });
     }
 }

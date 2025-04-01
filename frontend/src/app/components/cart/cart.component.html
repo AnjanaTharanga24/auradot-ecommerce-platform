@@ -1,12 +1,19 @@
 <div class="cart-container">
   <div class="cart-items" *ngIf="cartItems.length > 0; else emptyCart">
-    <app-cart-item
+    <!-- <app-cart-item
       *ngFor="let item of cartItems"
       [item]="item"
       (increase)="increaseQuantity($event)"
       (removeItem)="removeItem($event)">
       
-    </app-cart-item>
+    </app-cart-item> -->
+   <app-cart-item
+  *ngFor="let item of cartItems"
+  [item]="item"
+  (increase)="increaseQuantity(item.id)"
+  (decrease)="decreaseQuantity(item.id)"
+  (removeItem)="removeItem(item.id)">
+</app-cart-item>
   </div>
 
     <div class="order-summary mt-6 p-4 bg-gray-100 rounded-lg">

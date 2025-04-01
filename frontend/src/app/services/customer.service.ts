@@ -15,7 +15,7 @@ export class CustomerService {
     console.log(response);
     return response.data;
     console.log(response.data);
-    
+
   }
   
   async getCart(): Promise<any> {
@@ -23,10 +23,33 @@ export class CustomerService {
     return response.data;
   }
 
-  async increaseQuantity(productId: Product): Promise<Product> {
-    const response = await axios.post(`${this.baseUrl}/carts/addition`, { productId });
-    return response.data;
-  }
+  // async increaseQuantity(productId: Product): Promise<Product> {
+  //   const response = await axios.post(`${this.baseUrl}/carts/addition`, { productId });
+  //   return response.data;
+  // }
+  async increaseQuantity(productId: number): Promise<void> {
+    const cartId = 1;
+    try {
+        await axios.post(`${this.baseUrl}/carts/addProduct`, {
+            cartId,
+            productId
+        });
+        this.getCartCount();
+    } catch (error) {
+        console.error('Error increasing quantity:', error);
+    }
+}
+
+async decreaseQuantity(productId: number): Promise<void> {
+    const cartId = 1;
+    try {
+        await axios.delete(`${this.baseUrl}/carts/${cartId}/removeProduct/${productId}`);
+        this.getCartCount();
+    } catch (error) {
+        console.error('Error decreasing quantity:', error);
+    }
+}
+  
 
   async placeOrder(address: string): Promise<Order> {
     const orderData = {
@@ -42,17 +65,22 @@ export class CustomerService {
     return response.data;
   }
 
-  async addToCart(productId: Product): Promise<Product> {
+  async addToCart(productId: number): Promise<Product> {
     const payload = {
-      productId: productId,
-      cartId: 1,
+        productId: productId,
+        cartId: 1,
     };
     const response = await axios.post(`${this.baseUrl}/carts/addProduct`, payload);
     this.getCartCount();
     return response.data;
-  }
+}
+  // async removeFromCart(productId: number): Promise<void> {
+  //   const cartId=1;
+  //   await axios.delete(`${this.baseUrl}/carts/${cartId}/removeProduct/${productId}`);
+  //   this.getCartCount();
+  // }
   async removeFromCart(productId: number): Promise<void> {
-    const cartId=1;
+    const cartId = 1;
     await axios.delete(`${this.baseUrl}/carts/${cartId}/removeProduct/${productId}`);
     this.getCartCount();
   }

@@ -1,19 +1,21 @@
 <div class="order-card">
   <div class="order-info">
-    <div class="order-details">
-      <p class="tracking-id">Tracking ID: {{ order.trackingId }}</p>
-      <p>Amount: <span class="amount">{{ order.totalAmount }}</span></p>
-      <p>Address: {{ order.address }}</p>
-      <p>Date: {{ order.date }}</p>
-    </div>
-    <div class="progress-container">
-      <div class="progress-labels">
-        <span>Placed</span>
-        <span>Shipped</span>
-        <span>Delivered</span>
+    <div class="inner-card"> <!-- New wrapper for the inner card -->
+      <div class="order-details">
+        <p class="tracking-id">Tracking ID: <strong>{{ order.trackingId }}</strong></p>
+        <p>Amount: <span class="amount">{{ getFormattedAmount(order.totalAmount) }}</span></p>
+        <p>Address: <span class="address">{{ order.address }}</span></p>
+        <p>Date: <span class="date">{{ getFormattedDate(order.date) }}</span></p>
       </div>
-      <div class="progress-bar">
-        <div class="progress" [ngStyle]="{ 'width': getOrderProgress(order.orderStatus) }"></div>
+      <div class="progress-container">
+        <div class="progress-labels">
+          <span>Placed</span>
+          <span>Shipped</span>
+          <span>Delivered</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress" [ngStyle]="{ 'width': getOrderProgress(order.orderStatus) }"></div>
+        </div>
       </div>
     </div>
   </div>

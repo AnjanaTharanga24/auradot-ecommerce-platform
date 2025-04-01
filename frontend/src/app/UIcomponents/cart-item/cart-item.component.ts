@@ -10,16 +10,16 @@ import { MatIcon, MatIconModule } from '@angular/material/icon';
 
 export class CartItemComponent {
   @Input() item: any;
-  @Output() increaseQuantity = new EventEmitter<string>();
-  @Output() decreaseQuantity = new EventEmitter<string>();
+  @Output() increaseQuantity = new EventEmitter<number>();
+  @Output() decreaseQuantity = new EventEmitter<number>();
   @Output() removeItem = new EventEmitter<number>();
 
-  onIncrease() {
-    this.increaseQuantity.emit(this.item.productId);
-  }
-
   onDecrease() {
-    this.decreaseQuantity.emit(this.item.productId);
+    this.decreaseQuantity.emit(this.item.id); // Emit product ID
+  }
+  
+  onIncrease() {
+    this.increaseQuantity.emit(this.item.id); // Emit product ID
   }
 
   onRemove() {
